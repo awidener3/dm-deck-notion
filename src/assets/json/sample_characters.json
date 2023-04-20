@@ -1,0 +1,34 @@
+[
+	{
+		"id": 0,
+		"name": "Arkhan",
+		"class": "barbarian",
+		"level": 5,
+		"armor_class": 14,
+		"hit_points": 44
+	},
+	{
+		"id": 1,
+		"name": "Rollo",
+		"class": "fighter",
+		"level": 5,
+		"armor_class": 18,
+		"hit_points": 36
+	},
+	{
+		"id": 2,
+		"name": "Myrna",
+		"class": "wizard",
+		"level": 5,
+		"armor_class": 12,
+		"hit_points": 34
+	},
+	{
+		"id": 3,
+		"name": "Josefina",
+		"class": "rogue",
+		"level": 5,
+		"armor_class": 13,
+		"hit_points": 39
+	}
+]
