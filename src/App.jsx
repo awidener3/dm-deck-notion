@@ -1,30 +1,46 @@
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, NavLink } from 'react-router-dom';
+import { TbHome, TbUsers, TbSkull, TbSword } from 'react-icons/tb';
 import Characters from './Characters';
 import Home from './Home';
 import Encounters from './Encounters';
-import './App.css';
+import Monsters from './Monsters';
 
 export default function App() {
 	return (
 		<>
-			<nav>
-				<ul className="flex flex-row justify-center gap-2">
+			<nav className="p-2 w-screen bg-zinc-900">
+				<ul className="flex flex-row justify-between gap-2 text-white max-w-sm mx-auto">
 					<li>
-						<Link to="/">Home</Link>
+						<NavLink to="/" className={({ isActive }) => (isActive ? 'text-emerald-600' : 'text-white')}>
+							<TbHome size={20} />
+						</NavLink>
 					</li>
 					<li>
-						<Link to="/characters">Characters</Link>
+						<NavLink to="/characters" className={({ isActive }) => (isActive ? 'text-emerald-600' : 'text-white')}>
+							<TbUsers size={20} />
+						</NavLink>
 					</li>
 					<li>
-						<Link to="/encounters">Encounters</Link>
+						<NavLink to="/monsters" className={({ isActive }) => (isActive ? 'text-emerald-600' : 'text-white')}>
+							<TbSkull size={20} />
+						</NavLink>
+					</li>
+					<li>
+						<NavLink to="/encounters" className={({ isActive }) => (isActive ? 'text-emerald-600' : 'text-white')}>
+							<TbSword size={20} />
+						</NavLink>
 					</li>
 				</ul>
 			</nav>
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/characters" element={<Characters />} />
-				<Route path="/encounters" element={<Encounters />} />
-			</Routes>
+
+			<div className="px-4 max-w-lg mx-auto">
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/characters" element={<Characters />} />
+					<Route path="/encounters" element={<Encounters />} />
+					<Route path="/monsters" element={<Monsters />} />
+				</Routes>
+			</div>
 		</>
 	);
 }

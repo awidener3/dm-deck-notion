@@ -46,9 +46,12 @@ function Characters() {
 	return (
 		<>
 			<h1>Characters</h1>
-			<button onClick={showForm} className="flex bg-emerald-600 mt-2 text-sm py-1 px-2">
-				{formVisible ? 'Back' : 'Add'}
-			</button>
+			<div className="flex gap-2">
+				<button onClick={showForm} className="flex bg-emerald-600 mt-2 text-sm py-1 px-2">
+					{formVisible ? 'Back' : 'Add'}
+				</button>
+				<button className="flex bg-emerald-600 mt-2 text-sm py-1 px-2">Create Party</button>
+			</div>
 
 			{formVisible ? (
 				<AddCharacterForm addCharacter={addCharacter} updateCharacter={updateCharacter} editValues={editValues} />
@@ -181,9 +184,7 @@ function PartyList({ parties, removeParty }) {
 				{parties.map((p) => {
 					return (
 						<li key={p.id} className="flex justify-between items-center border-b border-b-slate-500 py-2">
-							<div>
-								{p.name} <span className="italic font-light">(level {p.level})</span>
-							</div>
+							<div>{p.name}</div>
 							<div className="flex gap-2">
 								<button className="text-sm bg-emerald-600 py-2 px-3" onClick={() => removeParty(p)}>
 									<TbTrash />
