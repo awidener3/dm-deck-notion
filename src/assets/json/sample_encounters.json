@@ -1,0 +1,35 @@
+[
+	{
+		"id": 0,
+		"name": "First Fight",
+		"partyId": 0,
+		"monsters": [
+			{
+				"name": "Goblin",
+				"quantity": 5
+			},
+			{
+				"name": "Bugbear",
+				"quantity": 1
+			}
+		],
+		"npcs": []
+	},
+	{
+		"id": 1,
+		"name": "TPK",
+		"partyId": 1,
+		"monsters": [
+			{
+				"name": "Adult Black Dragon",
+				"quantity": 1
+			}
+		],
+		"npcs": [
+			{
+				"id": "Gladiator",
+				"quantity": 1
+			}
+		]
+	}
+]

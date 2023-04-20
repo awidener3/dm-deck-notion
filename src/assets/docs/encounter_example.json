@@ -1,0 +1,17 @@
+{
+	"id": 0,
+	"name": "Example Encounter",
+	"partyId": 0,
+	"monsters": [
+		{
+			"id": 0,
+			"quantity": 1
+		}
+	],
+	"npcs": [
+		{
+			"id": 0,
+			"quantity": 1
+		}
+	]
+}
