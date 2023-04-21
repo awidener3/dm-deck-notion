@@ -64,6 +64,14 @@ li {
 	font-style: normal;
 }
 
+input,
+label,
+select {
+	font-family: 'ff-scala-sans-pro', sans-serif;
+	font-weight: 500;
+	font-style: normal;
+}
+
 p {
 	font-family: 'bookmania', sans-serif;
 	font-weight: 400;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { TbEdit, TbTrash } from 'react-icons/tb';
+import { TbEdit, TbTrash, TbArrowBigLeftFilled } from 'react-icons/tb';
 import { v4 as uuidv4 } from 'uuid';
 
 function Characters() {
@@ -48,13 +48,24 @@ function Characters() {
 			<h1>Characters</h1>
 			<div className="flex gap-2">
 				<button onClick={showForm} className="flex bg-emerald-600 mt-2 text-sm py-1 px-2">
-					{formVisible ? 'Back' : 'Add'}
+					{formVisible ? (
+						<div className="flex items-center gap-1">
+							<TbArrowBigLeftFilled /> Back
+						</div>
+					) : (
+						'Create Character'
+					)}
 				</button>
-				<button className="flex bg-emerald-600 mt-2 text-sm py-1 px-2">Create Party</button>
 			</div>
 
 			{formVisible ? (
-				<AddCharacterForm addCharacter={addCharacter} updateCharacter={updateCharacter} editValues={editValues} />
+				<AddCharacterForm
+					addCharacter={addCharacter}
+					updateCharacter={updateCharacter}
+					editValues={editValues}
+					parties={parties}
+					setParties={setParties}
+				/>
 			) : (
 				<>
 					<CharacterList characters={characters} removeCharacter={removeCharacter} handleEdit={handleEdit} />
@@ -65,7 +76,7 @@ function Characters() {
 	);
 }
 
-function AddCharacterForm({ addCharacter, updateCharacter, editValues }) {
+function AddCharacterForm({ addCharacter, updateCharacter, editValues, parties, setParties }) {
 	const {
 		register,
 		handleSubmit,
@@ -74,13 +85,19 @@ function AddCharacterForm({ addCharacter, updateCharacter, editValues }) {
 		formState: { isSubmitSuccessful },
 	} = useForm();
 
+	const [partyValue, setPartyValue] = useState('none');
+
+	useEffect(() => {
+		setPartyValue(getPartyValue());
+	}, []);
+
 	useEffect(() => {
 		if (isSubmitSuccessful) {
 			reset();
 		}
 	}, [formState, reset]);
 
-	const onSubmit = (data) => {
+	function onSubmit(data) {
 		if (editValues) {
 			data.id = editValues.id;
 			updateCharacter(data);
@@ -88,7 +105,34 @@ function AddCharacterForm({ addCharacter, updateCharacter, editValues }) {
 			data.id = uuidv4();
 			addCharacter(data);
 		}
-	};
+	}
+
+	function getPartyValue() {
+		if (!editValues) return 'none';
+
+		const characterParty = parties.find((party) => party.character_ids.includes(editValues.id));
+
+		return characterParty.name;
+	}
+
+	function handlePartyChange(e) {
+		console.log('here?');
+		if (editValues) {
+			const updatedParties = [...parties];
+
+			updatedParties.forEach((party) => {
+				if (party.name === partyValue) {
+					party.character_ids = party.character_ids.filter((id) => id !== editValues.id);
+				} else if (party.name === e.target.value) {
+					party.character_ids.push(editValues.id);
+				}
+			});
+
+			setParties(updatedParties);
+		}
+
+		setPartyValue(e.target.value);
+	}
 
 	const properties = [
 		{
@@ -108,38 +152,63 @@ function AddCharacterForm({ addCharacter, updateCharacter, editValues }) {
 			placeholder: 5,
 			type: 'number',
 			required: true,
+			min: 1,
+			max: 20,
 		},
 		{
 			name: 'armor_class',
 			placeholder: 14,
 			type: 'number',
 			required: true,
+			min: 1,
+			max: 25,
 		},
 		{
 			name: 'hit_points',
 			placeholder: 44,
 			type: 'number',
 			required: true,
+			min: 1,
+			max: 560,
 		},
 	];
 
 	return (
 		<>
-			<h2 className="text-lg mt-2 text-emerald-600">New Character</h2>
+			<h2 className="text-lg flex mt-2 text-emerald-600 border-b">New Character</h2>
 
-			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-				{properties.map((p) => {
-					return (
-						<input
-							className="p-2"
-							key={p.name}
-							type={p.type}
-							placeholder={p.name}
-							defaultValue={editValues && editValues[p.name]}
-							{...register(p.name, { required: p.required })}
-						/>
-					);
-				})}
+			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2 gap-2">
+				<div className="grid grid-cols-2 gap-2">
+					{properties.map((p) => {
+						return (
+							<div key={p.name} className="flex flex-col">
+								<label className="self-start text-zinc-400 italic">{p.name.replace('_', ' ').toUpperCase()}</label>
+								<input
+									className="p-2"
+									type={p.type}
+									placeholder={p.name.replace('_', ' ').toUpperCase()}
+									autoComplete="off"
+									defaultValue={editValues && editValues[p.name]}
+									min={p.min}
+									max={p.max}
+									{...register(p.name, { required: p.required })}
+								/>
+							</div>
+						);
+					})}
+
+					<div className="flex flex-col">
+						<label className="self-start text-zinc-400 italic">PARTY</label>
+						<select className="p-2 h-10" value={partyValue} onChange={handlePartyChange}>
+							<option value="none">No party</option>
+							{parties.map((p) => (
+								<option key={p.id} value={p.name}>
+									{p.name}
+								</option>
+							))}
+						</select>
+					</div>
+				</div>
 
 				<button type="submit" className="bg-emerald-600 w-max">
 					Submit
@@ -149,7 +218,7 @@ function AddCharacterForm({ addCharacter, updateCharacter, editValues }) {
 	);
 }
 
-function CharacterList({ characters, removeCharacter }) {
+function CharacterList({ characters, removeCharacter, handleEdit }) {
 	return (
 		<>
 			<h2 className="text-lg flex mt-2 text-emerald-600 border-b">Your Characters</h2>
@@ -179,6 +248,7 @@ function CharacterList({ characters, removeCharacter }) {
 function PartyList({ parties, removeParty }) {
 	return (
 		<>
+			<button className="flex bg-emerald-600 mt-2 text-sm py-1 px-2">Create Party</button>
 			<h2 className="text-lg flex mt-2 text-emerald-600 border-b">Your Parties</h2>
 			<ul className="flex flex-col gap-2">
 				{parties.map((p) => {
