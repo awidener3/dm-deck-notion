@@ -9,18 +9,28 @@ function Characters() {
 	const [parties, setParties] = useState(JSON.parse(localStorage.getItem('parties') || []));
 	const [editValues, setEditValues] = useState(null);
 
-	const addCharacter = (character) => {
-		setCharacters([...characters, character]);
-	};
+	const addCharacter = (character) => setCharacters([...characters, character]);
 
 	const removeCharacter = (character) => {
+		// Remove character
 		setCharacters(characters.filter((c) => character !== c));
+
+		// Update party to remove character ID
+		const charactersParty = parties.find((party) => party.character_ids.includes(character.id));
+
+		charactersParty.character_ids = charactersParty.character_ids.filter((id) => id !== character.id);
+
+		setParties(parties);
 	};
 
 	const updateCharacter = (character) => {
 		setCharacters(characters.map((c) => (c.id === character.id ? character : c)));
 		setFormVisible(false);
 	};
+
+	const addParty = (party) => setParties([...parties, party]);
+
+	const removeParty = (party) => setParties(parties.filter((p) => party !== p));
 
 	const handleEdit = (character) => {
 		setFormVisible(true);
@@ -37,10 +47,19 @@ function Characters() {
 		if (characters) {
 			setCharacters(characters);
 		}
+
+		const parties = JSON.parse(localStorage.getItem('parties'));
+		if (parties) {
+			setParties(parties);
+		}
 	}, []);
 
 	useEffect(() => {
 		localStorage.setItem('characters', JSON.stringify(characters));
+	}, [characters]);
+
+	useEffect(() => {
+		localStorage.setItem('parties', JSON.stringify(parties), [parties]);
 	});
 
 	return (
@@ -69,7 +88,7 @@ function Characters() {
 			) : (
 				<>
 					<CharacterList characters={characters} removeCharacter={removeCharacter} handleEdit={handleEdit} />
-					<PartyList parties={parties} />
+					<PartyList parties={parties} addParty={addParty} removeParty={removeParty} />
 				</>
 			)}
 		</>
@@ -98,6 +117,7 @@ function AddCharacterForm({ addCharacter, updateCharacter, editValues, parties, 
 	}, [formState, reset]);
 
 	function onSubmit(data) {
+		// Create character
 		if (editValues) {
 			data.id = editValues.id;
 			updateCharacter(data);
@@ -105,22 +125,32 @@ function AddCharacterForm({ addCharacter, updateCharacter, editValues, parties, 
 			data.id = uuidv4();
 			addCharacter(data);
 		}
+
+		// Add character ID to selected party
+		if (partyValue !== 'none') {
+			const partyToJoin = parties.find((party) => party.name === partyValue);
+
+			if (!partyToJoin.character_ids.includes(data.id)) {
+				partyToJoin.character_ids.push(data.id);
+			}
+
+			setParties(parties);
+		}
 	}
 
 	function getPartyValue() {
+		// No party if a new character
 		if (!editValues) return 'none';
 
+		// Find associated party
 		const characterParty = parties.find((party) => party.character_ids.includes(editValues.id));
-
-		return characterParty.name;
+		return characterParty?.name || 'none';
 	}
 
 	function handlePartyChange(e) {
-		console.log('here?');
+		// Update parties if editing a character
 		if (editValues) {
-			const updatedParties = [...parties];
-
-			updatedParties.forEach((party) => {
+			parties.forEach((party) => {
 				if (party.name === partyValue) {
 					party.character_ids = party.character_ids.filter((id) => id !== editValues.id);
 				} else if (party.name === e.target.value) {
@@ -128,7 +158,7 @@ function AddCharacterForm({ addCharacter, updateCharacter, editValues, parties, 
 				}
 			});
 
-			setParties(updatedParties);
+			setParties(parties);
 		}
 
 		setPartyValue(e.target.value);
@@ -245,16 +275,48 @@ function CharacterList({ characters, removeCharacter, handleEdit }) {
 	);
 }
 
-function PartyList({ parties, removeParty }) {
+function PartyList({ parties, addParty, removeParty }) {
+	const [partyName, setPartyName] = useState('');
+
+	const handlePartyNameUpdate = (e) => setPartyName(e.target.value);
+
+	const handleCreateParty = () => {
+		// Create party object and add to state
+		const party = {
+			id: uuidv4(),
+			name: partyName,
+			character_ids: [],
+		};
+
+		addParty(party);
+
+		// Reset form
+		setPartyName('');
+	};
+
 	return (
 		<>
-			<button className="flex bg-emerald-600 mt-2 text-sm py-1 px-2">Create Party</button>
 			<h2 className="text-lg flex mt-2 text-emerald-600 border-b">Your Parties</h2>
+
+			<div className="flex justify-end mt-3 gap-2">
+				<input
+					className="px-2 flex-1"
+					value={partyName}
+					placeholder="New Party Name"
+					onChange={handlePartyNameUpdate}
+				/>
+				<button className=" bg-emerald-600 text-sm py-1 px-2" onClick={handleCreateParty}>
+					Create Party
+				</button>
+			</div>
+
 			<ul className="flex flex-col gap-2">
 				{parties.map((p) => {
 					return (
 						<li key={p.id} className="flex justify-between items-center border-b border-b-slate-500 py-2">
-							<div>{p.name}</div>
+							<div>
+								{p.name} <span className="italic font-light">({p.character_ids.length} Members)</span>
+							</div>
 							<div className="flex gap-2">
 								<button className="text-sm bg-emerald-600 py-2 px-3" onClick={() => removeParty(p)}>
 									<TbTrash />
