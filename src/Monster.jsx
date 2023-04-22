@@ -5,7 +5,6 @@ import NotFound from './NotFound';
 
 function Monster() {
 	const { name } = useParams();
-
 	const [monster, setMonster] = useState({});
 
 	useEffect(() => {
@@ -18,8 +17,6 @@ function Monster() {
 				return false;
 			}
 		});
-
-		console.log(monster);
 
 		setMonster(monster);
 	}, [name]);

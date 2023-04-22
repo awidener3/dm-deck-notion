@@ -37,10 +37,10 @@ function Monsters() {
 			<div className="flex flex-col">
 				<span className="italic">{monsters.length} Monsters Saved</span>
 				<div className="flex items-center w-full gap-2">
+					<input className="flex-1 p-2" type="text" placeholder="Search monsters" onInput={handleInput} />
 					<button className="flex bg-emerald-600 text-sm py-1 px-2" onClick={handleUpload}>
 						Upload JSON
 					</button>
-					<input className="flex-1 p-1" type="text" placeholder="Search monsters" onInput={handleInput} />
 				</div>
 
 				<ul className="bg-neutral-700 flex-1 mt-3">

@@ -91,21 +91,21 @@ function MonsterCard({ monster }) {
 			<div className="p-2 border-b">
 				{getSkills() && (
 					<p className="text-left">
-						<span className="font-bold">Skills:</span> {getSkills()}
+						<span className="font-bold italic">Skills:</span> {getSkills()}
 					</p>
 				)}
 
 				<p className="text-left">
-					<span className="font-bold">Senses:</span> {monster.senses}
+					<span className="font-bold italic">Senses:</span> {monster.senses}
 				</p>
 				<p className="text-left">
-					<span className="font-bold">Languages:</span> {monster.languages}
+					<span className="font-bold italic">Languages:</span> {monster.languages}
 				</p>
 
 				{monster.special_abilities &&
 					monster.special_abilities.map((ability) => (
 						<p key={ability.name} className="mt-2 text-left">
-							<span className="italic">{ability.name}.</span> {ability.desc}
+							<span className="font-bold italic">{ability.name}.</span> {ability.desc}
 						</p>
 					))}
 			</div>
@@ -122,12 +122,64 @@ function MonsterCard({ monster }) {
 				{monster.actions &&
 					monster.actions.map((action) => (
 						<p key={action.name} className="text-left mt-2">
-							<span className="font-bold italic">{action.name}.</span> {checked ? action.desc : <></>}
+							<span className="font-bold italic">{action.name}.</span>{' '}
+							{checked ? action.desc : <Action action={action} />}
 						</p>
 					))}
 			</div>
 		</div>
 	);
+}
+
+function Action({ action }) {
+	console.log(action);
+
+	const getRange = () => {
+		const arr = action.desc.split(' ');
+		if (action.desc.startsWith('Melee Weapon Attack:')) {
+			const reachIndex = arr.findIndex((item) => item === 'reach');
+			return `${arr[reachIndex + 1]} ${arr[reachIndex + 2]}`;
+		} else if (action.desc.startsWith('Ranged Weapon Attack:')) {
+			const rangeIndex = arr.findIndex((item) => item === 'range');
+			return `${arr[rangeIndex]} ${arr[rangeIndex + 1]} ${arr[rangeIndex + 2]}`;
+		} else if (action.desc.startsWith('Melee or Ranged Weapon Attack:')) {
+			const reachIndex = arr.findIndex((item) => item === 'reach');
+
+			let str = '';
+			for (let i = reachIndex + 1; i <= reachIndex + 6; i++) {
+				str += `${arr[i]} `;
+			}
+			return str;
+		}
+	};
+
+	const getDamage = () => {
+		const arr = action.desc.split(' ');
+		const hitIndex = arr.findIndex((item) => item === 'Hit:');
+		const damageTypeIndex = arr.findIndex((item) => item.includes('damage'));
+
+		return `${arr[hitIndex + 1]} ${arr[hitIndex + 2]} ${arr[hitIndex + 3]} ${arr[hitIndex + 4]} ${
+			arr[damageTypeIndex - 1]
+		}.`;
+	};
+
+	if (!action.damage_dice || !action.damage_bonus) {
+		// Descriptive actions; Multiattack, Change Shape, etc.
+		return (
+			<>
+				<span>{action.desc}</span>
+			</>
+		);
+	} else {
+		// Actionable actions; Bite, Longsword, Longbow, etc
+		return (
+			<>
+				<span>
+					+{action.attack_bonus}, {getRange()} {getDamage()}
+				</span>
+			</>
+		);
+	}
 }
 
 export default MonsterCard;
