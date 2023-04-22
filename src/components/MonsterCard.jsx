@@ -122,7 +122,7 @@ function MonsterCard({ monster }) {
 				{monster.actions &&
 					monster.actions.map((action) => (
 						<p key={action.name} className="text-left mt-2">
-							<span className="font-bold italic">{action.name}.</span> {checked ? action.desc : <>something else</>}
+							<span className="font-bold italic">{action.name}.</span> {checked ? action.desc : <></>}
 						</p>
 					))}
 			</div>
