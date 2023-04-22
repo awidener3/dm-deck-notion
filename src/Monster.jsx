@@ -13,7 +13,7 @@ function Monster() {
 		const monsters = [];
 
 		sources.forEach((source) => {
-			source.monsters.forEach((monster) => monsters.push(monster));
+			source.monsters.forEach((monster) => monsters.push({ ...monster, source: source.source }));
 		});
 
 		const monster = monsters.find((monster) => {
