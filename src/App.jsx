@@ -4,6 +4,8 @@ import Characters from './Characters';
 import Home from './Home';
 import Encounters from './Encounters';
 import Monsters from './Monsters';
+import Monster from './Monster';
+import NotFound from './NotFound';
 
 export default function App() {
 	return (
@@ -38,7 +40,11 @@ export default function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/characters" element={<Characters />} />
 					<Route path="/encounters" element={<Encounters />} />
-					<Route path="/monsters" element={<Monsters />} />
+					<Route path="/monsters">
+						<Route index element={<Monsters />} />
+						<Route path=":name" element={<Monster />} />
+					</Route>
+					<Route path="*" element={<NotFound />}></Route>
 				</Routes>
 			</div>
 		</>

@@ -5,8 +5,12 @@ import { v4 as uuidv4 } from 'uuid';
 
 function Characters() {
 	const [formVisible, setFormVisible] = useState(false);
-	const [characters, setCharacters] = useState(JSON.parse(localStorage.getItem('characters')) || []);
-	const [parties, setParties] = useState(JSON.parse(localStorage.getItem('parties') || []));
+	const [characters, setCharacters] = useState(
+		(localStorage['characters'] && JSON.parse(localStorage.getItem('characters'))) || []
+	);
+	const [parties, setParties] = useState(
+		(localStorage['parties'] && JSON.parse(localStorage.getItem('parties'))) || []
+	);
 	const [editValues, setEditValues] = useState(null);
 
 	const addCharacter = (character) => setCharacters([...characters, character]);
@@ -65,17 +69,6 @@ function Characters() {
 	return (
 		<>
 			<h1>Characters</h1>
-			<div className="flex gap-2">
-				<button onClick={showForm} className="flex bg-emerald-600 mt-2 text-sm py-1 px-2">
-					{formVisible ? (
-						<div className="flex items-center gap-1">
-							<TbArrowBigLeftFilled /> Back
-						</div>
-					) : (
-						'Create Character'
-					)}
-				</button>
-			</div>
 
 			{formVisible ? (
 				<AddCharacterForm
@@ -84,10 +77,16 @@ function Characters() {
 					editValues={editValues}
 					parties={parties}
 					setParties={setParties}
+					showForm={showForm}
 				/>
 			) : (
 				<>
-					<CharacterList characters={characters} removeCharacter={removeCharacter} handleEdit={handleEdit} />
+					<CharacterList
+						characters={characters}
+						removeCharacter={removeCharacter}
+						handleEdit={handleEdit}
+						showForm={showForm}
+					/>
 					<PartyList parties={parties} addParty={addParty} removeParty={removeParty} />
 				</>
 			)}
@@ -95,7 +94,7 @@ function Characters() {
 	);
 }
 
-function AddCharacterForm({ addCharacter, updateCharacter, editValues, parties, setParties }) {
+function AddCharacterForm({ addCharacter, updateCharacter, editValues, parties, setParties, showForm }) {
 	const {
 		register,
 		handleSubmit,
@@ -136,6 +135,8 @@ function AddCharacterForm({ addCharacter, updateCharacter, editValues, parties, 
 
 			setParties(parties);
 		}
+
+		showForm();
 	}
 
 	function getPartyValue() {
@@ -205,7 +206,7 @@ function AddCharacterForm({ addCharacter, updateCharacter, editValues, parties, 
 
 	return (
 		<>
-			<h2 className="text-lg flex mt-2 text-emerald-600 border-b">New Character</h2>
+			<h2 className="text-lg flex mt-2 text-emerald-600 pb-1 border-b">{editValues ? 'Edit' : 'New'} Character</h2>
 
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2 gap-2">
 				<div className="grid grid-cols-2 gap-2">
@@ -240,18 +241,30 @@ function AddCharacterForm({ addCharacter, updateCharacter, editValues, parties, 
 					</div>
 				</div>
 
-				<button type="submit" className="bg-emerald-600 w-max">
-					Submit
-				</button>
+				<div className="flex justify-center gap-2">
+					<button onClick={showForm} className="flex bg-emerald-600 mt-2 text-sm py-1 px-2">
+						<div className="flex items-center gap-1">
+							<TbArrowBigLeftFilled /> Back
+						</div>
+					</button>
+					<button type="submit" className="bg-emerald-600 mt-2 text-sm py-1 px-2">
+						{editValues ? 'Update' : 'Save'}
+					</button>
+				</div>
 			</form>
 		</>
 	);
 }
 
-function CharacterList({ characters, removeCharacter, handleEdit }) {
+function CharacterList({ characters, removeCharacter, handleEdit, showForm }) {
 	return (
 		<>
-			<h2 className="text-lg flex mt-2 text-emerald-600 border-b">Your Characters</h2>
+			<div className="mt-2 flex items-end justify-between border-b pb-1">
+				<h2 className="text-lg flex text-emerald-600">Your Characters</h2>
+				<button onClick={showForm} className="flex bg-emerald-600 text-sm py-1 px-2">
+					Create Character
+				</button>
+			</div>
 			<ul className="flex flex-col gap-2">
 				{characters.map((c) => {
 					return (
