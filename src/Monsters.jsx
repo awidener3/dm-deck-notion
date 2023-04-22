@@ -2,7 +2,20 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Monsters() {
-	const [monsters, setMonsters] = useState(JSON.parse(localStorage.getItem('monsters')) || []);
+	const [monsters, setMonsters] = useState(() => {
+		const stored = JSON.parse(localStorage.getItem('monsters'));
+
+		if (stored) {
+			const monsterArr = [];
+			stored.forEach((source) => {
+				source.monsters.forEach((monster) => monsterArr.push(monster));
+			});
+			return monsterArr;
+		} else {
+			return [];
+		}
+		// JSON.parse(localStorage.getItem('monsters')) || [];
+	});
 	const [searched, setSearched] = useState([]);
 
 	const handleInput = (e) => {
@@ -19,16 +32,16 @@ function Monsters() {
 		console.log('upload JSON!');
 	};
 
-	useEffect(() => {
-		const monsters = JSON.parse(localStorage.getItem('monsters'));
-		if (monsters) {
-			setMonsters(monsters);
-		}
-	}, []);
+	// useEffect(() => {
+	// 	const monsters = JSON.parse(localStorage.getItem('monsters'));
+	// 	if (monsters) {
+	// 		setMonsters(monsters);
+	// 	}
+	// }, []);
 
-	useEffect(() => {
-		localStorage.setItem('monsters', JSON.stringify(monsters));
-	});
+	// useEffect(() => {
+	// 	localStorage.setItem('monsters', JSON.stringify(monsters));
+	// });
 
 	return (
 		<>

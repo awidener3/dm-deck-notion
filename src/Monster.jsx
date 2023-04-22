@@ -8,7 +8,13 @@ function Monster() {
 	const [monster, setMonster] = useState({});
 
 	useEffect(() => {
-		const monsters = JSON.parse(localStorage.getItem('monsters'));
+		const sources = JSON.parse(localStorage.getItem('monsters'));
+
+		const monsters = [];
+
+		sources.forEach((source) => {
+			source.monsters.forEach((monster) => monsters.push(monster));
+		});
 
 		const monster = monsters.find((monster) => {
 			if (monster.name) {

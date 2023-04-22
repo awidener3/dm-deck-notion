@@ -9,7 +9,7 @@ function Home() {
 	const seedStorage = () => {
 		window.localStorage.clear();
 
-		localStorage.setItem('monsters', JSON.stringify(monsters));
+		localStorage.setItem('monsters', JSON.stringify([monsters]));
 		localStorage.setItem('encounters', JSON.stringify(encounters));
 		localStorage.setItem('characters', JSON.stringify(characters));
 		localStorage.setItem('parties', JSON.stringify(parties));

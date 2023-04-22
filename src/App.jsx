@@ -10,7 +10,7 @@ import NotFound from './NotFound';
 export default function App() {
 	return (
 		<>
-			<nav className="p-2 w-screen bg-zinc-900">
+			<nav className="p-2 w-screen bg-zinc-900 sticky top-0">
 				<ul className="flex flex-row justify-between gap-2 text-white max-w-sm mx-auto">
 					<li>
 						<NavLink to="/" className={({ isActive }) => (isActive ? 'text-emerald-600' : 'text-white')}>

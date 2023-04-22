@@ -3,7 +3,6 @@ import Switch from 'react-switch';
 
 function MonsterCard({ monster }) {
 	const [checked, setChecked] = useState(false);
-
 	const skills = [
 		'acrobatics',
 		'animal_handling',
@@ -45,7 +44,7 @@ function MonsterCard({ monster }) {
 	}
 
 	return (
-		<div className="flex-col border rounded text-sm">
+		<div className="flex-col border rounded text-sm my-2">
 			<h1 className="bg-white text-black text-2xl">{monster.name}</h1>
 			<p className="text-left p-1">
 				{monster.size} {monster.type}
@@ -110,7 +109,7 @@ function MonsterCard({ monster }) {
 					))}
 			</div>
 
-			<div className="p-2">
+			<div className={monster.reactions || monster.legendary_actions ? 'p-2 border-b' : 'p-2'}>
 				<div className="flex justify-between">
 					<h1 className="text-lg">Actions</h1>
 					<div className="flex gap-2 items-center">
@@ -122,18 +121,40 @@ function MonsterCard({ monster }) {
 				{monster.actions &&
 					monster.actions.map((action) => (
 						<p key={action.name} className="text-left mt-2">
-							<span className="font-bold italic">{action.name}.</span>{' '}
-							{checked ? action.desc : <Action action={action} />}
+							<span className="font-bold italic">{action.name}.</span> <Action checked={checked} action={action} />
 						</p>
 					))}
 			</div>
+
+			{monster.reactions && (
+				<div className="p-2">
+					<h1 className="text-lg text-left">Reactions</h1>
+
+					{monster.reactions.map((reaction) => (
+						<p key={reaction.name} className="text-left mt-2">
+							<span className="font-bold italic">{reaction.name}.</span> {reaction.desc}
+						</p>
+					))}
+				</div>
+			)}
+
+			{monster.legendary_actions && (
+				<div className="p-2">
+					<h1 className="text-lg text-left">Legendary Actions</h1>
+
+					{monster.legendary_actions.map((action, index) => (
+						<p key={index} className="text-left mt-2">
+							{action.name && <span className="font-bold italic">{action.name}.</span>}
+							{action.desc}
+						</p>
+					))}
+				</div>
+			)}
 		</div>
 	);
 }
 
-function Action({ action }) {
-	console.log(action);
-
+function Action({ action, checked }) {
 	const getRange = () => {
 		const arr = action.desc.split(' ');
 		if (action.desc.startsWith('Melee Weapon Attack:')) {
@@ -163,20 +184,14 @@ function Action({ action }) {
 		}.`;
 	};
 
-	if (!action.damage_dice || !action.damage_bonus) {
+	if (checked || !action.damage_dice || !action.damage_bonus) {
 		// Descriptive actions; Multiattack, Change Shape, etc.
-		return (
-			<>
-				<span>{action.desc}</span>
-			</>
-		);
+		return <>{action.desc}</>;
 	} else {
 		// Actionable actions; Bite, Longsword, Longbow, etc
 		return (
 			<>
-				<span>
-					+{action.attack_bonus}, {getRange()} {getDamage()}
-				</span>
+				+{action.attack_bonus}, {getRange()} {getDamage()}
 			</>
 		);
 	}
