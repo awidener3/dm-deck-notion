@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { TbZoomFilled } from 'react-icons/tb';
 
 function Monsters() {
 	const [monsters, setMonsters] = useState(() => {
@@ -17,6 +18,7 @@ function Monsters() {
 	});
 	const [searched, setSearched] = useState([]);
 	const [file, setFile] = useState(null);
+	const [error, setError] = useState(null);
 
 	useEffect(() => {
 		const stored = JSON.parse(localStorage.getItem('monsters'));
@@ -49,20 +51,35 @@ function Monsters() {
 	};
 
 	const handleSave = () => {
-		if (file) {
-			const updatedSources = JSON.parse(localStorage.getItem('monsters'));
+		setError(null);
 
-			const parsedFile = JSON.parse(file);
+		if (!file) {
+			setError('No source selected! Try choosing a file and try again.');
+			return;
+		}
 
-			if (updatedSources) {
-				updatedSources.push(parsedFile);
-				localStorage.setItem('monsters', JSON.stringify(updatedSources));
-			} else {
-				localStorage.setItem('monsters', JSON.stringify([parsedFile]));
+		const updatedSources = JSON.parse(localStorage.getItem('monsters'));
+		const parsedFile = JSON.parse(file);
+
+		// Update monsters with source
+		parsedFile.monsters = parsedFile.monsters.map((monster) => ({ ...monster, source: parsedFile.source }));
+
+		if (updatedSources) {
+			// Sources exist, check if this is a duplicate
+			if (updatedSources.filter((source) => source.source === parsedFile.source).length > 0) {
+				console.log('Source already exists!');
+				setError('Source already exists!');
+				return;
 			}
 
-			setMonsters(monsters.concat(parsedFile.monsters));
+			updatedSources.push(parsedFile);
+			localStorage.setItem('monsters', JSON.stringify(updatedSources));
+		} else {
+			// No sources, create first source in array
+			localStorage.setItem('monsters', JSON.stringify([parsedFile]));
 		}
+
+		setMonsters(monsters.concat(parsedFile.monsters));
 	};
 
 	const handleUpload = (e) => {
@@ -87,19 +104,30 @@ function Monsters() {
 					</button>
 				</div>
 
+				{error && <span className="italic text-red-600">{error}</span>}
+
 				<input className="mt-2 flex-1 p-2" type="text" placeholder="Search monsters" onInput={handleInput} />
 
-				<ul className="bg-neutral-700 flex-1 mt-3">
-					{searched &&
-						searched.map((s, i) => (
-							<li key={i}>
-								{s.name} <span className="font-light italic">({s.source.match(/\((.*)\)/).pop()})</span>{' '}
-								<Link to={s.name.replaceAll(' ', '_').toLowerCase()}>View</Link>
-							</li>
-						))}
+				<ul className="flex-1 mt-3">
+					{searched.length > 0
+						? searched.map((monster, i) => <MonsterListItem key={i} monster={monster} />)
+						: monsters.map((monster, i) => <MonsterListItem key={i} monster={monster} index={i} />)}
 				</ul>
 			</div>
 		</>
+	);
+}
+
+function MonsterListItem({ monster }) {
+	return (
+		<li className="py-1 flex justify-between border-b border-b-slate-500">
+			<div>
+				{monster.name} <span className="font-light italic">({monster.source.match(/\((.*)\)/).pop()})</span>{' '}
+			</div>
+			<Link to={monster.name.replaceAll(' ', '_').toLowerCase()}>
+				<span className="text-emerald-600">View</span>
+			</Link>
+		</li>
 	);
 }
 

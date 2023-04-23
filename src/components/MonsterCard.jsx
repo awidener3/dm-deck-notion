@@ -179,12 +179,18 @@ function Action({ action, checked }) {
 		const hitIndex = arr.findIndex((item) => item === 'Hit:');
 		const damageTypeIndex = arr.findIndex((item) => item.includes('damage'));
 
-		return `${arr[hitIndex + 1]} ${arr[hitIndex + 2]} ${arr[hitIndex + 3]} ${arr[hitIndex + 4]} ${
-			arr[damageTypeIndex - 1]
-		}.`;
+		if (action.damage_bonus) {
+			// Damage bonus results in following format: 5 (1d6 + 2)
+			return `${arr[hitIndex + 1]} ${arr[hitIndex + 2]} ${arr[hitIndex + 3]} ${arr[hitIndex + 4]} ${
+				arr[damageTypeIndex - 1]
+			}.`;
+		} else {
+			// No damage bonus results in following format: 3 (1d6)
+			return `${arr[hitIndex + 1]} ${arr[hitIndex + 2]} ${arr[damageTypeIndex - 1]}.`;
+		}
 	};
 
-	if (checked || !action.damage_dice || !action.damage_bonus) {
+	if (checked || !action.damage_dice) {
 		// Descriptive actions; Multiattack, Change Shape, etc.
 		return <>{action.desc}</>;
 	} else {
