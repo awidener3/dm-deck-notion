@@ -2,21 +2,21 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TbEdit, TbTrash, TbArrowBigLeftFilled } from 'react-icons/tb';
 import { v4 as uuidv4 } from 'uuid';
+import { getLocalStorageItem } from './utils';
+import List from './components/List';
 
 function Characters() {
 	const [formVisible, setFormVisible] = useState(false);
-	const [characters, setCharacters] = useState(
-		(localStorage['characters'] && JSON.parse(localStorage.getItem('characters'))) || []
-	);
-	const [parties, setParties] = useState(
-		(localStorage['parties'] && JSON.parse(localStorage.getItem('parties'))) || []
-	);
+	const [characters, setCharacters] = useState(getLocalStorageItem('characters'));
+	const [parties, setParties] = useState(getLocalStorageItem('parties'));
 	const [editValues, setEditValues] = useState(null);
 
-	const addCharacter = (character) => setCharacters([...characters, character]);
+	function addCharacter(character) {
+		setCharacters([...characters, character]);
+	}
 
-	const removeCharacter = (character) => {
-		// Remove character
+	function removeCharacter(character) {
+		// Remove character from state
 		setCharacters(characters.filter((c) => character !== c));
 
 		// Update party to remove character ID
@@ -25,26 +25,30 @@ function Characters() {
 		charactersParty.character_ids = charactersParty.character_ids.filter((id) => id !== character.id);
 
 		setParties(parties);
-	};
+	}
 
-	const updateCharacter = (character) => {
+	function updateCharacter(character) {
 		setCharacters(characters.map((c) => (c.id === character.id ? character : c)));
 		setFormVisible(false);
-	};
+	}
 
-	const addParty = (party) => setParties([...parties, party]);
+	function addParty(party) {
+		setParties([...parties, party]);
+	}
 
-	const removeParty = (party) => setParties(parties.filter((p) => party !== p));
+	function removeParty(party) {
+		setParties(parties.filter((p) => party !== p));
+	}
 
-	const handleEdit = (character) => {
+	function handleEdit(character) {
 		setFormVisible(true);
 		setEditValues(character);
-	};
+	}
 
-	const showForm = () => {
+	function showForm() {
 		setEditValues(null);
 		setFormVisible(!formVisible);
-	};
+	}
 
 	useEffect(() => {
 		const characters = JSON.parse(localStorage.getItem('characters'));
@@ -68,9 +72,28 @@ function Characters() {
 
 	return (
 		<>
-			<h1>Characters</h1>
+			<List
+				title="Characters"
+				items={characters}
+				onAdd={() => {
+					console.log('test');
+				}}
+			>
+				<button>edit</button>
+				<button>delete</button>
+			</List>
 
-			{formVisible ? (
+			<List
+				title="Parties"
+				items={parties}
+				onAdd={() => {
+					console.log('test');
+				}}
+			>
+				<button>delete</button>
+			</List>
+
+			{/* {formVisible ? (
 				<AddCharacterForm
 					addCharacter={addCharacter}
 					updateCharacter={updateCharacter}
@@ -89,7 +112,7 @@ function Characters() {
 					/>
 					<PartyList parties={parties} addParty={addParty} removeParty={removeParty} />
 				</>
-			)}
+			)} */}
 		</>
 	);
 }
@@ -206,7 +229,9 @@ function AddCharacterForm({ addCharacter, updateCharacter, editValues, parties, 
 
 	return (
 		<>
-			<h2 className="text-lg flex mt-2 text-emerald-600 pb-1 border-b">{editValues ? 'Edit' : 'New'} Character</h2>
+			<h2 className="text-lg flex mt-2 text-[color:var(--text-highlight)] pb-1 border-b">
+				{editValues ? 'Edit' : 'New'} Character
+			</h2>
 
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2 gap-2">
 				<div className="grid grid-cols-2 gap-2">
@@ -242,12 +267,12 @@ function AddCharacterForm({ addCharacter, updateCharacter, editValues, parties, 
 				</div>
 
 				<div className="flex justify-center gap-2">
-					<button onClick={showForm} className="flex bg-emerald-600 mt-2 text-sm py-1 px-2">
+					<button onClick={showForm} className="flex text-[color:var(--text-highlight)] mt-2 text-sm py-1 px-2">
 						<div className="flex items-center gap-1">
 							<TbArrowBigLeftFilled /> Back
 						</div>
 					</button>
-					<button type="submit" className="bg-emerald-600 mt-2 text-sm py-1 px-2">
+					<button type="submit" className="text-[color:var(--text-highlight)] mt-2 text-sm py-1 px-2">
 						{editValues ? 'Update' : 'Save'}
 					</button>
 				</div>
@@ -256,37 +281,32 @@ function AddCharacterForm({ addCharacter, updateCharacter, editValues, parties, 
 	);
 }
 
-function CharacterList({ characters, removeCharacter, handleEdit, showForm }) {
-	return (
-		<>
-			<div className="mt-2 flex items-end justify-between border-b pb-1">
-				<h2 className="text-lg flex text-emerald-600">Your Characters</h2>
-				<button onClick={showForm} className="flex bg-emerald-600 text-sm py-1 px-2">
-					Create Character
-				</button>
-			</div>
-			<ul className="flex flex-col gap-2">
-				{characters.map((c) => {
-					return (
-						<li key={c.id} className="flex justify-between items-center border-b border-b-slate-500 py-2">
-							<div>
-								{c.name} <span className="italic font-light">(level {c.level})</span>
-							</div>
-							<div className="flex gap-2">
-								<button className="text-sm bg-emerald-600 py-2 px-3" onClick={() => handleEdit(c)}>
-									<TbEdit />
-								</button>
-								<button className="text-sm bg-emerald-600 py-2 px-3" onClick={() => removeCharacter(c)}>
-									<TbTrash />
-								</button>
-							</div>
-						</li>
-					);
-				})}
-			</ul>
-		</>
-	);
-}
+const CharacterList = ({ characters, removeCharacter, handleEdit, showForm }) => (
+	<>
+		<div className="mt-2 flex items-end justify-between border-b-2 border-b-slate-500 pb-1">
+			<h2 className="text-lg flex text-[color:var(--text-highlight)]">Characters</h2>
+			<button onClick={showForm} className="flex text-sm py-1 px-2">
+				Create Character
+			</button>
+		</div>
+
+		<ul className="flex flex-col gap-2">
+			{characters.map((c) => {
+				return (
+					<li key={c.id} className="flex justify-between items-center border-b border-b-slate-500 py-2">
+						<div>
+							{c.name} <span className="italic font-light">(level {c.level})</span>
+						</div>
+						<div className="flex gap-2">
+							<button onClick={() => handleEdit(c)}>Edit</button>
+							<button onClick={() => removeCharacter(c)}>Delete</button>
+						</div>
+					</li>
+				);
+			})}
+		</ul>
+	</>
+);
 
 function PartyList({ parties, addParty, removeParty }) {
 	const [partyName, setPartyName] = useState('');
@@ -309,7 +329,9 @@ function PartyList({ parties, addParty, removeParty }) {
 
 	return (
 		<>
-			<h2 className="text-lg flex mt-2 text-emerald-600 border-b">Your Parties</h2>
+			<h2 className="text-lg flex mt-5 text-[color:var(--text-highlight)] border-b-2 border-b-slate-500">
+				Your Parties
+			</h2>
 
 			<div className="flex justify-end mt-3 gap-2">
 				<input
@@ -318,9 +340,7 @@ function PartyList({ parties, addParty, removeParty }) {
 					placeholder="New Party Name"
 					onChange={handlePartyNameUpdate}
 				/>
-				<button className=" bg-emerald-600 text-sm py-1 px-2" onClick={handleCreateParty}>
-					Create Party
-				</button>
+				<button onClick={handleCreateParty}>Create Party</button>
 			</div>
 
 			<ul className="flex flex-col gap-2">
@@ -331,9 +351,7 @@ function PartyList({ parties, addParty, removeParty }) {
 								{p.name} <span className="italic font-light">({p.character_ids.length} Members)</span>
 							</div>
 							<div className="flex gap-2">
-								<button className="text-sm bg-emerald-600 py-2 px-3" onClick={() => removeParty(p)}>
-									<TbTrash />
-								</button>
+								<button onClick={() => removeParty(p)}>Delete</button>
 							</div>
 						</li>
 					);
