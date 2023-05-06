@@ -35,31 +35,63 @@ const Form = ({ storageKey, title, properties, existing = null }) => {
 			</div>
 
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2 gap-2">
-				{properties.map((property) => (
-					<InputWithLabel key={property.name} {...property} register={register} />
-				))}
+				<div className="grid grid-cols-2 gap-2">
+					{properties.map((property) => (
+						<InputWithLabel key={property.name} {...property} register={register} />
+					))}
+				</div>
 
-				<button type="submit">{existing ? 'update' : 'save'}</button>
+				<button type="submit" className="text-right">
+					{existing ? 'update' : 'save'}
+				</button>
 			</form>
 		</>
 	);
 };
 
-const InputWithLabel = ({ name, type = 'text', min = null, max = null, value = '', required = false, register }) => {
+const InputWithLabel = ({
+	name,
+	type = 'text',
+	placeholder,
+	min,
+	max,
+	minLength,
+	maxLength,
+	value,
+	options = [],
+	fullWidth = false,
+	required = false,
+	register,
+}) => {
 	return (
-		<div className="flex flex-col">
+		<span className={fullWidth ? 'flex flex-col col-span-2' : 'flex flex-col'}>
 			<label className="italic">{name.replace('_', ' ')}</label>
-			<input
-				type={type}
-				className="p-2"
-				defaultValue={value}
-				placeholder={name.replace('_', ' ').toUpperCase()}
-				autoComplete="off"
-				min={min}
-				max={max}
-				{...register(name, { required })}
-			/>
-		</div>
+			{type === 'select' ? (
+				<select defaultValue={'DEFAULT'}>
+					<option value="DEFAULT" disabled>
+						select
+					</option>
+					{options.map((option) => (
+						<option key={option} value={option}>
+							{option}
+						</option>
+					))}
+				</select>
+			) : (
+				<input
+					type={type}
+					className="p-2 font-thin"
+					defaultValue={value}
+					placeholder={placeholder}
+					autoComplete="off"
+					min={min}
+					max={max}
+					minLength={minLength}
+					maxLength={maxLength}
+					{...register(name, { required })}
+				/>
+			)}
+		</span>
 	);
 };
 

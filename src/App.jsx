@@ -6,8 +6,10 @@ import CardView from './CardView';
 import CharacterCard from './components/CharacterCard';
 import MonsterCard from './components/MonsterCard';
 import List from './components/List';
-import { characterProps, encounterProps } from './utils/formProperties';
-import { Route, Routes } from 'react-router-dom';
+import { characterProps, encounterProps, monsterProps } from './utils/formProperties';
+import { Link, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
+import useLocalStorage from './hooks/useLocalStorage';
 
 export default function App() {
 	return (
@@ -67,7 +69,18 @@ export default function App() {
 						{/* Monster routes */}
 						<Route path="/monsters">
 							<Route index element={<Monsters />} />
-							<Route path="new" element={<Form storageKey={'monsters'} title={'Monster'} properties={[]} />} />
+							<Route path="new">
+								<Route
+									index
+									element={
+										<>
+											<Link to={'./source'}>add source?</Link>
+											<Form storageKey={'monsters'} title={'Monster'} properties={monsterProps} />
+										</>
+									}
+								/>
+								<Route path="source" element={<SourceUpload />} />
+							</Route>
 							<Route
 								path=":id"
 								element={
@@ -89,13 +102,13 @@ export default function App() {
 
 const Characters = () => (
 	<>
-		<List storageKey="characters" title="Characters" isEditable={true} />
+		<List storageKey="characters" subtitleKey={'class'} title="Characters" isEditable={true} />
 	</>
 );
 
 const Monsters = () => (
 	<>
-		<List storageKey="monsters" title="Monsters" />
+		<List storageKey="monsters" subtitleKey={'source'} title="Monsters" />
 	</>
 );
 
@@ -104,3 +117,46 @@ const Encounters = () => (
 		<List storageKey="encounters" title="Encounters" isEditable={true} />
 	</>
 );
+
+const SourceUpload = () => {
+	const [file, setFile] = useState({});
+	const [error, setError] = useState(false);
+
+	const [monsters, setMonsters] = useLocalStorage('monsters', []);
+	const [sources, setSources] = useLocalStorage('sources', []);
+
+	const handleUpload = (e) => {
+		const fileReader = new FileReader();
+		fileReader.readAsText(e.target.files[0], 'UTF-8');
+		fileReader.onload = (e) => setFile(JSON.parse(e.target.result));
+	};
+
+	const handleSubmit = () => {
+		setError(false);
+
+		const newSource = {
+			source: file.source,
+			abbr: file.abbr,
+			version: file.version,
+		};
+
+		const newMonsters = file.monsters;
+
+		setMonsters(() => [...monsters, ...newMonsters]);
+		setSources(() => [...sources, newSource]);
+	};
+
+	return (
+		<>
+			<h2>Source Upload</h2>
+			<div className="flex justify-between">
+				<form onSubmit={handleSubmit}>
+					<input type="file" className="p-2 border-0" onChange={handleUpload} required={true} />
+					<button type="submit">Save</button>
+				</form>
+			</div>
+
+			{error && <span className="italic text-red-600">{error}</span>}
+		</>
+	);
+};

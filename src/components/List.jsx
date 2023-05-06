@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
 
-const List = ({ title, storageKey, isEditable = false }) => {
+const List = ({ title, subtitleKey, storageKey, isEditable = false }) => {
 	const styles = {
 		heading: 'mt-3 flex justify-between border-b-2 border-b-slate-500',
 		headingTitle: 'text-lg text-[color:var(--text-highlight)]',
@@ -28,29 +28,38 @@ const List = ({ title, storageKey, isEditable = false }) => {
 			</div>
 
 			<ul>
-				{listItems.map((item) => (
-					<ListItem
-						key={item.id}
-						item={item}
-						editable={isEditable}
-						onView={viewItem}
-						onEdit={editItem}
-						onDelete={deleteItem}
-					/>
-				))}
+				{listItems
+					.sort((a, b) => {
+						if (a.name > b.name) return 1;
+						if (a.name < b.name) return -1;
+						return 0;
+					})
+					.map((item) => (
+						<ListItem
+							key={item.id}
+							item={item}
+							subtitleKey={subtitleKey}
+							editable={isEditable}
+							onView={viewItem}
+							onEdit={editItem}
+							onDelete={deleteItem}
+						/>
+					))}
 			</ul>
 		</>
 	);
 };
 
-const ListItem = ({ item, editable, onView, onEdit, onDelete }) => {
+const ListItem = ({ item, subtitleKey, editable, onView, onEdit, onDelete }) => {
 	const styles = {
 		listItem: 'flex justify-between items-center border-b border-b-slate-500 py-1',
 	};
 
 	return (
 		<li className={styles.listItem}>
-			<div>{item.name}</div>
+			<div>
+				{item.name} {subtitleKey && <span className="italic">({item[subtitleKey]})</span>}
+			</div>
 
 			<div className="text-[color:var(--text-highlight)] text-sm flex gap-2">
 				<button onClick={() => onView(item.id)}>view</button>

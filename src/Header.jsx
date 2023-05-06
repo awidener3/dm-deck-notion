@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import srdSource from './assets/json/srd_monsters_with_id.json';
+import srdSource from './assets/json/srd_monsters.json';
 import encounters from './assets/json/sample_encounters.json';
 import characters from './assets/json/sample_characters.json';
 
@@ -24,7 +24,16 @@ const clearStorage = () => window.localStorage.clear();
 const seedStorage = () => {
 	window.localStorage.clear();
 
+	const sources = [
+		{
+			source: 'Systems Reference Document',
+			abbr: 'srd',
+			version: srdSource.version,
+		},
+	];
+
 	localStorage.setItem('monsters', JSON.stringify(srdSource.monsters));
+	localStorage.setItem('sources', JSON.stringify(sources));
 	localStorage.setItem('encounters', JSON.stringify(encounters));
 	localStorage.setItem('characters', JSON.stringify(characters));
 };
@@ -33,7 +42,10 @@ const idMonsters = () => {
 	const sources = JSON.parse(localStorage.getItem('monsters'));
 
 	sources.forEach((source) => {
-		source.monsters.forEach((monster) => (monster.id = crypto.randomUUID()));
+		source.monsters.forEach((monster) => {
+			monster.id = crypto.randomUUID();
+			monster.source = 'mm';
+		});
 	});
 
 	console.log(sources);
