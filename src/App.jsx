@@ -2,6 +2,7 @@ import Home from './Home';
 import NotFound from './NotFound';
 import Header from './Header';
 import Form from './components/Form';
+import EncounterForm from './components/EncounterForm';
 import CardView from './CardView';
 import CharacterCard from './components/CharacterCard';
 import MonsterCard from './components/MonsterCard';
@@ -48,10 +49,7 @@ export default function App() {
 						{/* Encounters */}
 						<Route path="/encounters">
 							<Route index element={<Encounters />} />
-							<Route
-								path="new"
-								element={<Form storageKey={'encounters'} title={'Encounter'} properties={encounterProps} />}
-							/>
+							<Route path="new" element={<EncounterForm properties={encounterProps} />} />
 							<Route
 								path=":id"
 								element={
@@ -60,10 +58,7 @@ export default function App() {
 									</CardView>
 								}
 							/>
-							<Route
-								path="edit/:id"
-								element={<Form storageKey={'encounters'} title={'Encounter'} properties={[]} existing={true} />}
-							/>
+							<Route path="edit/:id" element={<EncounterForm />} />
 						</Route>
 
 						{/* Monsters */}
@@ -145,7 +140,7 @@ const SourceUpload = () => {
 	};
 
 	const code = `	// source-file.json
-	
+
 	{
 		"source": "your source",
 		"version": "0.0.0",

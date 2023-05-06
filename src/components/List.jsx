@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
 
-const List = ({ title, subtitleKey, storageKey, isEditable = false }) => {
+const List = ({ title, subtitleKey, storageKey, isEditable = false, isSelectable = false }) => {
 	const styles = {
 		heading: 'mt-3 flex justify-between border-b-2 border-b-slate-500',
 		headingTitle: 'text-lg text-[color:var(--text-highlight)]',
@@ -16,6 +16,9 @@ const List = ({ title, subtitleKey, storageKey, isEditable = false }) => {
 	const handleAdd = () => navigate('./new');
 	const viewItem = (itemId) => navigate(`./${itemId}`);
 	const editItem = (itemId) => navigate(`./edit/${itemId}`);
+	const selectItem = (itemId) => {
+		console.log('selecting item', itemId);
+	};
 	const deleteItem = (itemId) => setListItems(listItems.filter((item) => item.id !== itemId));
 
 	return (
@@ -40,8 +43,10 @@ const List = ({ title, subtitleKey, storageKey, isEditable = false }) => {
 							item={item}
 							subtitleKey={subtitleKey}
 							editable={isEditable}
+							selectable={isSelectable}
 							onView={viewItem}
 							onEdit={editItem}
+							onSelect={selectItem}
 							onDelete={deleteItem}
 						/>
 					))}
@@ -50,7 +55,7 @@ const List = ({ title, subtitleKey, storageKey, isEditable = false }) => {
 	);
 };
 
-const ListItem = ({ item, subtitleKey, editable, onView, onEdit, onDelete }) => {
+const ListItem = ({ item, subtitleKey, editable, selectable, onView, onEdit, onSelect, onDelete }) => {
 	const styles = {
 		listItem: 'flex justify-between items-center border-b border-b-slate-500 py-1',
 	};
@@ -69,6 +74,7 @@ const ListItem = ({ item, subtitleKey, editable, onView, onEdit, onDelete }) => 
 						<button onClick={() => onDelete(item.id)}>delete</button>
 					</>
 				)}
+				{selectable && <button onClick={() => onSelect(item.id)}>select</button>}
 			</div>
 		</li>
 	);

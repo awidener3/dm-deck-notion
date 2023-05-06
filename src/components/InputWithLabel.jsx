@@ -1,5 +1,6 @@
 const InputWithLabel = ({
 	name,
+	path,
 	type = 'text',
 	placeholder,
 	min,
@@ -15,7 +16,10 @@ const InputWithLabel = ({
 		<span className={fullWidth ? 'flex flex-col col-span-2' : 'flex flex-col'}>
 			<label className="italic">{name.replace('_', ' ')}</label>
 			{type === 'select' ? (
-				<select {...register(name, { required })}>
+				<select defaultValue="DEFAULT" {...register(name, { required })}>
+					<option value="DEFAULT" disabled>
+						select
+					</option>
 					{options.map((option) => (
 						<option key={option} value={option}>
 							{option}
@@ -32,7 +36,7 @@ const InputWithLabel = ({
 					max={max}
 					minLength={minLength}
 					maxLength={maxLength}
-					{...register(name, { required })}
+					{...register(path || name, { required })}
 				/>
 			)}
 		</span>

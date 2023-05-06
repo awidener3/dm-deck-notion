@@ -63,8 +63,15 @@ export const actionProps = [
 		required: true,
 	},
 	{
+		name: 'damage_dice',
+		placeholder: '#d#',
+		minLength: 3,
+		maxLength: 5,
+	},
+	{
 		name: 'desc',
 		placeholder: 'description',
+		fullWidth: true,
 		minLength: 1,
 		required: true,
 	},
@@ -74,12 +81,6 @@ export const actionProps = [
 		placeholder: '#',
 		min: 0,
 		max: 50,
-	},
-	{
-		name: 'damage_dice',
-		placeholder: '#d#',
-		minLength: 3,
-		maxLength: 5,
 	},
 	{
 		name: 'damage_bonus',
@@ -488,15 +489,11 @@ export const monsterProps = [
 ];
 
 // todo: encounter may need separate form
-export const encounterProps = [
-	{
-		name: 'name',
-		placeholder: 'tpk',
-		required: true,
-	},
-	{
-		name: 'characters',
-		type: 'select',
-		required: true,
-	},
-];
+export const encounterProps = {
+	name: 'name',
+	placeholder: 'encounter name',
+	fullWidth: true,
+	minLength: 1,
+	maxLength: 128,
+	required: true,
+};

@@ -1,17 +1,16 @@
 import useLocalStorage from '../hooks/useLocalStorage';
-import FormFooter from './FormFooter';
 import InputWithLabel from './InputWithLabel';
-import NestedFieldArray from './NestedFieldArray';
+import FormFooter from './FormFooter';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getLocalStorageItemById } from '../utils';
+import { encounterProps } from '../utils/formProperties';
 
-const Form = ({ storageKey, title, properties, existing = null }) => {
+const EncounterForm = ({ properties, existing = null }) => {
 	const { id } = useParams();
 	const navigate = useNavigate();
-
-	const [items, setItems] = useLocalStorage(storageKey, []);
+	const [items, setItems] = useLocalStorage('encounters', []);
 
 	const {
 		control,
@@ -20,7 +19,7 @@ const Form = ({ storageKey, title, properties, existing = null }) => {
 		reset,
 		formState,
 		formState: { isSubmitSuccessful },
-	} = useForm({ values: getLocalStorageItemById(storageKey, id) || null });
+	} = useForm({ values: getLocalStorageItemById('encounters', id) || null });
 
 	useEffect(() => {
 		isSubmitSuccessful && reset();
@@ -40,21 +39,15 @@ const Form = ({ storageKey, title, properties, existing = null }) => {
 	return (
 		<>
 			<div className="flex justify-between items-center pb-1 border-b">
-				<h2 className="text-lg text-[color:var(--text-highlight)]">
-					{existing ? 'Edit' : 'New'} {title}
-				</h2>
+				<h2 className="text-lg text-[color:var(--text-highlight)]">{existing ? 'Edit' : 'New'} Encounter</h2>
 				<Link to={'../'}>go back</Link>
 			</div>
 
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2 gap-2">
 				<div className="grid grid-cols-2 gap-2">
-					{properties.map((property) =>
-						property.type === 'nested' ? (
-							<NestedFieldArray key={property.name} {...property} {...{ control, register }} />
-						) : (
-							<InputWithLabel key={property.name} {...property} register={register} />
-						)
-					)}
+					<InputWithLabel {...encounterProps} register={register} />
+
+					<ListPicker />
 				</div>
 
 				<FormFooter reset={reset} existing={existing} />
@@ -63,4 +56,8 @@ const Form = ({ storageKey, title, properties, existing = null }) => {
 	);
 };
 
-export default Form;
+const ListPicker = () => {
+	return <h1>list picker</h1>;
+};
+
+export default EncounterForm;
