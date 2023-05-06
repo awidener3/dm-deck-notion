@@ -58,7 +58,7 @@ const ListItem = ({ item, subtitleKey, editable, onView, onEdit, onDelete }) => 
 	return (
 		<li className={styles.listItem}>
 			<div>
-				{item.name} {subtitleKey && <span className="italic">({item[subtitleKey]})</span>}
+				{item.name} {subtitleKey && item[subtitleKey] && <span className="italic">({item[subtitleKey]})</span>}
 			</div>
 
 			<div className="text-[color:var(--text-highlight)] text-sm flex gap-2">

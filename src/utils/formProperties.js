@@ -54,6 +54,50 @@ export const characterProps = [
 	},
 ];
 
+export const actionProps = [
+	{
+		name: 'name',
+		placeholder: 'name',
+		minLength: 1,
+		maxLength: 128,
+		required: true,
+	},
+	{
+		name: 'desc',
+		placeholder: 'description',
+		minLength: 1,
+		required: true,
+	},
+	{
+		name: 'attack_bonus',
+		type: 'number',
+		placeholder: '#',
+		min: 0,
+		max: 50,
+	},
+	{
+		name: 'damage_dice',
+		placeholder: '#d#',
+		minLength: 3,
+		maxLength: 5,
+	},
+	{
+		name: 'damage_bonus',
+		type: 'number',
+		placeholder: '#',
+		min: 0,
+		max: 50,
+	},
+];
+
+export const actionDefaults = {
+	name: '',
+	desc: '',
+	attack_bonus: null,
+	damage_dice: '',
+	damage_bonus: null,
+};
+
 export const monsterProps = [
 	{
 		name: 'name',
@@ -63,7 +107,6 @@ export const monsterProps = [
 		minLength: 1,
 		maxLength: 128,
 	},
-	// todo: figure out source
 	{
 		name: 'size',
 		type: 'select',
@@ -186,7 +229,6 @@ export const monsterProps = [
 		placeholder: '#',
 		min: 0,
 		max: 10,
-		required: true,
 	},
 	{
 		name: 'dexterity',
@@ -202,7 +244,6 @@ export const monsterProps = [
 		placeholder: '#',
 		min: 0,
 		max: 10,
-		required: true,
 	},
 	{
 		name: 'constitution',
@@ -218,7 +259,6 @@ export const monsterProps = [
 		placeholder: '#',
 		min: 0,
 		max: 10,
-		required: true,
 	},
 	{
 		name: 'intelligence',
@@ -234,7 +274,6 @@ export const monsterProps = [
 		placeholder: '#',
 		min: 0,
 		max: 10,
-		required: true,
 	},
 	{
 		name: 'wisdom',
@@ -250,7 +289,6 @@ export const monsterProps = [
 		placeholder: '#',
 		min: 0,
 		max: 10,
-		required: true,
 	},
 	{
 		name: 'charisma',
@@ -266,7 +304,6 @@ export const monsterProps = [
 		placeholder: '#',
 		min: 0,
 		max: 10,
-		required: true,
 	},
 	{
 		name: 'acrobatics',
@@ -423,6 +460,30 @@ export const monsterProps = [
 		name: 'challenge_rating',
 		placeholder: '1, 1/4, 30, ...',
 		required: true,
+	},
+	{
+		name: 'special_abilities',
+		type: 'nested',
+		fullWidth: true,
+		properties: actionProps,
+	},
+	{
+		name: 'actions',
+		type: 'nested',
+		fullWidth: true,
+		properties: actionProps,
+	},
+	{
+		name: 'reactions',
+		type: 'nested',
+		fullWidth: true,
+		properties: actionProps,
+	},
+	{
+		name: 'legendary_actions',
+		type: 'nested',
+		fullWidth: true,
+		properties: actionProps,
 	},
 ];
 

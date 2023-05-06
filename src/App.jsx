@@ -6,10 +6,11 @@ import CardView from './CardView';
 import CharacterCard from './components/CharacterCard';
 import MonsterCard from './components/MonsterCard';
 import List from './components/List';
+import ActionForm from './components/ActionForm';
+import useLocalStorage from './hooks/useLocalStorage';
 import { characterProps, encounterProps, monsterProps } from './utils/formProperties';
 import { Link, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
-import useLocalStorage from './hooks/useLocalStorage';
 
 export default function App() {
 	return (
@@ -19,10 +20,10 @@ export default function App() {
 			<div className="flex flex-1 flex-col overflow-y-auto min-h-min">
 				<div className="text-left flex flex-1 flex-col mx-auto w-3/4 max-w-xl">
 					<Routes>
-						{/* Home route */}
+						{/* Home */}
 						<Route path="/" element={<Home />} />
 
-						{/* Character routes */}
+						{/* Characters */}
 						<Route path="/characters">
 							<Route index element={<Characters />} />
 							<Route
@@ -45,7 +46,7 @@ export default function App() {
 							/>
 						</Route>
 
-						{/* Encounter routes */}
+						{/* Encounters */}
 						<Route path="/encounters">
 							<Route index element={<Encounters />} />
 							<Route
@@ -66,7 +67,7 @@ export default function App() {
 							/>
 						</Route>
 
-						{/* Monster routes */}
+						{/* Monsters */}
 						<Route path="/monsters">
 							<Route index element={<Monsters />} />
 							<Route path="new">
@@ -74,7 +75,9 @@ export default function App() {
 									index
 									element={
 										<>
-											<Link to={'./source'}>add source?</Link>
+											<Link className="text-right" to={'./source'}>
+												add source?
+											</Link>
 											<Form storageKey={'monsters'} title={'Monster'} properties={monsterProps} />
 										</>
 									}

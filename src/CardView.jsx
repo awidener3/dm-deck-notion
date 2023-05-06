@@ -9,7 +9,7 @@ const CardView = ({ storageKey, children }) => {
 
 	return (
 		<>
-			<Link to="../">Back</Link>
+			<Link to="../">go back</Link>
 
 			{item ? cloneElement(children, { item }) : <NotFound />}
 		</>
