@@ -1,8 +1,7 @@
 import { NavLink } from 'react-router-dom';
-import monsters from './assets/json/srd_monsters.json';
+import srdSource from './assets/json/srd_monsters_with_id.json';
 import encounters from './assets/json/sample_encounters.json';
 import characters from './assets/json/sample_characters.json';
-import parties from './assets/json/sample_parties.json';
 
 const routes = [
 	{ name: 'home', path: '/' },
@@ -25,10 +24,19 @@ const clearStorage = () => window.localStorage.clear();
 const seedStorage = () => {
 	window.localStorage.clear();
 
-	localStorage.setItem('monsters', JSON.stringify([monsters]));
+	localStorage.setItem('monsters', JSON.stringify(srdSource.monsters));
 	localStorage.setItem('encounters', JSON.stringify(encounters));
 	localStorage.setItem('characters', JSON.stringify(characters));
-	localStorage.setItem('parties', JSON.stringify(parties));
+};
+
+const idMonsters = () => {
+	const sources = JSON.parse(localStorage.getItem('monsters'));
+
+	sources.forEach((source) => {
+		source.monsters.forEach((monster) => (monster.id = crypto.randomUUID()));
+	});
+
+	console.log(sources);
 };
 
 const Header = () => (
@@ -39,7 +47,7 @@ const Header = () => (
 					key={route.name}
 					to={route.path}
 					className={({ isActive }) =>
-						isActive ? 'text-[color:var(--text-highlight)] font-bold underline' : undefined
+						isActive ? 'text-[color:var(--text-highlight)] font-bold' : 'text-[color:var(--text-primary)]'
 					}
 				>
 					{route.name}
@@ -48,8 +56,15 @@ const Header = () => (
 		</ul>
 
 		<div className="flex flex-row w-max gap-3">
-			<a onClick={clearStorage}>empty</a>
-			<a onClick={seedStorage}>seed</a>
+			<a className="text-[color:var(--text-primary)]" onClick={clearStorage}>
+				empty
+			</a>
+			<a className="text-[color:var(--text-primary)]" onClick={seedStorage}>
+				seed
+			</a>
+			<a className="text-[color:var(--text-primary)]" onClick={idMonsters}>
+				add id
+			</a>
 		</div>
 	</nav>
 );

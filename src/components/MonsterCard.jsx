@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Switch from 'react-switch';
 
 function MonsterCard({ monster }) {
 	const [checked, setChecked] = useState(false);
@@ -24,10 +23,7 @@ function MonsterCard({ monster }) {
 		'survival',
 	];
 
-	const handleChecked = () => {
-		setChecked(!checked);
-	};
-
+	const handleChecked = () => setChecked(!checked);
 	function getSkills() {
 		const skillsPresent = skills.filter((skill) => skill in monster);
 
@@ -44,117 +40,120 @@ function MonsterCard({ monster }) {
 	}
 
 	return (
-		<div className="flex-col border rounded text-sm my-2">
-			<h1 className="bg-white text-black text-2xl">{monster.name}</h1>
-			<p className="text-left p-1">
+		<div className="flex-col border-2 border-[var(--bg-secondary)] rounded-lg text-sm my-2 p-2">
+			<h1 className="text-2xl italic p-1">{monster.name}</h1>
+			<p className="p-1">
 				{monster.size} {monster.type}
 				{monster.subtype && ` (${monster.subtype})`}, {monster.alignment}
 			</p>
 
 			<ul className="flex justify-between py-1 px-2">
 				<li>
-					AC <span className="font-light text-white italic">{monster.armor_class}</span>
+					<strong>AC</strong>&nbsp;
+					<em>{monster.armor_class}</em>
 				</li>
 				<li>
-					HP{' '}
-					<span className="font-light text-white italic">
+					<strong>HP</strong>&nbsp;
+					<em>
 						{monster.hit_points} ({monster.hit_dice})
-					</span>
+					</em>
 				</li>
 				<li>
-					SPD <span className="font-light text-white italic">{monster.speed}</span>
+					<strong>SPD</strong>&nbsp;
+					<em>{monster.speed}</em>
 				</li>
 			</ul>
 
-			<ul className="flex justify-between p-2 border-b">
+			<ul className="flex justify-between p-2">
 				<li className="flex flex-col">
-					STR <span>{monster.strength}</span>
+					<strong>STR</strong> {monster.strength}
 				</li>
 				<li className="flex flex-col">
-					DEX <span>{monster.dexterity}</span>
+					<strong>DEX</strong> {monster.dexterity}
 				</li>
 				<li className="flex flex-col">
-					CON <span>{monster.constitution}</span>
+					<strong>CON</strong> {monster.constitution}
 				</li>
 				<li className="flex flex-col">
-					INT <span>{monster.intelligence}</span>
+					<strong>INT</strong> {monster.intelligence}
 				</li>
 				<li className="flex flex-col">
-					WIS <span>{monster.wisdom}</span>
+					<strong>WIS</strong> {monster.wisdom}
 				</li>
 				<li className="flex flex-col">
-					CHA <span>{monster.charisma}</span>
+					<strong>CHA</strong> {monster.charisma}
 				</li>
 			</ul>
 
-			<div className="p-2 border-b">
-				{getSkills() && (
-					<p className="text-left">
-						<span className="font-bold italic">Skills:</span> {getSkills()}
-					</p>
-				)}
+			<Section>
+				{getSkills() && <Ability title={'Skills:'} description={getSkills()} />}
 
-				<p className="text-left">
-					<span className="font-bold italic">Senses:</span> {monster.senses}
-				</p>
-				<p className="text-left">
-					<span className="font-bold italic">Languages:</span> {monster.languages}
-				</p>
+				<Ability title={'Senses:'} description={monster.senses} />
 
-				{monster.special_abilities &&
-					monster.special_abilities.map((ability) => (
-						<p key={ability.name} className="mt-2 text-left">
-							<span className="font-bold italic">{ability.name}.</span> {ability.desc}
-						</p>
+				<Ability title={'Languages:'} description={monster.languages} />
+			</Section>
+
+			{monster.special_abilities && (
+				<Section>
+					{monster.special_abilities.map((ability) => (
+						<Ability key={ability.name} title={ability.name + '.'} description={ability.desc} />
 					))}
-			</div>
+				</Section>
+			)}
 
-			<div className={monster.reactions || monster.legendary_actions ? 'p-2 border-b' : 'p-2'}>
+			<Section>
 				<div className="flex justify-between">
 					<h1 className="text-lg">Actions</h1>
 					<div className="flex gap-2 items-center">
-						<Switch onChange={handleChecked} checked={checked} uncheckedIcon={false} checkedIcon={false} />
+						<input type="checkbox" onChange={handleChecked} checked={checked} />
 						Show details
 					</div>
 				</div>
 
-				{monster.actions &&
-					monster.actions.map((action) => (
-						<p key={action.name} className="text-left mt-2">
-							<span className="font-bold italic">{action.name}.</span> <Action checked={checked} action={action} />
-						</p>
-					))}
-			</div>
+				{monster.actions.map((action) => (
+					<p key={action.name} className="mt-2">
+						<span className="font-bold italic">{action.name}.</span> <Action checked={checked} action={action} />
+					</p>
+				))}
+			</Section>
 
 			{monster.reactions && (
-				<div className="p-2">
-					<h1 className="text-lg text-left">Reactions</h1>
+				<Section>
+					<h1 className="text-lg">Reactions</h1>
 
 					{monster.reactions.map((reaction) => (
-						<p key={reaction.name} className="text-left mt-2">
+						<p key={reaction.name} className="mt-2">
 							<span className="font-bold italic">{reaction.name}.</span> {reaction.desc}
 						</p>
 					))}
-				</div>
+				</Section>
 			)}
 
 			{monster.legendary_actions && (
-				<div className="p-2">
-					<h1 className="text-lg text-left">Legendary Actions</h1>
+				<Section>
+					<h1 className="text-lg">Legendary Actions</h1>
 
 					{monster.legendary_actions.map((action, index) => (
-						<p key={index} className="text-left mt-2">
+						<p key={index} className="mt-2">
 							{action.name && <span className="font-bold italic">{action.name}.</span>}
 							{action.desc}
 						</p>
 					))}
-				</div>
+				</Section>
 			)}
 		</div>
 	);
 }
 
-function Action({ action, checked }) {
+const Section = ({ children }) => <div className="p-2 border-t border-[var(--bg-secondary)]">{children}</div>;
+
+const Ability = ({ title, description }) => (
+	<p>
+		<span className="font-bold italic">{title}</span> {description}
+	</p>
+);
+
+const Action = ({ action, checked }) => {
 	const getRange = () => {
 		const arr = action.desc.split(' ');
 		if (action.desc.startsWith('Melee Weapon Attack:')) {
@@ -201,6 +200,6 @@ function Action({ action, checked }) {
 			</>
 		);
 	}
-}
+};
 
 export default MonsterCard;

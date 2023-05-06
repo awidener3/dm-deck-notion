@@ -1,28 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getMonsterArray } from './utils';
+import List from './components/List';
+import useLocalStorage from './hooks/useLocalStorage';
 
 function Monsters() {
-	const [monsters, setMonsters] = useState(getMonsterArray());
+	const [monsters, setMonsters] = useLocalStorage('monsters', []);
 	const [searched, setSearched] = useState([]);
 	const [file, setFile] = useState(null);
 	const [error, setError] = useState(null);
 
-	useEffect(() => setMonsters(getMonsterArray()), []);
-
 	function handleInput(e) {
 		// Stop query unless user has typed 3 or more characters
-		if (e.target.value < 3) return setSearched([]);
-
-		const match = monsters
-			.filter((m) => m.name && m.name.toLowerCase().includes(e.target.value.toLowerCase()))
-			.sort(function (a, b) {
-				if (a.name > b.name) return 1;
-				if (a.name < b.name) return -1;
-				return 0;
-			});
-
-		setSearched(match);
+		// if (e.target.value < 3) return setSearched([]);
+		// const match = monsters
+		// 	.filter((m) => m.name && m.name.toLowerCase().includes(e.target.value.toLowerCase()))
+		// 	.sort(function (a, b) {
+		// 		if (a.name > b.name) return 1;
+		// 		if (a.name < b.name) return -1;
+		// 		return 0;
+		// 	});
+		// setSearched(match);
 	}
 
 	function handleSave() {
@@ -50,7 +47,6 @@ function Monsters() {
 		// Confirmed new source, update localstorage and state
 		existingSources.push(newSource);
 		localStorage.setItem('monsters', JSON.stringify(existingSources));
-		setMonsters(getMonsterArray());
 	}
 
 	function handleUpload(e) {
@@ -74,11 +70,7 @@ function Monsters() {
 
 			<input className="mt-2 flex-1 p-2" type="text" placeholder="Search monsters" onInput={handleInput} />
 
-			<ul className="flex-1 mt-3">
-				{searched.length > 0
-					? searched.map((monster, i) => <MonsterListItem key={i} monster={monster} />)
-					: monsters.map((monster, i) => <MonsterListItem key={i} monster={monster} index={i} />)}
-			</ul>
+			<List storageKey={'monsters'} title="Monsters" />
 		</div>
 	);
 }

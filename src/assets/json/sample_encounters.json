@@ -2,7 +2,7 @@
 	{
 		"id": 0,
 		"name": "First Fight",
-		"partyId": 0,
+		"character_ids": [0, 1, 2, 3],
 		"monsters": [
 			{
 				"name": "Goblin",
@@ -18,7 +18,7 @@
 	{
 		"id": 1,
 		"name": "TPK",
-		"partyId": 1,
+		"character_ids": [0, 1],
 		"monsters": [
 			{
 				"name": "Adult Black Dragon",

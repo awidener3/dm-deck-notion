@@ -17,3 +17,12 @@ export function getLocalStorageItem(key) {
 
 	return stored;
 }
+
+export function getLocalStorageItemById(key, id) {
+	const items = JSON.parse(localStorage.getItem(key));
+	const item = items.find((item) => item.id === id);
+
+	if (!item) return null;
+
+	return item;
+}

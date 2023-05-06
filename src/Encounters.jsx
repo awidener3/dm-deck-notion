@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import List from './components/List';
 
 function Encounters() {
 	const [formVisible, setFormVisible] = useState(false);
@@ -8,7 +9,27 @@ function Encounters() {
 
 	console.log(encounters);
 
-	return <h1>Encounters</h1>;
+	const handleEdit = () => {
+		console.log('edit!');
+	};
+
+	const handleView = () => {
+		console.log('view!');
+	};
+
+	const handleRun = () => {
+		console.log('run!');
+	};
+
+	return (
+		<>
+			<List title={'Encounters'} items={encounters}>
+				<button onClick={handleEdit}>edit</button>
+				<button onClick={handleView}>view</button>
+				<button onClick={handleRun}>run {'>>'} </button>
+			</List>
+		</>
+	);
 }
 
 export default Encounters;
