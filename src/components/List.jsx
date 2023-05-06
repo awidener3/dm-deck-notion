@@ -8,6 +8,7 @@ const List = ({ title, storageKey, isEditable = false }) => {
 		headingAdd: 'text-sm',
 	};
 
+	// todo: add pagination to reduce page scroll
 	const [listItems, setListItems] = useLocalStorage(storageKey, []);
 
 	const navigate = useNavigate();

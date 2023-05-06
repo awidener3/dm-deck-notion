@@ -2,13 +2,11 @@ export const characterProps = [
 	{
 		name: 'name',
 		placeholder: 'Arkhan',
-		type: 'text',
 		required: true,
 	},
 	{
 		name: 'class',
 		placeholder: 'barbarian',
-		type: 'text',
 		required: true,
 	},
 	{
@@ -34,5 +32,19 @@ export const characterProps = [
 		required: true,
 		min: 1,
 		max: 560,
+	},
+];
+
+// todo: encounter may need separate form
+export const encounterProps = [
+	{
+		name: 'name',
+		placeholder: 'tpk',
+		required: true,
+	},
+	{
+		name: 'character_ids',
+		type: 'select',
+		required: true,
 	},
 ];

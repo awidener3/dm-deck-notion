@@ -1,13 +1,13 @@
-import { Route, Routes } from 'react-router-dom';
 import Home from './Home';
 import NotFound from './NotFound';
 import Header from './Header';
-import { characterProps } from './utils/formProperties';
 import Form from './components/Form';
 import CardView from './CardView';
 import CharacterCard from './components/CharacterCard';
 import MonsterCard from './components/MonsterCard';
 import List from './components/List';
+import { characterProps, encounterProps } from './utils/formProperties';
+import { Route, Routes } from 'react-router-dom';
 
 export default function App() {
 	return (
@@ -35,12 +35,21 @@ export default function App() {
 								path="new"
 								element={<Form storageKey={'characters'} title={'Character'} properties={characterProps} />}
 							/>
+							<Route
+								path="edit/:id"
+								element={
+									<Form storageKey={'characters'} title={'Character'} properties={characterProps} existing={true} />
+								}
+							/>
 						</Route>
 
 						{/* Encounter routes */}
 						<Route path="/encounters">
 							<Route index element={<Encounters />} />
-							<Route path="new" element={<Form storageKey={'encounters'} title={'Encounter'} properties={[]} />} />
+							<Route
+								path="new"
+								element={<Form storageKey={'encounters'} title={'Encounter'} properties={encounterProps} />}
+							/>
 							<Route
 								path=":id"
 								element={
@@ -48,6 +57,10 @@ export default function App() {
 										<h1>Encounter here</h1>
 									</CardView>
 								}
+							/>
+							<Route
+								path="edit/:id"
+								element={<Form storageKey={'encounters'} title={'Encounter'} properties={[]} existing={true} />}
 							/>
 						</Route>
 
@@ -88,6 +101,6 @@ const Monsters = () => (
 
 const Encounters = () => (
 	<>
-		<List storageKey="encounters" title="Encounters" />
+		<List storageKey="encounters" title="Encounters" isEditable={true} />
 	</>
 );
