@@ -6,7 +6,6 @@ import CardView from './CardView';
 import CharacterCard from './components/CharacterCard';
 import MonsterCard from './components/MonsterCard';
 import List from './components/List';
-import ActionForm from './components/ActionForm';
 import useLocalStorage from './hooks/useLocalStorage';
 import { characterProps, encounterProps, monsterProps } from './utils/formProperties';
 import { Link, Route, Routes } from 'react-router-dom';
@@ -123,8 +122,6 @@ const Encounters = () => (
 
 const SourceUpload = () => {
 	const [file, setFile] = useState({});
-	const [error, setError] = useState(false);
-
 	const [monsters, setMonsters] = useLocalStorage('monsters', []);
 	const [sources, setSources] = useLocalStorage('sources', []);
 
@@ -135,8 +132,6 @@ const SourceUpload = () => {
 	};
 
 	const handleSubmit = () => {
-		setError(false);
-
 		const newSource = {
 			source: file.source,
 			abbr: file.abbr,
@@ -149,6 +144,18 @@ const SourceUpload = () => {
 		setSources(() => [...sources, newSource]);
 	};
 
+	const code = `	// source-file.json
+	
+	{
+		"source": "your source",
+		"version": "0.0.0",
+		"monsters": [
+			{
+				// monster data
+			},
+		]
+	}`;
+
 	return (
 		<>
 			<h2>Source Upload</h2>
@@ -159,7 +166,12 @@ const SourceUpload = () => {
 				</form>
 			</div>
 
-			{error && <span className="italic text-red-600">{error}</span>}
+			<p>
+				Sources should be formatted with a <code>source</code> and <code>version</code> property, and a{' '}
+				<code>monsters</code> array of objects.
+			</p>
+
+			<pre className="mt-5">{code}</pre>
 		</>
 	);
 };

@@ -6,7 +6,6 @@ const InputWithLabel = ({
 	max,
 	minLength,
 	maxLength,
-	value,
 	options = [],
 	fullWidth = false,
 	required = false,
@@ -16,10 +15,7 @@ const InputWithLabel = ({
 		<span className={fullWidth ? 'flex flex-col col-span-2' : 'flex flex-col'}>
 			<label className="italic">{name.replace('_', ' ')}</label>
 			{type === 'select' ? (
-				<select defaultValue={value || 'DEFAULT'}>
-					<option value="DEFAULT" disabled>
-						select
-					</option>
+				<select {...register(name, { required })}>
 					{options.map((option) => (
 						<option key={option} value={option}>
 							{option}
@@ -30,7 +26,6 @@ const InputWithLabel = ({
 				<input
 					type={type}
 					className="p-2 font-thin"
-					defaultValue={value}
 					placeholder={placeholder}
 					autoComplete="off"
 					min={min}

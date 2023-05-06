@@ -40,7 +40,7 @@ function MonsterCard({ item }) {
 	}
 
 	return (
-		<div className="flex-col border-2 border-[var(--bg-secondary)] rounded-lg text-sm my-2 p-2">
+		<div className="flex-col border-2 border-[var(--bg-secondary)] bg-[var(--card-bg)] rounded-lg text-sm my-2 p-2">
 			<h1 className="text-2xl italic p-1">{item.name}</h1>
 			<p className="p-1">
 				{item.size} {item.type}

@@ -21,6 +21,8 @@ const Form = ({ storageKey, title, properties, existing = null }) => {
 		formState: { isSubmitSuccessful },
 	} = useForm({ values: getLocalStorageItemById(storageKey, id) || null });
 
+	console.log(getLocalStorageItemById(storageKey, id));
+
 	useEffect(() => {
 		isSubmitSuccessful && reset();
 	}, [formState, reset]);
@@ -86,16 +88,18 @@ const NestedFieldArray = ({ name, fullWidth = false, properties, control, regist
 							<label className="italic">{property.name}</label>
 							{
 								<input
+									// defaultValue={field[property.name]}
 									type={property.type}
 									className="p-2 font-thin"
-									defaultValue={field[property.name]}
 									placeholder={property.placeholder}
 									autoComplete="off"
 									min={property.min}
 									max={property.max}
 									minLength={property.minLength}
 									maxLength={property.maxLength}
-									{...register(`${name}.${index}.${property.name}`)}
+									{...register(`${name}.${index}.${property.name}`, {
+										required: property.required,
+									})}
 								/>
 							}
 						</span>

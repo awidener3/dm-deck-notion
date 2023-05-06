@@ -17,7 +17,7 @@ const Home = () => (
 				reference for monster stats, spells, or items.
 			</TextBlock>
 
-			<div className="flex gap-5 border px-2 items-center">
+			<div className="flex gap-5 border px-2 items-center bg-[var(--card-bg)]">
 				<SiNotion className="ml-2" size={100} />
 				<TextBlock>
 					This version of DM Deck was designed to be embedded into <a href="https://www.notion.so/">Notion</a>, and will
