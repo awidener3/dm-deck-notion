@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
 import Home from './Home';
-import Encounters from './Encounters';
 import NotFound from './NotFound';
 import Header from './Header';
 import { characterProps } from './utils/formProperties';
@@ -18,8 +17,10 @@ export default function App() {
 			<div className="flex flex-1 flex-col overflow-y-auto min-h-min">
 				<div className="text-left flex flex-1 flex-col mx-auto w-3/4 max-w-xl">
 					<Routes>
+						{/* Home route */}
 						<Route path="/" element={<Home />} />
 
+						{/* Character routes */}
 						<Route path="/characters">
 							<Route index element={<Characters />} />
 							<Route
@@ -36,10 +37,24 @@ export default function App() {
 							/>
 						</Route>
 
-						<Route path="/encounters" element={<Encounters />} />
+						{/* Encounter routes */}
+						<Route path="/encounters">
+							<Route index element={<Encounters />} />
+							<Route path="new" element={<Form storageKey={'encounters'} title={'Encounter'} properties={[]} />} />
+							<Route
+								path=":id"
+								element={
+									<CardView storageKey={'encounters'}>
+										<h1>Encounter here</h1>
+									</CardView>
+								}
+							/>
+						</Route>
 
+						{/* Monster routes */}
 						<Route path="/monsters">
 							<Route index element={<Monsters />} />
+							<Route path="new" element={<Form storageKey={'monsters'} title={'Monster'} properties={[]} />} />
 							<Route
 								path=":id"
 								element={
@@ -50,6 +65,7 @@ export default function App() {
 							/>
 						</Route>
 
+						{/* Error routes */}
 						<Route path="*" element={<NotFound />}></Route>
 					</Routes>
 				</div>
@@ -67,5 +83,11 @@ const Characters = () => (
 const Monsters = () => (
 	<>
 		<List storageKey="monsters" title="Monsters" />
+	</>
+);
+
+const Encounters = () => (
+	<>
+		<List storageKey="encounters" title="Encounters" />
 	</>
 );

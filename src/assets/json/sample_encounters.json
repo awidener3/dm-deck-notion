@@ -1,6 +1,6 @@
 [
 	{
-		"id": 0,
+		"id": "0",
 		"name": "First Fight",
 		"character_ids": [0, 1, 2, 3],
 		"monsters": [
@@ -16,7 +16,7 @@
 		"npcs": []
 	},
 	{
-		"id": 1,
+		"id": "1",
 		"name": "TPK",
 		"character_ids": [0, 1],
 		"monsters": [
