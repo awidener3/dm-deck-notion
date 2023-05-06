@@ -51,7 +51,7 @@ const ListItem = ({ item, editable, onView, onEdit, onDelete }) => {
 		<li className={styles.listItem}>
 			<div>{item.name}</div>
 
-			<div className="text-[color:var(--text-highlight)] text-sm flex gap-2" data-id={item.id}>
+			<div className="text-[color:var(--text-highlight)] text-sm flex gap-2">
 				<button onClick={() => onView(item.id)}>view</button>
 				{editable && (
 					<>

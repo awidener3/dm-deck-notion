@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function MonsterCard({ monster }) {
+function MonsterCard({ item }) {
 	const [checked, setChecked] = useState(false);
 	const skills = [
 		'acrobatics',
@@ -25,7 +25,7 @@ function MonsterCard({ monster }) {
 
 	const handleChecked = () => setChecked(!checked);
 	function getSkills() {
-		const skillsPresent = skills.filter((skill) => skill in monster);
+		const skillsPresent = skills.filter((skill) => skill in item);
 
 		return skillsPresent
 			.map(
@@ -34,68 +34,68 @@ function MonsterCard({ monster }) {
 						.toLowerCase()
 						.split('_')
 						.map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-						.join(' ')} ${monster[skill] >= 0 ? '+' + monster[skill] : '-' + monster[skill]}`
+						.join(' ')} ${item[skill] >= 0 ? '+' + item[skill] : '-' + item[skill]}`
 			)
 			.join(', ');
 	}
 
 	return (
 		<div className="flex-col border-2 border-[var(--bg-secondary)] rounded-lg text-sm my-2 p-2">
-			<h1 className="text-2xl italic p-1">{monster.name}</h1>
+			<h1 className="text-2xl italic p-1">{item.name}</h1>
 			<p className="p-1">
-				{monster.size} {monster.type}
-				{monster.subtype && ` (${monster.subtype})`}, {monster.alignment}
+				{item.size} {item.type}
+				{item.subtype && ` (${item.subtype})`}, {item.alignment}
 			</p>
 
 			<ul className="flex justify-between py-1 px-2">
 				<li>
 					<strong>AC</strong>&nbsp;
-					<em>{monster.armor_class}</em>
+					<em>{item.armor_class}</em>
 				</li>
 				<li>
 					<strong>HP</strong>&nbsp;
 					<em>
-						{monster.hit_points} ({monster.hit_dice})
+						{item.hit_points} ({item.hit_dice})
 					</em>
 				</li>
 				<li>
 					<strong>SPD</strong>&nbsp;
-					<em>{monster.speed}</em>
+					<em>{item.speed}</em>
 				</li>
 			</ul>
 
 			<ul className="flex justify-between p-2">
 				<li className="flex flex-col">
-					<strong>STR</strong> {monster.strength}
+					<strong>STR</strong> {item.strength}
 				</li>
 				<li className="flex flex-col">
-					<strong>DEX</strong> {monster.dexterity}
+					<strong>DEX</strong> {item.dexterity}
 				</li>
 				<li className="flex flex-col">
-					<strong>CON</strong> {monster.constitution}
+					<strong>CON</strong> {item.constitution}
 				</li>
 				<li className="flex flex-col">
-					<strong>INT</strong> {monster.intelligence}
+					<strong>INT</strong> {item.intelligence}
 				</li>
 				<li className="flex flex-col">
-					<strong>WIS</strong> {monster.wisdom}
+					<strong>WIS</strong> {item.wisdom}
 				</li>
 				<li className="flex flex-col">
-					<strong>CHA</strong> {monster.charisma}
+					<strong>CHA</strong> {item.charisma}
 				</li>
 			</ul>
 
 			<Section>
 				{getSkills() && <Ability title={'Skills:'} description={getSkills()} />}
 
-				<Ability title={'Senses:'} description={monster.senses} />
+				<Ability title={'Senses:'} description={item.senses} />
 
-				<Ability title={'Languages:'} description={monster.languages} />
+				<Ability title={'Languages:'} description={item.languages} />
 			</Section>
 
-			{monster.special_abilities && (
+			{item.special_abilities && (
 				<Section>
-					{monster.special_abilities.map((ability) => (
+					{item.special_abilities.map((ability) => (
 						<Ability key={ability.name} title={ability.name + '.'} description={ability.desc} />
 					))}
 				</Section>
@@ -110,18 +110,18 @@ function MonsterCard({ monster }) {
 					</div>
 				</div>
 
-				{monster.actions.map((action) => (
+				{item.actions.map((action) => (
 					<p key={action.name} className="mt-2">
 						<span className="font-bold italic">{action.name}.</span> <Action checked={checked} action={action} />
 					</p>
 				))}
 			</Section>
 
-			{monster.reactions && (
+			{item.reactions && (
 				<Section>
 					<h1 className="text-lg">Reactions</h1>
 
-					{monster.reactions.map((reaction) => (
+					{item.reactions.map((reaction) => (
 						<p key={reaction.name} className="mt-2">
 							<span className="font-bold italic">{reaction.name}.</span> {reaction.desc}
 						</p>
@@ -129,11 +129,11 @@ function MonsterCard({ monster }) {
 				</Section>
 			)}
 
-			{monster.legendary_actions && (
+			{item.legendary_actions && (
 				<Section>
 					<h1 className="text-lg">Legendary Actions</h1>
 
-					{monster.legendary_actions.map((action, index) => (
+					{item.legendary_actions.map((action, index) => (
 						<p key={index} className="mt-2">
 							{action.name && <span className="font-bold italic">{action.name}.</span>}
 							{action.desc}

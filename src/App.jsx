@@ -1,13 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
-import Characters from './Characters';
 import Home from './Home';
 import Encounters from './Encounters';
-import Monsters from './Monsters';
-import Monster from './Monster';
 import NotFound from './NotFound';
 import Header from './Header';
-import Character from './Character';
-import CharacterForm from './CharacterForm';
+import { characterProps } from './utils/formProperties';
+import Form from './components/Form';
+import CardView from './CardView';
+import CharacterCard from './components/CharacterCard';
+import MonsterCard from './components/MonsterCard';
+import List from './components/List';
 
 export default function App() {
 	return (
@@ -21,15 +22,32 @@ export default function App() {
 
 						<Route path="/characters">
 							<Route index element={<Characters />} />
-							<Route path=":id" element={<Character />} />
-							<Route path="new" element={<CharacterForm />} />
+							<Route
+								path=":id"
+								element={
+									<CardView storageKey={'characters'}>
+										<CharacterCard />
+									</CardView>
+								}
+							/>
+							<Route
+								path="new"
+								element={<Form storageKey={'characters'} title={'Character'} properties={characterProps} />}
+							/>
 						</Route>
 
 						<Route path="/encounters" element={<Encounters />} />
 
 						<Route path="/monsters">
 							<Route index element={<Monsters />} />
-							<Route path=":id" element={<Monster />} />
+							<Route
+								path=":id"
+								element={
+									<CardView storageKey={'monsters'}>
+										<MonsterCard />
+									</CardView>
+								}
+							/>
 						</Route>
 
 						<Route path="*" element={<NotFound />}></Route>
@@ -39,3 +57,15 @@ export default function App() {
 		</div>
 	);
 }
+
+const Characters = () => (
+	<>
+		<List storageKey="characters" title="Characters" isEditable={true} />
+	</>
+);
+
+const Monsters = () => (
+	<>
+		<List storageKey="monsters" title="Monsters" />
+	</>
+);
