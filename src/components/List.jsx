@@ -1,7 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { useEffect, useState } from 'react';
+import { getLocalStorageItem } from '../utils';
 
-const List = ({ title, subtitleKey, storageKey, isEditable = false, isSelectable = false }) => {
+const List = ({
+	title,
+	subtitleKey,
+	storageKey,
+	isEditable = false,
+	isSelectable = false,
+	quantitySelect,
+	onSelect,
+}) => {
 	const styles = {
 		heading: 'mt-3 flex justify-between border-b-2 border-b-slate-500',
 		headingTitle: 'text-lg text-[color:var(--text-highlight)]',
@@ -11,14 +21,15 @@ const List = ({ title, subtitleKey, storageKey, isEditable = false, isSelectable
 	// todo: add pagination to reduce page scroll
 	const [listItems, setListItems] = useLocalStorage(storageKey, []);
 
+	useEffect(() => {
+		setListItems(() => getLocalStorageItem(storageKey));
+	}, [storageKey]);
+
 	const navigate = useNavigate();
 
-	const handleAdd = () => navigate('./new');
-	const viewItem = (itemId) => navigate(`./${itemId}`);
-	const editItem = (itemId) => navigate(`./edit/${itemId}`);
-	const selectItem = (itemId) => {
-		console.log('selecting item', itemId);
-	};
+	const handleAdd = () => navigate(`/${title}/new`);
+	const viewItem = (itemId) => navigate(`/${title}/${itemId}`);
+	const editItem = (itemId) => navigate(`/${title}/edit/${itemId}`);
 	const deleteItem = (itemId) => setListItems(listItems.filter((item) => item.id !== itemId));
 
 	return (
@@ -46,8 +57,9 @@ const List = ({ title, subtitleKey, storageKey, isEditable = false, isSelectable
 							selectable={isSelectable}
 							onView={viewItem}
 							onEdit={editItem}
-							onSelect={selectItem}
+							onSelect={onSelect}
 							onDelete={deleteItem}
+							quantitySelect={quantitySelect}
 						/>
 					))}
 			</ul>
@@ -55,26 +67,48 @@ const List = ({ title, subtitleKey, storageKey, isEditable = false, isSelectable
 	);
 };
 
-const ListItem = ({ item, subtitleKey, editable, selectable, onView, onEdit, onSelect, onDelete }) => {
+const ListItem = ({ item, subtitleKey, editable, selectable, onView, onEdit, onSelect, onDelete, quantitySelect }) => {
 	const styles = {
 		listItem: 'flex justify-between items-center border-b border-b-slate-500 py-1',
+		selectedListItem: 'flex justify-between items-center border-b border-b-slate-500 py-1 bg-[var(--text-highlight)]',
+	};
+
+	const [selected, setSelected] = useState(false);
+	const [quantity, setQuantity] = useState(1);
+
+	const handleSelect = (id, quantity) => {
+		setSelected(true);
+		onSelect(id, quantity);
 	};
 
 	return (
-		<li className={styles.listItem}>
+		<li className={selected ? styles.selectedListItem : styles.listItem}>
 			<div>
 				{item.name} {subtitleKey && item[subtitleKey] && <span className="italic">({item[subtitleKey]})</span>}
 			</div>
 
 			<div className="text-[color:var(--text-highlight)] text-sm flex gap-2">
-				<button onClick={() => onView(item.id)}>view</button>
+				<button type="button" onClick={() => onView(item.id)}>
+					view
+				</button>
 				{editable && (
 					<>
-						<button onClick={() => onEdit(item.id)}>edit</button>
-						<button onClick={() => onDelete(item.id)}>delete</button>
+						<button type="button" onClick={() => onEdit(item.id)}>
+							edit
+						</button>
+						<button type="button" onClick={() => onDelete(item.id)}>
+							delete
+						</button>
 					</>
 				)}
-				{selectable && <button onClick={() => onSelect(item.id)}>select</button>}
+				{selectable && (
+					<button type="button" onClick={() => handleSelect(item.id, quantity)}>
+						select
+					</button>
+				)}
+				{quantitySelect && (
+					<input type="number" onChange={() => setQuantity(quantity + 1)} value={quantity} min={1} max={25} />
+				)}
 			</div>
 		</li>
 	);

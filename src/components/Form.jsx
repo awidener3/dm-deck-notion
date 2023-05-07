@@ -43,7 +43,7 @@ const Form = ({ storageKey, title, properties, existing = null }) => {
 				<h2 className="text-lg text-[color:var(--text-highlight)]">
 					{existing ? 'Edit' : 'New'} {title}
 				</h2>
-				<Link to={'../'}>go back</Link>
+				<Link to={-1}>go back</Link>
 			</div>
 
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2 gap-2">
