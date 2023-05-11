@@ -101,21 +101,23 @@ function MonsterCard({ item }) {
 				</Section>
 			)}
 
-			<Section>
-				<div className="flex justify-between">
-					<h1 className="text-lg">Actions</h1>
-					<div className="flex gap-2 items-center">
-						<input type="checkbox" onChange={handleChecked} checked={checked} />
-						Show details
+			{item.actions && (
+				<Section>
+					<div className="flex justify-between">
+						<h1 className="text-lg">Actions</h1>
+						<div className="flex gap-2 items-center">
+							<input type="checkbox" onChange={handleChecked} checked={checked} />
+							Show details
+						</div>
 					</div>
-				</div>
 
-				{item.actions.map((action) => (
-					<p key={action.name} className="mt-2">
-						<span className="font-bold italic">{action.name}.</span> <Action checked={checked} action={action} />
-					</p>
-				))}
-			</Section>
+					{item.actions.map((action) => (
+						<p key={action.name} className="mt-2">
+							<span className="font-bold italic">{action.name}.</span> <Action checked={checked} action={action} />
+						</p>
+					))}
+				</Section>
+			)}
 
 			{item.reactions && (
 				<Section>

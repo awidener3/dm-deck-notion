@@ -124,6 +124,26 @@ pre {
 	tab-size: 2;
 }
 
+html[data-theme='light'] {
+	--text-primary: #213547;
+	--text-secondary: #ffffff;
+
+	--bg-primary: #f8f2e2;
+	--bg-secondary: #213547;
+
+	--card-bg: #ffffff;
+}
+
+html[data-theme='dark'] {
+	--text-primary: rgba(255, 255, 255, 0.87);
+	--text-secondary: #191919;
+
+	--bg-primary: #191919;
+	--bg-secondary: rgba(255, 255, 255, 0.87);
+
+	--card-bg: #2f2f2f;
+}
+
 @media (prefers-color-scheme: light) {
 	:root {
 		/* color: #213547; */

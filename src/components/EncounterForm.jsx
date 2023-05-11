@@ -36,7 +36,6 @@ const EncounterForm = ({ properties, existing = null }) => {
 	}, [formState, reset]);
 
 	const onSubmit = (data) => {
-		console.log('data', data);
 		existing ? updateItems(data) : addItem({ ...data, id: crypto.randomUUID() });
 		navigate(-1);
 	};
@@ -55,17 +54,7 @@ const EncounterForm = ({ properties, existing = null }) => {
 
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2 gap-2">
 				<InputWithLabel {...encounterProps} register={register} />
-
-				{/* {charactersFields.map((item, index) => (
-					<input key={item.id} type="hidden" {...register(`characters[${index}].id`)} />
-				))} */}
-				{/* 
-				{monstersFields.map((item, index) => (
-					<input key={item.id} type="hidden" {...register(mosnters[index])} />
-				))} */}
-
-				<ListPicker charactersAppend={charactersAppend} monstersAppend={monstersAppend} />
-
+				<ListPicker {...{ charactersAppend, charactersRemove, monstersAppend, monstersRemove }} />
 				<FormFooter reset={reset} existing={existing} />
 			</form>
 		</>
@@ -77,17 +66,9 @@ const sampleLists = ['characters', 'monsters'];
 const ListPicker = ({ lists = sampleLists, charactersAppend, monstersAppend }) => {
 	const [selectedIndex, setSelectedIndex] = useState(0);
 
-	const handleClick = (index) => {
-		setSelectedIndex(index);
-	};
-
-	const handleSelect = (id, quantity) => {
-		if (lists[selectedIndex] === 'characters') {
-			charactersAppend(id);
-		} else {
-			monstersAppend({ id, quantity: quantity || 1 });
-		}
-	};
+	const handleClick = (index) => setSelectedIndex(index);
+	const handleSelect = (id, quantity) =>
+		lists[selectedIndex] === 'characters' ? charactersAppend(id) : monstersAppend({ id, quantity: quantity || 1 });
 
 	return (
 		<div>

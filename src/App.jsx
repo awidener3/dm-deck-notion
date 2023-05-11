@@ -8,11 +8,23 @@ import CharacterCard from './components/CharacterCard';
 import MonsterCard from './components/MonsterCard';
 import List from './components/List';
 import useLocalStorage from './hooks/useLocalStorage';
+import Preferences from './Preferences';
 import { characterProps, encounterProps, monsterProps } from './utils/formProperties';
 import { Link, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function App() {
+	const [theme, setTheme] = useLocalStorage(
+		'theme',
+		window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+	);
+
+	const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+
+	useEffect(() => {
+		document.documentElement.setAttribute('data-theme', theme);
+	}, [theme]);
+
 	return (
 		<div className="flex flex-col h-screen">
 			<Header />
@@ -40,9 +52,7 @@ export default function App() {
 							/>
 							<Route
 								path="edit/:id"
-								element={
-									<Form storageKey={'characters'} title={'Character'} properties={characterProps} existing={true} />
-								}
+								element={<Form storageKey={'characters'} title={'Character'} properties={characterProps} isEditing />}
 							/>
 						</Route>
 
@@ -88,6 +98,8 @@ export default function App() {
 							/>
 						</Route>
 
+						<Route path="/preferences" element={<Preferences toggleTheme={toggleTheme} />}></Route>
+
 						{/* Error routes */}
 						<Route path="*" element={<NotFound />}></Route>
 					</Routes>
@@ -99,7 +111,7 @@ export default function App() {
 
 const Characters = () => (
 	<>
-		<List storageKey="characters" subtitleKey={'class'} title="Characters" isEditable={true} />
+		<List storageKey="characters" subtitleKey={'class'} title="Characters" isEditable />
 	</>
 );
 
@@ -111,7 +123,7 @@ const Monsters = () => (
 
 const Encounters = () => (
 	<>
-		<List storageKey="encounters" title="Encounters" isEditable={true} />
+		<List storageKey="encounters" title="Encounters" isEditable />
 	</>
 );
 

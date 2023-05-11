@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getLocalStorageItemById } from '../utils';
 
-const Form = ({ storageKey, title, properties, existing = null }) => {
+const Form = ({ storageKey, title, properties, isEditing = null }) => {
 	const { id } = useParams();
 	const navigate = useNavigate();
 
@@ -26,8 +26,26 @@ const Form = ({ storageKey, title, properties, existing = null }) => {
 		isSubmitSuccessful && reset();
 	}, [formState, reset]);
 
+	const cleanObject = (object) => {
+		Object.entries(object).forEach(([k, v]) => {
+			if (v && typeof v === 'object') cleanObject(v);
+			if (
+				(v && typeof v === 'object' && !Object.keys(v).length) ||
+				v === null ||
+				v === undefined ||
+				v.length === 0 ||
+				v === '(DEFAULT)'
+			) {
+				if (Array.isArray(object)) object.splice(k, 1);
+				else if (!(v instanceof Date)) delete object[k];
+			}
+		});
+		return object;
+	};
+
 	const onSubmit = (data) => {
-		existing ? updateItems(data) : addItem({ ...data, id: crypto.randomUUID() });
+		cleanObject(data);
+		isEditing ? updateItems(data) : addItem({ ...data, id: crypto.randomUUID() });
 
 		navigate(-1);
 	};
@@ -41,7 +59,7 @@ const Form = ({ storageKey, title, properties, existing = null }) => {
 		<>
 			<div className="flex justify-between items-center pb-1 border-b">
 				<h2 className="text-lg text-[color:var(--text-highlight)]">
-					{existing ? 'Edit' : 'New'} {title}
+					{isEditing ? 'Edit' : 'New'} {title}
 				</h2>
 				<Link to={-1}>go back</Link>
 			</div>
@@ -57,7 +75,7 @@ const Form = ({ storageKey, title, properties, existing = null }) => {
 					)}
 				</div>
 
-				<FormFooter reset={reset} existing={existing} />
+				<FormFooter reset={reset} isEditing={isEditing} />
 			</form>
 		</>
 	);
