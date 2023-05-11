@@ -9,9 +9,11 @@ import MonsterCard from './components/MonsterCard';
 import List from './components/List';
 import useLocalStorage from './hooks/useLocalStorage';
 import Preferences from './Preferences';
+import SourceUpload from './SourceUpload';
 import { characterProps, encounterProps, monsterProps } from './utils/formProperties';
 import { Link, Route, Routes } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import EncounterCard from './components/EncounterCard';
 
 export default function App() {
 	const [theme, setTheme] = useLocalStorage(
@@ -59,16 +61,17 @@ export default function App() {
 						{/* Encounters */}
 						<Route path="/encounters">
 							<Route index element={<Encounters />} />
-							<Route path="new" element={<EncounterForm properties={encounterProps} />} />
+							<Route path="new" element={<EncounterForm />} />
 							<Route
 								path=":id"
 								element={
 									<CardView storageKey={'encounters'}>
-										<h1>Encounter here</h1>
+										<EncounterCard storageKey={'encounters'} />
 									</CardView>
 								}
 							/>
 							<Route path="edit/:id" element={<EncounterForm />} />
+							<Route path="run/:id" element={<RunEncounter />} />
 						</Route>
 
 						{/* Monsters */}
@@ -111,74 +114,24 @@ export default function App() {
 
 const Characters = () => (
 	<>
-		<List storageKey="characters" subtitleKey={'class'} title="Characters" isEditable />
+		<List storageKey="characters" subtitleKey={'class'} title="Characters" canAdd isEditable />
 	</>
 );
 
 const Monsters = () => (
 	<>
-		<List storageKey="monsters" subtitleKey={'source'} title="Monsters" />
+		<List storageKey="monsters" subtitleKey={'source'} title="Monsters" canAdd />
 	</>
 );
 
 const Encounters = () => (
 	<>
-		<List storageKey="encounters" title="Encounters" isEditable />
+		<List storageKey="encounters" title="Encounters" canAdd canRun isEditable />
 	</>
 );
 
-const SourceUpload = () => {
-	const [file, setFile] = useState({});
-	const [monsters, setMonsters] = useLocalStorage('monsters', []);
-	const [sources, setSources] = useLocalStorage('sources', []);
-
-	const handleUpload = (e) => {
-		const fileReader = new FileReader();
-		fileReader.readAsText(e.target.files[0], 'UTF-8');
-		fileReader.onload = (e) => setFile(JSON.parse(e.target.result));
-	};
-
-	const handleSubmit = () => {
-		const newSource = {
-			source: file.source,
-			abbr: file.abbr,
-			version: file.version,
-		};
-
-		const newMonsters = file.monsters;
-
-		setMonsters(() => [...monsters, ...newMonsters]);
-		setSources(() => [...sources, newSource]);
-	};
-
-	const code = `	// source-file.json
-
-	{
-		"source": "your source",
-		"version": "0.0.0",
-		"monsters": [
-			{
-				// monster data
-			},
-		]
-	}`;
-
-	return (
-		<>
-			<h2>Source Upload</h2>
-			<div className="flex justify-between">
-				<form onSubmit={handleSubmit}>
-					<input type="file" className="p-2 border-0" onChange={handleUpload} required={true} />
-					<button type="submit">Save</button>
-				</form>
-			</div>
-
-			<p>
-				Sources should be formatted with a <code>source</code> and <code>version</code> property, and a{' '}
-				<code>monsters</code> array of objects.
-			</p>
-
-			<pre className="mt-5">{code}</pre>
-		</>
-	);
-};
+const RunEncounter = () => (
+	<>
+		<h1>Run Encounter</h1>
+	</>
+);

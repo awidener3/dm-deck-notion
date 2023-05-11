@@ -8,7 +8,7 @@ import { getLocalStorageItemById } from '../utils';
 import { encounterProps } from '../utils/formProperties';
 import List from './List';
 
-const EncounterForm = ({ properties, existing = null }) => {
+const EncounterForm = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const [items, setItems] = useLocalStorage('encounters', []);
@@ -26,6 +26,7 @@ const EncounterForm = ({ properties, existing = null }) => {
 		control,
 		name: 'characters',
 	});
+
 	const { append: monstersAppend, remove: monstersRemove } = useFieldArray({
 		control,
 		name: 'monsters',
@@ -36,7 +37,7 @@ const EncounterForm = ({ properties, existing = null }) => {
 	}, [formState, reset]);
 
 	const onSubmit = (data) => {
-		existing ? updateItems(data) : addItem({ ...data, id: crypto.randomUUID() });
+		id ? updateItems(data) : addItem({ ...data, id: crypto.randomUUID() });
 		navigate(-1);
 	};
 
@@ -48,14 +49,19 @@ const EncounterForm = ({ properties, existing = null }) => {
 	return (
 		<>
 			<div className="flex justify-between items-center pb-1 border-b">
-				<h2 className="text-lg text-[color:var(--text-highlight)]">{existing ? 'Edit' : 'New'} Encounter</h2>
+				<h2 className="text-lg text-[color:var(--text-highlight)]">{id ? 'Edit' : 'New'} Encounter</h2>
 				<Link to={-1}>go back</Link>
 			</div>
 
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2 gap-2">
 				<InputWithLabel {...encounterProps} register={register} />
-				<ListPicker {...{ charactersAppend, charactersRemove, monstersAppend, monstersRemove }} />
-				<FormFooter reset={reset} existing={existing} />
+				<ListPicker
+					charactersAppend={charactersAppend}
+					charactersRemove={charactersRemove}
+					monstersAppend={monstersAppend}
+					monstersRemove={monstersRemove}
+				/>
+				<FormFooter reset={reset} existing={id} />
 			</form>
 		</>
 	);
@@ -67,8 +73,11 @@ const ListPicker = ({ lists = sampleLists, charactersAppend, monstersAppend }) =
 	const [selectedIndex, setSelectedIndex] = useState(0);
 
 	const handleClick = (index) => setSelectedIndex(index);
-	const handleSelect = (id, quantity) =>
-		lists[selectedIndex] === 'characters' ? charactersAppend(id) : monstersAppend({ id, quantity: quantity || 1 });
+	const handleSelect = (id, quantity) => {
+		return lists[selectedIndex] === 'characters'
+			? charactersAppend(id)
+			: monstersAppend({ id, quantity: quantity || 1 });
+	};
 
 	return (
 		<div>

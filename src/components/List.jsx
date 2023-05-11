@@ -6,7 +6,10 @@ import { getLocalStorageItem } from '../utils';
 const List = ({
 	title,
 	subtitleKey,
-	storageKey,
+	storageKey = '',
+	items = [],
+	canAdd = false,
+	canRun = false,
 	isEditable = false,
 	isSelectable = false,
 	quantitySelect,
@@ -21,24 +24,28 @@ const List = ({
 	// todo: add pagination to reduce page scroll
 	const [listItems, setListItems] = useLocalStorage(storageKey, []);
 
+	// Optional storage key to retrieve all items
 	useEffect(() => {
-		setListItems(() => getLocalStorageItem(storageKey));
+		storageKey ? setListItems(() => getLocalStorageItem(storageKey)) : setListItems(items);
 	}, [storageKey]);
 
 	const navigate = useNavigate();
 
-	const handleAdd = () => navigate(`/${title}/new`);
-	const viewItem = (itemId) => navigate(`/${title}/${itemId}`);
-	const editItem = (itemId) => navigate(`/${title}/edit/${itemId}`);
+	const handleAdd = () => navigate(`/${title.toLowerCase()}/new`);
+	const handleRun = (itemId) => navigate(`/${title.toLowerCase()}/run/${itemId}`);
+	const viewItem = (itemId) => navigate(`/${title.toLowerCase()}/${itemId}`);
+	const editItem = (itemId) => navigate(`/${title.toLowerCase()}/edit/${itemId}`);
 	const deleteItem = (itemId) => setListItems(listItems.filter((item) => item.id !== itemId));
 
 	return (
 		<>
 			<div className={styles.heading}>
 				<h2 className={styles.headingTitle}>{title}</h2>
-				<button className={styles.headingAdd} onClick={handleAdd}>
-					add
-				</button>
+				{canAdd && (
+					<button className={styles.headingAdd} onClick={handleAdd}>
+						add
+					</button>
+				)}
 			</div>
 
 			<ul>
@@ -55,10 +62,12 @@ const List = ({
 							subtitleKey={subtitleKey}
 							editable={isEditable}
 							selectable={isSelectable}
+							canRun={canRun}
 							onView={viewItem}
 							onEdit={editItem}
 							onSelect={onSelect}
 							onDelete={deleteItem}
+							onRun={handleRun}
 							quantitySelect={quantitySelect}
 						/>
 					))}
@@ -67,7 +76,19 @@ const List = ({
 	);
 };
 
-const ListItem = ({ item, subtitleKey, editable, selectable, onView, onEdit, onSelect, onDelete, quantitySelect }) => {
+const ListItem = ({
+	item,
+	subtitleKey,
+	editable,
+	selectable,
+	onView,
+	onEdit,
+	onSelect,
+	onDelete,
+	onRun,
+	canRun,
+	quantitySelect,
+}) => {
 	const styles = {
 		listItem: 'flex justify-between items-center border-b border-b-slate-500 py-1',
 		selectedListItem: 'flex justify-between items-center border-b border-b-slate-500 py-1 bg-[var(--text-highlight)]',
@@ -83,7 +104,16 @@ const ListItem = ({ item, subtitleKey, editable, selectable, onView, onEdit, onS
 
 	return (
 		<li className={selected ? styles.selectedListItem : styles.listItem}>
-			<div>
+			<div className="flex gap-2">
+				{canRun && (
+					<button
+						type="button"
+						className="text-[color:var(--text-highlight)] text-sm gap-2"
+						onClick={() => onRun(item.id)}
+					>
+						run
+					</button>
+				)}
 				{item.name} {subtitleKey && item[subtitleKey] && <span className="italic">({item[subtitleKey]})</span>}
 			</div>
 
