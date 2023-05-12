@@ -1,14 +1,13 @@
 import { useForm } from 'react-hook-form';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import InputWithLabel from './InputWithLabel';
 import { useEffect, useState } from 'react';
 import { getLocalStorageItemById } from '../utils';
 import { initiativeProp } from '../utils/formProperties';
 import useLocalStorage from '../hooks/useLocalStorage';
 
-const RunForm = () => {
+const RunForm = ({ setRun }) => {
 	const {
-		control,
 		register,
 		handleSubmit,
 		reset,
@@ -18,10 +17,10 @@ const RunForm = () => {
 
 	const { id } = useParams();
 	const [runs, setRuns] = useLocalStorage('runs', []);
-
-	const encounter = getLocalStorageItemById('encounters', id);
 	const [characters, setCharacters] = useState([]);
 	const [monsters, setMonsters] = useState([]);
+
+	const encounter = getLocalStorageItemById('encounters', id);
 
 	useEffect(() => {
 		const characterData = encounter.characters.map((id) => getLocalStorageItemById('characters', id));
@@ -84,6 +83,7 @@ const RunForm = () => {
 		};
 
 		setRuns([...runs, runObject]);
+		setRun(runObject);
 	};
 
 	return (

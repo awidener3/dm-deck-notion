@@ -77,10 +77,6 @@ const Routes = ({ toggleTheme }) => {
 							index: true,
 							element: <Run />,
 						},
-						{
-							path: 'setup',
-							element: <RunForm />,
-						},
 					],
 				},
 			],
