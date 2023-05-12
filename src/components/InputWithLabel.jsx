@@ -1,5 +1,5 @@
 const InputWithLabel = ({
-	name,
+	name = '',
 	path,
 	type = 'text',
 	placeholder,
@@ -36,7 +36,7 @@ const InputWithLabel = ({
 					max={max}
 					minLength={minLength}
 					maxLength={maxLength}
-					{...register(path || name, { required })}
+					{...register(path ? path : name, { required })}
 				/>
 			)}
 		</span>

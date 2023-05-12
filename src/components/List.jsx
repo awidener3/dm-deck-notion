@@ -5,7 +5,7 @@ import { getLocalStorageItem } from '../utils';
 
 const List = ({
 	title,
-	subtitleKey,
+	subtitleKeys = [],
 	storageKey = '',
 	items = [],
 	canAdd = false,
@@ -32,10 +32,27 @@ const List = ({
 	const navigate = useNavigate();
 
 	const handleAdd = () => navigate(`/${title.toLowerCase()}/new`);
+
 	const handleRun = (itemId) => navigate(`/${title.toLowerCase()}/run/${itemId}`);
+
 	const viewItem = (itemId) => navigate(`/${title.toLowerCase()}/${itemId}`);
+
 	const editItem = (itemId) => navigate(`/${title.toLowerCase()}/edit/${itemId}`);
+
 	const deleteItem = (itemId) => setListItems(listItems.filter((item) => item.id !== itemId));
+
+	const listItemProps = {
+		subtitleKeys,
+		canRun,
+		onSelect,
+		quantitySelect,
+		editable: isEditable,
+		selectable: isSelectable,
+		onView: viewItem,
+		onEdit: editItem,
+		onDelete: deleteItem,
+		onRun: handleRun,
+	};
 
 	return (
 		<>
@@ -56,92 +73,64 @@ const List = ({
 						return 0;
 					})
 					.map((item) => (
-						<ListItem
-							key={item.id}
-							item={item}
-							subtitleKey={subtitleKey}
-							editable={isEditable}
-							selectable={isSelectable}
-							canRun={canRun}
-							onView={viewItem}
-							onEdit={editItem}
-							onSelect={onSelect}
-							onDelete={deleteItem}
-							onRun={handleRun}
-							quantitySelect={quantitySelect}
-						/>
+						<ListItem key={item.id} item={item} {...listItemProps} />
 					))}
 			</ul>
 		</>
 	);
 };
 
-const ListItem = ({
-	item,
-	subtitleKey,
-	editable,
-	selectable,
-	onView,
-	onEdit,
-	onSelect,
-	onDelete,
-	onRun,
-	canRun,
-	quantitySelect,
-}) => {
+const ListItem = (props) => {
+	const [selected, setSelected] = useState(false);
+	const [quantity, setQuantity] = useState(1);
+
 	const styles = {
 		listItem: 'flex justify-between items-center border-b border-b-slate-500 py-1',
 		selectedListItem: 'flex justify-between items-center border-b border-b-slate-500 py-1 bg-[var(--text-highlight)]',
 	};
 
-	const [selected, setSelected] = useState(false);
-	const [quantity, setQuantity] = useState(1);
-
-	const handleSelect = (id, quantity) => {
+	const handleQuantity = () => setQuantity(quantity + 1);
+	const handleSelect = () => {
 		setSelected(true);
-		onSelect(id, quantity);
+		props.onSelect(props.item.id, quantity);
 	};
+
+	const handleRun = () => props.onRun(props.item.id);
+	const handleView = () => props.onView(props.item.id);
+	const handleEdit = () => props.onEdit(props.item.id);
+	const handleDelete = () => props.onDelete(props.item.id);
+
+	const subtitle = false || <span className="italic">({props.item[props.subtitleKeys]})</span>;
 
 	return (
 		<li className={selected ? styles.selectedListItem : styles.listItem}>
 			<div className="flex gap-2">
-				{canRun && (
-					<button
-						type="button"
-						className="text-[color:var(--text-highlight)] text-sm gap-2"
-						onClick={() => onRun(item.id)}
-					>
-						run
-					</button>
-				)}
-				{item.name} {subtitleKey && item[subtitleKey] && <span className="italic">({item[subtitleKey]})</span>}
+				{props.canRun && <ListButton text={'run'} handler={handleRun} />}
+				{props.item.name}
 			</div>
 
-			<div className="text-[color:var(--text-highlight)] text-sm flex gap-2">
-				<button type="button" onClick={() => onView(item.id)}>
-					view
-				</button>
-				{editable && (
+			<div className="flex gap-2">
+				<ListButton text={'view'} handler={handleView} />
+
+				{props.editable && (
 					<>
-						<button type="button" onClick={() => onEdit(item.id)}>
-							edit
-						</button>
-						<button type="button" onClick={() => onDelete(item.id)}>
-							delete
-						</button>
+						<ListButton text={'edit'} handler={handleEdit} />
+						<ListButton text={'delete'} handler={handleDelete} />
 					</>
 				)}
-				{selectable && (
-					<button type="button" onClick={() => handleSelect(item.id, quantity)}>
-						select
-					</button>
-				)}
-				{quantitySelect && (
-					<input type="number" onChange={() => setQuantity(quantity + 1)} value={quantity} min={1} max={25} />
-				)}
+
+				{props.selectable && <ListButton text={'select'} handler={handleSelect} />}
+
+				{props.quantitySelect && <input type="number" onChange={handleQuantity} value={quantity} min={1} max={25} />}
 			</div>
 		</li>
 	);
 };
+
+const ListButton = ({ handler, text }) => (
+	<button className="text-[color:var(--text-highlight)] text-sm" type="button" onClick={handler}>
+		{text}
+	</button>
+);
 
 export default List;
