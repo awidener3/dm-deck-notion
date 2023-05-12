@@ -77,6 +77,8 @@ const RunForm = ({ setRun }) => {
 			start_timestamp: Date.now(),
 			completed: false,
 			duration: 0,
+			round: 1,
+			initiative_position: 0,
 			initiative_order: initiative.sort((a, b) => {
 				return b.initiative - a.initiative;
 			}),

@@ -4,6 +4,8 @@
 	"start_timestamp": 1683849609831,
 	"completed": false,
 	"duration": 1200,
+	"round": 1,
+	"initiative_position": 0,
 	"initiative_order": [
 		{
 			"id": "8ee94721-02d5-4513-9ac1-4f4eed77f2f9",
