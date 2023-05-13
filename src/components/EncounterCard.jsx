@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { getLocalStorageItemById } from '../utils';
 import List from './List';
 
@@ -23,9 +24,14 @@ const EncounterCard = ({ item }) => {
 				<p># of monsters: {monsters.map((item) => item.quantity).reduce((prev, next) => prev + next)}</p>
 			</div>
 
-			<List title={'characters'} subtitleKey={'level'} items={characters} />
+			<List title={'characters'} subtitleKey={'level'} items={characters} canFilter={false} paginate={false} />
 
-			<List title={'monsters'} items={monsters} />
+			<List title={'monsters'} items={monsters} canFilter={false} paginate={false} />
+
+			<div className="mt-3 flex gap-2">
+				<Link to={`/encounters/edit/${item.id}`}>edit</Link>
+				<Link to={`/encounters/run/${item.id}`}>run</Link>
+			</div>
 		</div>
 	);
 };

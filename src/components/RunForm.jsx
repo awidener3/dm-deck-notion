@@ -1,19 +1,14 @@
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate, useParams } from 'react-router-dom';
 import InputWithLabel from './InputWithLabel';
+import useLocalStorage from '../hooks/useLocalStorage';
+import { FaDiceD20 } from 'react-icons/fa';
+import { useForm } from 'react-hook-form';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getLocalStorageItemById } from '../utils';
 import { initiativeProp } from '../utils/formProperties';
-import useLocalStorage from '../hooks/useLocalStorage';
 
-const RunForm = ({ setRun }) => {
-	const {
-		register,
-		handleSubmit,
-		reset,
-		formState,
-		formState: { isSubmitSuccessful },
-	} = useForm();
+const RunForm = ({ setRun, setEdit }) => {
+	const { register, handleSubmit, setValue } = useForm();
 
 	const { id } = useParams();
 	const [runs, setRuns] = useLocalStorage('runs', []);
@@ -41,6 +36,7 @@ const RunForm = ({ setRun }) => {
 	}, [id]);
 
 	const onSubmit = (data) => {
+		// setup initiative values
 		const initiative = [];
 
 		for (const [key, value] of Object.entries(data.characters)) {
@@ -71,6 +67,7 @@ const RunForm = ({ setRun }) => {
 			initiative.push(object);
 		}
 
+		// Create an active_run object
 		const runObject = {
 			id: encounter.id,
 			run_id: crypto.randomUUID(),
@@ -86,6 +83,7 @@ const RunForm = ({ setRun }) => {
 
 		setRuns([...runs, runObject]);
 		setRun(runObject);
+		setEdit(false);
 	};
 
 	return (
@@ -96,41 +94,65 @@ const RunForm = ({ setRun }) => {
 			</header>
 			<p>
 				Please set the initiative for each character and monster. You can manually enter them, or randomize them using
-				the "random" button.
+				the <FaDiceD20 className="inline-block" /> button.
 			</p>
 
+			<hr className="my-2" />
+
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<div>
-					<h2>Character Initiatives</h2>
-					{characters &&
-						characters.map((character) => (
-							<InputWithLabel
-								key={character.id}
-								path={`characters.${character.id}`}
-								name={character.name}
-								register={register}
-								{...initiativeProp}
-							/>
-						))}
-				</div>
+				<div className="flex gap-4">
+					<div className="flex-1">
+						<h2>character initiatives</h2>
+						<ul className="flex flex-col gap-2">
+							{characters &&
+								characters.map((character) => (
+									<InitiativeInput
+										key={character.id}
+										name={character.name}
+										path={`characters.${character.id}`}
+										setValue={setValue}
+										register={register}
+									/>
+								))}
+						</ul>
+					</div>
 
-				<div>
-					<h2>Monsters Initiatives</h2>
-					{monsters &&
-						monsters.map((monster) => (
-							<InputWithLabel
-								key={monster.suffix ? monster.id + monster.suffix : monster.id}
-								name={monster.suffix ? `${monster.name} ${monster.suffix}` : monster.name}
-								path={`monsters.${monster.suffix ? `${monster.name} ${monster.suffix}` : monster.name}`}
-								register={register}
-								{...initiativeProp}
-							/>
-						))}
+					<div className="flex-1">
+						<h2>monster initiatives</h2>
+						<ul className="flex flex-col gap-2">
+							{monsters &&
+								monsters.map((monster) => (
+									<InitiativeInput
+										key={monster.suffix ? monster.id + monster.suffix : monster.id}
+										name={monster.suffix ? `${monster.name} ${monster.suffix}` : monster.name}
+										path={`monsters.${monster.suffix ? `${monster.name} ${monster.suffix}` : monster.name}`}
+										setValue={setValue}
+										register={register}
+									/>
+								))}
+						</ul>
+					</div>
 				</div>
-
-				<button type="submit">complete</button>
+				<button type="submit">set initiative and run</button>
 			</form>
 		</>
+	);
+};
+
+const InitiativeInput = ({ path, name, register, setValue }) => {
+	const handleRoll = () => {
+		console.log('roll');
+		const roll = Math.floor(Math.random() * 25 + 1);
+		setValue(path, roll);
+	};
+
+	return (
+		<li className="flex gap-2">
+			<InputWithLabel path={path} name={name} register={register} row {...initiativeProp} />
+			<button type="button" onClick={handleRoll}>
+				<FaDiceD20 />
+			</button>
+		</li>
 	);
 };
 

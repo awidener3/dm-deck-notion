@@ -7,13 +7,15 @@ import { getLocalStorageItem } from '../utils';
 const List = ({
 	title,
 	subtitleKeys = [],
-	storageKey = '',
+	storageKey = null,
 	items = [],
 	selected = [],
 	canAdd = false,
 	canRun = false,
 	canEdit = false,
 	canSelect = false,
+	canFilter = true,
+	paginate = true,
 	onSelect,
 }) => {
 	const styles = {
@@ -72,14 +74,26 @@ const List = ({
 		setFilterTerm(e.target.value);
 	};
 
-	const renderItems = currentItems
-		.sort((a, b) => {
-			if (a.name > b.name) return 1;
-			if (a.name < b.name) return -1;
-			return 0;
-		})
-		.filter((item) => !selected.includes(item.id) && !selected.some((i) => i.id === item.id))
-		.map((item) => <ListItem key={item.id} item={item} {...listItemProps} />);
+	let renderItems;
+	if (!paginate) {
+		renderItems = currentItems
+			.sort((a, b) => {
+				if (a.name > b.name) return 1;
+				if (a.name < b.name) return -1;
+				return 0;
+			})
+			.filter((item) => !selected.includes(item.id) && !selected.some((i) => i.id === item.id))
+			.map((item) => <ListItem key={item.id} item={item} {...listItemProps} />);
+	} else {
+		renderItems = currentItems
+			.sort((a, b) => {
+				if (a.name > b.name) return 1;
+				if (a.name < b.name) return -1;
+				return 0;
+			})
+			.filter((item) => !selected.includes(item.id) && !selected.some((i) => i.id === item.id))
+			.map((item) => <ListItem key={item.id} item={item} {...listItemProps} />);
+	}
 
 	return (
 		<>
@@ -92,29 +106,33 @@ const List = ({
 				)}
 			</div>
 
-			<div className="flex items-center mt-2 gap-2">
-				<label>filter {storageKey}</label>
-				<input
-					className="flex-1 font-thin px-2 italic"
-					type="text"
-					placeholder={storageKey + ' name'}
-					value={filterTerm}
-					onChange={handleFilter}
-				/>
-			</div>
-
 			{renderItems.length > 0 && (
 				<>
+					{canFilter && (
+						<div className="flex items-center mt-2 gap-2">
+							<label>filter {storageKey}</label>
+							<input
+								className="flex-1 font-thin px-2 italic"
+								type="text"
+								placeholder={storageKey + ' name'}
+								value={filterTerm}
+								onChange={handleFilter}
+							/>
+						</div>
+					)}
 					<ul>{renderItems}</ul>
-					<Pagination
-						pagination={pagination}
-						setPagination={setPagination}
-						listItems={
-							filterTerm
-								? listItems.filter((item) => item.name.toLowerCase().includes(filterTerm.toLowerCase())) // filtered list
-								: listItems // all monsters
-						}
-					/>
+
+					{paginate && (
+						<Pagination
+							pagination={pagination}
+							setPagination={setPagination}
+							listItems={
+								filterTerm
+									? listItems.filter((item) => item.name.toLowerCase().includes(filterTerm.toLowerCase())) // filtered list
+									: listItems // all monsters
+							}
+						/>
+					)}
 				</>
 			)}
 
@@ -145,13 +163,12 @@ const ListItem = (props) => {
 
 	return (
 		<li className={selected ? styles.selectedListItem : styles.listItem}>
-			<div className="flex gap-2">
-				{props.canRun && <ListButton text={'run'} handler={handleRun} />}
-				{props.item.name}
-			</div>
+			<div className="flex gap-2">{props.item.name}</div>
 
 			<div className="flex gap-2">
 				<ListButton text={'view'} handler={handleView} />
+
+				{props.canRun && <ListButton text={'run'} handler={handleRun} />}
 
 				{props.editable && (
 					<>

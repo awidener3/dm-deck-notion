@@ -7,14 +7,21 @@ const InputWithLabel = ({
 	max,
 	minLength,
 	maxLength,
+	row,
 	options = [],
 	fullWidth = false,
 	required = false,
 	register,
 }) => {
 	return (
-		<span className={fullWidth ? 'flex flex-col col-span-2' : 'flex flex-col'}>
-			<label className="italic">{name.replace('_', ' ')}</label>
+		<span
+			className={
+				fullWidth
+					? `flex ${!row ? 'flex-col' : 'items-center flex-1'}  col-span-2`
+					: `flex ${!row ? 'flex-col' : 'items-center flex-1'}`
+			}
+		>
+			<label className="italic flex-1">{name.replace('_', ' ')}</label>
 			{type === 'select' ? (
 				<select defaultValue="" {...register(name, { required })}>
 					<option value="" disabled>
@@ -29,7 +36,7 @@ const InputWithLabel = ({
 			) : (
 				<input
 					type={type}
-					className="p-2 font-thin"
+					className="p-2 font-thin flex-1"
 					placeholder={placeholder}
 					autoComplete="off"
 					min={min}
