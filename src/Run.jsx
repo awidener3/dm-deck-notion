@@ -1,7 +1,7 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useLocalStorage from './hooks/useLocalStorage';
-import { getLocalStorageItem, getLocalStorageItemById } from './utils';
-import { useEffect, useState } from 'react';
+import { getLocalStorageItemById } from './utils';
+import { useEffect } from 'react';
 import RunForm from './components/RunForm';
 import MonsterCard from './components/MonsterCard';
 import CharacterCard from './components/CharacterCard';

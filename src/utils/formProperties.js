@@ -111,7 +111,7 @@ export const monsterProps = [
 	{
 		name: 'size',
 		type: 'select',
-		options: ['tiny', 'small', 'medium', 'large', 'huge', 'gargantuan'],
+		options: ['Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan'],
 		required: true,
 	},
 	{

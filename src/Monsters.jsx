@@ -6,6 +6,7 @@ const Monsters = () => {
 		title: 'Monsters',
 		subtitleKeys: ['source'],
 		canAdd: true,
+		isEditable: true,
 	};
 
 	return <List {...config} />;

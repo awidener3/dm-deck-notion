@@ -20,14 +20,12 @@ const NestedFieldArray = ({ name, fullWidth = false, properties, control, regist
 				<div key={field.name + index} className="grid grid-cols-2 gap-2">
 					<h3 className="col-span-2 mt-3">ability {index + 1}</h3>
 					{properties.map((property) => (
-						<>
-							<InputWithLabel
-								key={[name, property.name, index].join('_')}
-								{...property}
-								path={`${name}.${index}.${property.name}`}
-								register={register}
-							/>
-						</>
+						<InputWithLabel
+							key={[name, index, property.name].join('_')}
+							path={`${name}.${index}.${property.name}`}
+							register={register}
+							{...property}
+						/>
 					))}
 
 					{fields.length > 0 && (

@@ -16,8 +16,8 @@ const InputWithLabel = ({
 		<span className={fullWidth ? 'flex flex-col col-span-2' : 'flex flex-col'}>
 			<label className="italic">{name.replace('_', ' ')}</label>
 			{type === 'select' ? (
-				<select defaultValue="DEFAULT" {...register(name, { required })}>
-					<option value="DEFAULT" disabled>
+				<select defaultValue="" {...register(name, { required })}>
+					<option value="" disabled>
 						select
 					</option>
 					{options.map((option) => (

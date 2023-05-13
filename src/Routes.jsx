@@ -116,6 +116,10 @@ const Routes = ({ toggleTheme }) => {
 						</CardView>
 					),
 				},
+				{
+					path: 'edit/:id',
+					element: <Form storageKey={'monsters'} title={'Monster'} properties={monsterProps} isEditing />,
+				},
 			],
 		},
 		{
