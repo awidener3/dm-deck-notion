@@ -22,24 +22,26 @@ const List = ({
 		headingAdd: 'text-sm',
 	};
 	const [listItems, setListItems] = useLocalStorage(storageKey, []);
-
 	const [pagination, setPagination] = useState({
 		currentPage: 1,
 		perPage: 15,
-		upperPageBound: 3,
+		upperPageBound: 4,
 		lowerPageBound: 0,
-		pageBound: 3,
+		pageBound: 4,
 		previousBtnActive: false,
 		nextBtnActive: true,
 	});
 
+	const [filterTerm, setFilterTerm] = useState('');
+
 	const lastItemIndex = pagination.currentPage * pagination.perPage;
 	const firstItemIndex = lastItemIndex - pagination.perPage;
-	const currentItems = listItems.slice(firstItemIndex, lastItemIndex);
 
-	useEffect(() => {
-		console.log(pagination);
-	}, [pagination]);
+	const currentItems = filterTerm
+		? listItems
+				.filter((item) => item.name.toLowerCase().includes(filterTerm.toLowerCase()))
+				.slice(firstItemIndex, lastItemIndex)
+		: listItems.slice(firstItemIndex, lastItemIndex);
 
 	// Optional storage key to retrieve all items
 	useEffect(() => {
@@ -49,13 +51,9 @@ const List = ({
 	const navigate = useNavigate();
 
 	const handleAdd = () => navigate(`/${title.toLowerCase()}/new`);
-
 	const handleRun = (itemId) => navigate(`/${title.toLowerCase()}/run/${itemId}`);
-
 	const viewItem = (itemId) => navigate(`/${title.toLowerCase()}/${itemId}`);
-
 	const editItem = (itemId) => navigate(`/${title.toLowerCase()}/edit/${itemId}`);
-
 	const deleteItem = (itemId) => setListItems(listItems.filter((item) => item.id !== itemId));
 
 	const listItemProps = {
@@ -68,6 +66,10 @@ const List = ({
 		onEdit: editItem,
 		onDelete: deleteItem,
 		onRun: handleRun,
+	};
+
+	const handleFilter = (e) => {
+		setFilterTerm(e.target.value);
 	};
 
 	const renderItems = currentItems
@@ -90,9 +92,31 @@ const List = ({
 				)}
 			</div>
 
-			{renderItems.length > 0 && <ul>{renderItems}</ul>}
+			<div className="flex items-center mt-2 gap-2">
+				<label>filter {storageKey}</label>
+				<input
+					className="flex-1 font-thin px-2 italic"
+					type="text"
+					placeholder={storageKey + ' name'}
+					value={filterTerm}
+					onChange={handleFilter}
+				/>
+			</div>
 
-			<Pagination pagination={pagination} setPagination={setPagination} listItems={listItems} />
+			{renderItems.length > 0 && (
+				<>
+					<ul>{renderItems}</ul>
+					<Pagination
+						pagination={pagination}
+						setPagination={setPagination}
+						listItems={
+							filterTerm
+								? listItems.filter((item) => item.name.toLowerCase().includes(filterTerm.toLowerCase())) // filtered list
+								: listItems // all monsters
+						}
+					/>
+				</>
+			)}
 
 			{renderItems.length === 0 && <p className="text-center p-10 italic">no {storageKey}</p>}
 		</>

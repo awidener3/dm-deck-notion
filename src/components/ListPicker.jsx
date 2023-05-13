@@ -21,13 +21,19 @@ const ListPicker = ({ lists = ['characters', 'monsters'], appendCharacter, appen
 				))}
 			</ul>
 
-			<List
-				title={lists[selectedIndex]}
-				storageKey={lists[selectedIndex]}
-				selected={getValues(lists[selectedIndex])}
-				canSelect
-				onSelect={handleSelect}
-			/>
+			{lists.map(
+				(list) =>
+					lists[selectedIndex] === list && (
+						<List
+							key={list}
+							title={list}
+							storageKey={list}
+							selected={getValues(list)}
+							canSelect
+							onSelect={handleSelect}
+						/>
+					)
+			)}
 		</>
 	);
 };

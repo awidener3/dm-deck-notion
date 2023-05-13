@@ -110,20 +110,20 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 	}
 
 	const renderPageNumbers = pageNumbers.map((number) => {
-		if (number === 1 && pagination.currentPage === 1) {
+		if (number === pagination.currentPage) {
 			return (
-				<li key={number} className="active" id={number}>
-					<span id={number} onClick={handlePageChange}>
+				<li key={number}>
+					<a id={number} className="text-[color:var(--text-highlight)] cursor-pointer" onClick={handlePageChange}>
 						{number}
-					</span>
+					</a>
 				</li>
 			);
 		} else if (number < pagination.upperPageBound + 1 && number > pagination.lowerPageBound) {
 			return (
-				<li key={number} id={number}>
-					<span id={number} onClick={handlePageChange}>
+				<li key={number}>
+					<a id={number} className="cursor-pointer text-[color:var(--text-primary)]" onClick={handlePageChange}>
 						{number}
-					</span>
+					</a>
 				</li>
 			);
 		}
@@ -133,7 +133,10 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 	if (pageNumbers.length > pagination.upperPageBound) {
 		pageIncrementBtn = (
 			<li>
-				<span onClick={handleIncrementPage}> &hellip; </span>
+				<a className="cursor-pointer text-[color:var(--text-primary)]" onClick={handleIncrementPage}>
+					{' '}
+					&hellip;{' '}
+				</a>
 			</li>
 		);
 	}
@@ -142,7 +145,10 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 	if (pagination.lowerPageBound >= 1) {
 		pageDecrementBtn = (
 			<li>
-				<span onClick={handleDecrementPage}> &hellip; </span>
+				<a className="cursor-pointer text-[color:var(--text-primary)]" onClick={handleDecrementPage}>
+					{' '}
+					&hellip;{' '}
+				</a>
 			</li>
 		);
 	}
@@ -151,9 +157,9 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 	if (pagination.previousBtnActive) {
 		renderPrevBtn = (
 			<li>
-				<span id="btnPrev" className="text-[color:var(--text-highlight)] cursor-pointer" onClick={handlePreviousClick}>
+				<a id="btnPrev" className="text-[color:var(--text-highlight)] cursor-pointer" onClick={handlePreviousClick}>
 					Prev
-				</span>
+				</a>
 			</li>
 		);
 	} else {
@@ -168,9 +174,9 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 	if (pagination.nextBtnActive) {
 		renderNextBtn = (
 			<li>
-				<span id="btnNext" className="text-[color:var(--text-highlight)] cursor-pointer" onClick={handleNextClick}>
+				<a id="btnNext" className="text-[color:var(--text-highlight)] cursor-pointer" onClick={handleNextClick}>
 					Next
-				</span>
+				</a>
 			</li>
 		);
 	} else {
