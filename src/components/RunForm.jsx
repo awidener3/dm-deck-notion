@@ -7,6 +7,10 @@ import { useEffect, useState } from 'react';
 import { getLocalStorageItemById } from '../utils';
 import { initiativeProp } from '../utils/formProperties';
 
+function handleRoll() {
+	return Math.floor(Math.random() * 25 + 1);
+}
+
 const RunForm = ({ run, setRun, setEdit }) => {
 	const { register, handleSubmit, reset, setValue } = useForm({
 		defaultValues: {
@@ -21,7 +25,8 @@ const RunForm = ({ run, setRun, setEdit }) => {
 	const [monsters, setMonsters] = useState([]);
 	const encounter = getLocalStorageItemById('encounters', id);
 
-	useEffect(() => reset(getStartingValues()), [run, monsters]);
+	// Set initiative values if active run
+	useEffect(() => reset(getActiveInitiative()), [run, monsters]);
 
 	useEffect(() => {
 		const characterData = encounter.characters.map((id) => getLocalStorageItemById('characters', id));
@@ -41,8 +46,8 @@ const RunForm = ({ run, setRun, setEdit }) => {
 		setMonsters(monsterArray);
 	}, [id]);
 
-	function getStartingValues() {
-		if (!run) return;
+	function getActiveInitiative() {
+		if (!run || run.id !== id) return;
 
 		const activeCharacters = run.initiative_order.filter((item) => item.creature_type === 'character');
 		const charArr = encounter.characters.reduce(
@@ -138,8 +143,10 @@ const RunForm = ({ run, setRun, setEdit }) => {
 					<InitiativeList items={monsters} title={'monsters'} setValue={setValue} register={register} />
 				</section>
 
-				<footer className="text-right mt-4 border-t">
-					<button type="submit">set initiative and run &rarr;</button>
+				<footer className="flex justify-end mt-4 border-t">
+					<button type="submit" className="text-[color:var(--text-highlight)] italic">
+						set initiative and run &rarr;
+					</button>
 				</footer>
 			</form>
 		</>
@@ -157,9 +164,18 @@ const InitiativeList = ({ items, title, setValue, register, useId }) => {
 		}
 	};
 
+	const randomizeAll = () => {
+		items.forEach((item) => setValue(getPath(item), handleRoll()));
+	};
+
 	return (
 		<div className="flex-1">
-			<h2 className="text-[color:var(--text-highlight)]">{title}</h2>
+			<div className="flex justify-between">
+				<h2 className="text-[color:var(--text-highlight)]">{title}</h2>
+				<button className="text-sm italic" type="button" onClick={randomizeAll}>
+					randomize all
+				</button>
+			</div>
 			<ul className="flex flex-col gap-2">
 				{items &&
 					items.map((item) => (
@@ -177,17 +193,17 @@ const InitiativeList = ({ items, title, setValue, register, useId }) => {
 };
 
 const InitiativeInput = ({ path, name, register, setValue }) => {
-	const handleRoll = () => {
-		const roll = Math.floor(Math.random() * 25 + 1);
-		setValue(path, roll);
-	};
-
 	return (
-		<li className="flex gap-2">
-			<InputWithLabel path={path} name={name} register={register} row {...initiativeProp} />
-			<button type="button" onClick={handleRoll}>
-				<FaDiceD20 />
-			</button>
+		<li>
+			<label className="italic flex justify-between items-center">
+				{name.replace('_', ' ')}
+				<div className="flex gap-2">
+					<button type="button" onClick={() => setValue(path, handleRoll())}>
+						<FaDiceD20 title="randomize" />
+					</button>
+					<input type="name" className="ps-1 font-thin" autoComplete="off" {...initiativeProp} {...register(path)} />
+				</div>
+			</label>
 		</li>
 	);
 };

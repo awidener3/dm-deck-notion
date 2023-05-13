@@ -7,7 +7,7 @@ import RunOrder from './RunOrder';
 
 const Run = () => {
 	const { id } = useParams();
-	const [run, setRun] = useLocalStorage('active_run', null);
+	const [run, setRun] = useLocalStorage('active_run', {});
 	const [edit, setEdit] = useState(true);
 	const runs = getLocalStorageItem('runs');
 
