@@ -1,5 +1,4 @@
-import Header from './Header';
-import List from './components/List';
+import Header from './components/Header';
 import useLocalStorage from './hooks/useLocalStorage';
 import Routes from './Routes';
 import { useEffect } from 'react';

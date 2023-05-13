@@ -1,20 +1,19 @@
-import Characters from './Characters';
-import CardView from './CardView';
+import Characters from './components/Characters';
+import CardView from './components/CardView';
 import CharacterCard from './components/CharacterCard';
-import Encounters from './Encounters';
+import Encounters from './components/Encounters';
+import Home from './components/Home';
+import NotFound from './components/NotFound';
+import Preferences from './components/Preferences';
+import SourceUpload from './components/SourceUpload';
 import EncounterForm from './components/EncounterForm';
 import EncounterCard from './components/EncounterCard';
 import Form from './components/Form';
-import Home from './Home';
-import Monsters from './Monsters';
+import Monsters from './components/Monsters';
 import MonsterCard from './components/MonsterCard';
-import NotFound from './NotFound';
-import Preferences from './Preferences';
-import Run from './Run';
-import SourceUpload from './SourceUpload';
+import Run from './components/Run';
 import { characterProps, monsterProps } from './utils/formProperties';
 import { Link, useRoutes } from 'react-router-dom';
-import RunForm from './components/RunForm';
 
 const Routes = ({ toggleTheme }) => {
 	const element = useRoutes([

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import encounters from './assets/json/sample_encounters.json';
-import characters from './assets/json/sample_characters.json';
-import srdSource from './assets/json/srd_monsters.json';
+import encounters from '../assets/json/sample_encounters.json';
+import characters from '../assets/json/sample_characters.json';
+import srdSource from '../assets/json/srd_monsters.json';
 
 const Preferences = ({ toggleTheme }) => {
 	const clearStorage = () => window.localStorage.clear();
@@ -26,7 +26,7 @@ const Preferences = ({ toggleTheme }) => {
 	return (
 		<>
 			<div className="flex justify-between items-center pb-1 border-b">
-				<h2 className="text-lg text-[color:var(--text-highlight)]">preferences</h2>
+				<h2 className="text-lg text-[color:var(--text-highlight)]">Preferences</h2>
 				<Link to={-1}>go back</Link>
 			</div>
 
@@ -49,7 +49,7 @@ const Preferences = ({ toggleTheme }) => {
 				</li>
 			</ul>
 
-			<h3 className="mt-4">things i want to add...</h3>
+			<h3 className="mt-4">planned features...</h3>
 			<ul>
 				<li>font options to match Notion</li>
 				<li>change theme color (default is emerald green)</li>

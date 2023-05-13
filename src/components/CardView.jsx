@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { getLocalStorageItemById } from './utils';
+import { getLocalStorageItemById } from '../utils';
 import { cloneElement } from 'react';
 import NotFound from './NotFound';
 

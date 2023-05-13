@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useLocalStorage from './hooks/useLocalStorage';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const SourceUpload = () => {
 	const [file, setFile] = useState({});

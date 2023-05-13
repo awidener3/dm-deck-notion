@@ -1,7 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import srdSource from './assets/json/srd_monsters.json';
-import encounters from './assets/json/sample_encounters.json';
-import characters from './assets/json/sample_characters.json';
 
 const routes = [
 	{ name: 'home', path: '/' },

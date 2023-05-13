@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
-import useLocalStorage from './hooks/useLocalStorage';
-import { getLocalStorageItemById } from './utils';
+import useLocalStorage from '../hooks/useLocalStorage';
+import { getLocalStorageItemById } from '../utils';
 import { useEffect } from 'react';
-import RunForm from './components/RunForm';
-import MonsterCard from './components/MonsterCard';
-import CharacterCard from './components/CharacterCard';
+import RunForm from './RunForm';
+import MonsterCard from './MonsterCard';
+import CharacterCard from './CharacterCard';
 
 const Run = () => {
 	const { id } = useParams();
