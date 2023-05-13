@@ -30,29 +30,28 @@ const Preferences = ({ toggleTheme }) => {
 				<Link to={-1}>go back</Link>
 			</div>
 
-			<h3 className="mt-4">available preferences</h3>
 			<ul>
 				<li>
 					<button type="button" onClick={clearStorage}>
-						empty local storage
+						Empty local storage
 					</button>
 				</li>
 				<li>
 					<button type="button" onClick={seedStorage}>
-						seed with defaults
+						Seed with defaults
 					</button>
 				</li>
 				<li>
 					<button type="button" onClick={toggleTheme}>
-						toggle theme
+						Toggle theme
 					</button>
 				</li>
 			</ul>
 
-			<h3 className="mt-4">planned features...</h3>
+			<h3 className="mt-4">Planned features...</h3>
 			<ul>
-				<li>font options to match Notion</li>
-				<li>change theme color (default is emerald green)</li>
+				<li>Font options to match Notion</li>
+				<li>Change theme color (default is emerald green)</li>
 			</ul>
 		</>
 	);

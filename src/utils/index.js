@@ -1,4 +1,4 @@
-export function getMonsterArray() {
+export const getMonsterArray = () => {
 	const stored = JSON.parse(localStorage.getItem('monsters'));
 
 	if (!stored) return [];
@@ -8,15 +8,16 @@ export function getMonsterArray() {
 		source.monsters.forEach((monster) => monsterArr.push({ ...monster, source: source.source }));
 	});
 	return monsterArr;
-}
+};
 
-export function getLocalStorageItem(key) {
-	const stored = JSON.parse(localStorage.getItem(key));
+export const getLocalStorageItem = (key) => JSON.parse(localStorage.getItem(key)) || [];
 
-	if (!stored) return [];
+export const setLocalStorageItem = (key, item) => localStorage.setItem(key, JSON.stringify(item));
 
-	return stored;
-}
+export const addLocalStorageItem = (key, item) => {
+	const existing = JSON.parse(localStorage.getItem(key));
+	setLocalStorageItem(key, [...existing, item]);
+};
 
 /**
  *
@@ -24,13 +25,7 @@ export function getLocalStorageItem(key) {
  * @param {string} id ID of item
  * @returns {object|error} Object of item or error if not found
  */
-export function getLocalStorageItemById(key, id) {
+export const getLocalStorageItemById = (key, id) => {
 	const items = JSON.parse(localStorage.getItem(key));
-
-	if (items) {
-		const item = items.find((item) => item.id === id);
-		return item;
-	} else {
-		return null;
-	}
-}
+	return items && items.find((item) => item.id === id);
+};
