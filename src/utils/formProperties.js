@@ -502,5 +502,5 @@ export const initiativeProp = {
 	type: 'number',
 	placeholder: 'initiative',
 	min: 0,
-	max: 30,
+	max: 75,
 };
