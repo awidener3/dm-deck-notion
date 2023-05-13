@@ -20,8 +20,8 @@ const QuantitySelect = ({ item, valueIndex, setValue, storageKey, remove }) => {
 			{data.name}
 			<div className="flex gap-1">
 				<input className="w-12 px-1" type="number" value={quantity} onChange={handleChange} />
-				<button type="button" onClick={handleRemove}>
-					remove
+				<button type="button" className="text-red-600" onClick={handleRemove}>
+					&times;
 				</button>
 			</div>
 		</li>

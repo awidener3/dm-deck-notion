@@ -1,4 +1,5 @@
 import useLocalStorage from '../hooks/useLocalStorage';
+import Pagination from './Pagination';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getLocalStorageItem } from '../utils';
@@ -20,9 +21,25 @@ const List = ({
 		headingTitle: 'text-lg text-[color:var(--text-highlight)]',
 		headingAdd: 'text-sm',
 	};
-
-	// todo: add pagination to reduce page scroll
 	const [listItems, setListItems] = useLocalStorage(storageKey, []);
+
+	const [pagination, setPagination] = useState({
+		currentPage: 1,
+		perPage: 15,
+		upperPageBound: 3,
+		lowerPageBound: 0,
+		pageBound: 3,
+		previousBtnActive: false,
+		nextBtnActive: true,
+	});
+
+	const lastItemIndex = pagination.currentPage * pagination.perPage;
+	const firstItemIndex = lastItemIndex - pagination.perPage;
+	const currentItems = listItems.slice(firstItemIndex, lastItemIndex);
+
+	useEffect(() => {
+		console.log(pagination);
+	}, [pagination]);
 
 	// Optional storage key to retrieve all items
 	useEffect(() => {
@@ -53,6 +70,15 @@ const List = ({
 		onRun: handleRun,
 	};
 
+	const renderItems = currentItems
+		.sort((a, b) => {
+			if (a.name > b.name) return 1;
+			if (a.name < b.name) return -1;
+			return 0;
+		})
+		.filter((item) => !selected.includes(item.id) && !selected.some((i) => i.id === item.id))
+		.map((item) => <ListItem key={item.id} item={item} {...listItemProps} />);
+
 	return (
 		<>
 			<div className={styles.heading}>
@@ -64,19 +90,11 @@ const List = ({
 				)}
 			</div>
 
-			<ul>
-				{listItems
-					.sort((a, b) => {
-						if (a.name > b.name) return 1;
-						if (a.name < b.name) return -1;
-						return 0;
-					})
-					.map(
-						(item) =>
-							!selected.includes(item.id) &&
-							!selected.some((i) => i.id === item.id) && <ListItem key={item.id} item={item} {...listItemProps} />
-					)}
-			</ul>
+			{renderItems.length > 0 && <ul>{renderItems}</ul>}
+
+			<Pagination pagination={pagination} setPagination={setPagination} listItems={listItems} />
+
+			{renderItems.length === 0 && <p className="text-center p-10 italic">no {storageKey}</p>}
 		</>
 	);
 };

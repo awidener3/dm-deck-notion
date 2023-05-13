@@ -6,7 +6,7 @@ const SelectedList = ({ name, remove, getValues, setValue }) => {
 
 	return (
 		<div className="flex-1">
-			<h2>selected {name}</h2>
+			<h2 className="border-b mb-1">selected {name}</h2>
 			<ul className="flex flex-col gap-2">
 				{items.map((item, index) =>
 					item.quantity ? (
@@ -31,10 +31,10 @@ const SelectedItem = ({ storageKey, id, remove, valueIndex }) => {
 	const data = getLocalStorageItemById(storageKey, id);
 
 	return (
-		<li key={id}>
+		<li key={id} className="flex justify-between">
 			{data.name}{' '}
-			<button type="button" onClick={() => remove(valueIndex)}>
-				remove
+			<button type="button" className="text-red-600" onClick={() => remove(valueIndex)}>
+				&times;
 			</button>
 		</li>
 	);

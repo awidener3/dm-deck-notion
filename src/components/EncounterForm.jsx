@@ -62,7 +62,7 @@ const EncounterForm = () => {
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2 gap-2">
 				<InputWithLabel {...encounterProps} register={register} />
 
-				<div className="flex">
+				<div className="flex gap-4">
 					<SelectedList name={'characters'} remove={removeCharacter} getValues={getValues} />
 					<SelectedList name={'monsters'} remove={removeMonster} getValues={getValues} setValue={setValue} />
 				</div>
