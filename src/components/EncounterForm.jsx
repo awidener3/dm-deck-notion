@@ -1,12 +1,13 @@
 import useLocalStorage from '../hooks/useLocalStorage';
 import InputWithLabel from './InputWithLabel';
 import FormFooter from './FormFooter';
-import { useEffect, useState } from 'react';
+import ListPicker from './ListPicker';
+import SelectedList from './SelectedList';
+import { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getLocalStorageItemById } from '../utils';
 import { encounterProps } from '../utils/formProperties';
-import List from './List';
 
 const EncounterForm = () => {
 	const { id } = useParams();
@@ -18,20 +19,25 @@ const EncounterForm = () => {
 		register,
 		handleSubmit,
 		reset,
+		getValues,
+		setValue,
 		formState,
 		formState: { isSubmitSuccessful },
 	} = useForm({ values: getLocalStorageItemById('encounters', id) || null });
 
-	const { append: charactersAppend, remove: charactersRemove } = useFieldArray({
+	// characters: ['id-1', 'id-2']
+	const { append: appendCharacter, remove: removeCharacter } = useFieldArray({
 		control,
 		name: 'characters',
 	});
 
-	const { append: monstersAppend, remove: monstersRemove } = useFieldArray({
+	// monsters:[{ id: 1, quantity: 1}, ...]
+	const { append: appendMonster, remove: removeMonster } = useFieldArray({
 		control,
 		name: 'monsters',
 	});
 
+	// Reset field on successful submit
 	useEffect(() => {
 		isSubmitSuccessful && reset();
 	}, [formState, reset]);
@@ -55,50 +61,19 @@ const EncounterForm = () => {
 
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2 gap-2">
 				<InputWithLabel {...encounterProps} register={register} />
-				<ListPicker
-					charactersAppend={charactersAppend}
-					charactersRemove={charactersRemove}
-					monstersAppend={monstersAppend}
-					monstersRemove={monstersRemove}
-				/>
+
+				<div className="flex">
+					<SelectedList name={'characters'} remove={removeCharacter} getValues={getValues} />
+					<SelectedList name={'monsters'} remove={removeMonster} getValues={getValues} setValue={setValue} />
+				</div>
+
 				<FormFooter reset={reset} existing={id} />
 			</form>
+
+			<hr className="my-2" />
+
+			<ListPicker appendCharacter={appendCharacter} appendMonster={appendMonster} getValues={getValues} />
 		</>
-	);
-};
-
-const sampleLists = ['characters', 'monsters'];
-
-const ListPicker = ({ lists = sampleLists, charactersAppend, monstersAppend }) => {
-	const [selectedIndex, setSelectedIndex] = useState(0);
-
-	const handleClick = (index) => setSelectedIndex(index);
-	const handleSelect = (id, quantity) => {
-		return lists[selectedIndex] === 'characters'
-			? charactersAppend(id)
-			: monstersAppend({ id, quantity: quantity || 1 });
-	};
-
-	return (
-		<div>
-			<ul className="flex gap-5">
-				{lists.map((list, index) => (
-					<li key={list}>
-						<button type="button" onClick={() => handleClick(index)}>
-							select {list}
-						</button>
-					</li>
-				))}
-			</ul>
-
-			<List
-				title={lists[selectedIndex]}
-				storageKey={lists[selectedIndex]}
-				isSelectable
-				quantitySelect={lists[selectedIndex] === 'monsters'}
-				onSelect={handleSelect}
-			/>
-		</div>
 	);
 };
 

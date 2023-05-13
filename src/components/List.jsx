@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getLocalStorageItem } from '../utils';
 
@@ -8,11 +8,11 @@ const List = ({
 	subtitleKeys = [],
 	storageKey = '',
 	items = [],
+	selected = [],
 	canAdd = false,
 	canRun = false,
-	isEditable = false,
-	isSelectable = false,
-	quantitySelect,
+	canEdit = false,
+	canSelect = false,
 	onSelect,
 }) => {
 	const styles = {
@@ -45,9 +45,8 @@ const List = ({
 		subtitleKeys,
 		canRun,
 		onSelect,
-		quantitySelect,
-		editable: isEditable,
-		selectable: isSelectable,
+		editable: canEdit,
+		selectable: canSelect,
 		onView: viewItem,
 		onEdit: editItem,
 		onDelete: deleteItem,
@@ -72,9 +71,11 @@ const List = ({
 						if (a.name < b.name) return -1;
 						return 0;
 					})
-					.map((item) => (
-						<ListItem key={item.id} item={item} {...listItemProps} />
-					))}
+					.map(
+						(item) =>
+							!selected.includes(item.id) &&
+							!selected.some((i) => i.id === item.id) && <ListItem key={item.id} item={item} {...listItemProps} />
+					)}
 			</ul>
 		</>
 	);
@@ -82,17 +83,15 @@ const List = ({
 
 const ListItem = (props) => {
 	const [selected, setSelected] = useState(false);
-	const [quantity, setQuantity] = useState(1);
 
 	const styles = {
 		listItem: 'flex justify-between items-center border-b border-b-slate-500 py-1',
 		selectedListItem: 'flex justify-between items-center border-b border-b-slate-500 py-1 bg-[var(--text-highlight)]',
 	};
 
-	const handleQuantity = () => setQuantity(quantity + 1);
 	const handleSelect = () => {
 		setSelected(true);
-		props.onSelect(props.item.id, quantity);
+		props.onSelect(props.item.id);
 	};
 
 	const handleRun = () => props.onRun(props.item.id);
@@ -120,8 +119,6 @@ const ListItem = (props) => {
 				)}
 
 				{props.selectable && <ListButton text={'select'} handler={handleSelect} />}
-
-				{props.quantitySelect && <input type="number" onChange={handleQuantity} value={quantity} min={1} max={25} />}
 			</div>
 		</li>
 	);

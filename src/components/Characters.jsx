@@ -6,7 +6,7 @@ const Characters = () => {
 		title: 'Characters',
 		subtitleKeys: ['class'],
 		canAdd: true,
-		isEditable: true,
+		canEdit: true,
 	};
 
 	return <List {...config} />;

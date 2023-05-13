@@ -6,7 +6,7 @@ const Encounters = () => {
 		title: 'Encounters',
 		canAdd: true,
 		canRun: true,
-		isEditable: true,
+		canEdit: true,
 	};
 
 	return <List {...config} />;
