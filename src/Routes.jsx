@@ -14,6 +14,7 @@ import MonsterCard from './components/MonsterCard';
 import Run from './components/Run';
 import { characterProps, monsterProps } from './utils/formProperties';
 import { Link, useRoutes } from 'react-router-dom';
+import Error from './components/Error';
 
 const Routes = ({ toggleTheme }) => {
 	const element = useRoutes([
@@ -124,6 +125,10 @@ const Routes = ({ toggleTheme }) => {
 		{
 			path: '/preferences',
 			element: <Preferences toggleTheme={toggleTheme} />,
+		},
+		{
+			path: '/error',
+			element: <Error />,
 		},
 		{
 			path: '*',

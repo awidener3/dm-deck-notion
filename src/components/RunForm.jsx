@@ -1,8 +1,7 @@
-import InputWithLabel from './InputWithLabel';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { FaDiceD20 } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getLocalStorageItemById } from '../utils';
 import { initiativeProp } from '../utils/formProperties';
@@ -12,21 +11,24 @@ function handleRoll() {
 }
 
 const RunForm = ({ run, setRun, setEdit }) => {
+	const { id } = useParams();
 	const { register, handleSubmit, reset, setValue } = useForm({
 		defaultValues: {
 			characters: {},
 			monsters: {},
 		},
 	});
+	const navigate = useNavigate();
 
-	const { id } = useParams();
 	const [runs, setRuns] = useLocalStorage('runs', []);
 	const [characters, setCharacters] = useState([]);
 	const [monsters, setMonsters] = useState([]);
 	const encounter = getLocalStorageItemById('encounters', id);
 
 	// Set initiative values if active run
-	useEffect(() => reset(getActiveInitiative()), [run, monsters]);
+	useEffect(() => {
+		reset(getActiveInitiative());
+	}, [run, monsters]);
 
 	useEffect(() => {
 		const characterData = encounter.characters.map((id) => getLocalStorageItemById('characters', id));
@@ -95,6 +97,7 @@ const RunForm = ({ run, setRun, setEdit }) => {
 			const object = {
 				id: monster.id,
 				creature_type: 'monster',
+				current_hit_points: monster.hit_points,
 				initiative: Number(value),
 			};
 
@@ -145,7 +148,7 @@ const RunForm = ({ run, setRun, setEdit }) => {
 
 				<footer className="flex justify-end mt-4 border-t">
 					<button type="submit" className="text-[color:var(--text-highlight)] italic">
-						set initiative and run &rarr;
+						set initiative and run
 					</button>
 				</footer>
 			</form>

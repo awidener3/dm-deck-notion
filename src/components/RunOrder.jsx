@@ -2,6 +2,7 @@ import MonsterCard from './MonsterCard';
 import CharacterCard from './CharacterCard';
 import { Link } from 'react-router-dom';
 import { getLocalStorageItemById } from '../utils';
+import { FaPencilAlt } from 'react-icons/fa';
 
 const RunOrder = ({ run, setRun, setEdit }) => {
 	const encounter = getLocalStorageItemById('encounters', run.id);
@@ -20,13 +21,21 @@ const RunOrder = ({ run, setRun, setEdit }) => {
 		}
 	});
 
+	console.log('💨 Run:', run);
+	console.log('🧮 Order:', order);
+	console.log('🤺 Encounter:', encounter);
+
 	const handleIncrement = () => {
-		run.initiative_position === order.length - 1
-			? setRun({ ...run, initiative_position: 0, round: run.round + 1 })
-			: setRun({ ...run, initiative_position: run.initiative_position + 1 });
+		if (run.initiative_position === order.length - 1 && run.round > 1) {
+			setRun({ ...run, initiative_position: 0, round: run.round + 1 });
+		} else {
+			setRun({ ...run, initiative_position: run.initiative_position + 1 });
+		}
 	};
 
 	const handleDecrement = () => {
+		if (run.initiative_position === 0 && run.round === 1) return;
+
 		run.initiative_position === 0
 			? setRun({ ...run, initiative_position: order.length - 1, round: run.round - 1 })
 			: setRun({ ...run, initiative_position: run.initiative_position - 1 });
@@ -61,25 +70,29 @@ const RunOrder = ({ run, setRun, setEdit }) => {
 				<Link to={-1}>go back</Link>
 			</div>
 
-			<p>Round {run.round}</p>
+			<div className="flex justify-between">
+				<span>
+					<p>Round {run.round}</p>
+					<p>
+						Initiative {run.initiative_position + 1} / {run.initiative_order.length}
+					</p>
+				</span>
 
-			<p>
-				Initiative position {run.initiative_position + 1} / {run.initiative_order.length}
-			</p>
-			{getOnDeckMessage()}
+				{getOnDeckMessage()}
+			</div>
 
-			<button type="button" className="text-left" onClick={handleEdit}>
-				edit initiative
+			<button type="button" className="text-left italic flex items-center gap-2" onClick={handleEdit}>
+				<FaPencilAlt /> edit initiative
 			</button>
 
 			<hr className="my-3" />
 
 			<div className="flex justify-between">
 				<button type="button" onClick={handleDecrement}>
-					previous
+					&larr; previous
 				</button>
 				<button type="button" onClick={handleIncrement}>
-					next
+					next &rarr;
 				</button>
 			</div>
 

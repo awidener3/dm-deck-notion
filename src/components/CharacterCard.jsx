@@ -1,5 +1,5 @@
 const CharacterCard = ({ item }) => (
-	<div className="flex-col border-2 border-[var(--bg-secondary)] bg-[var(--card-bg)] rounded-lg text-sm my-2 p-2">
+	<div className="flex-col border-2 border-[var(--bg-secondary)] bg-[var(--card-bg)] rounded-lg text-sm my-2 p-2 flex-1">
 		<div className="flex justify-between items-center">
 			<h1 className="text-2xl text-left italic p-1">{item.name}</h1>
 			<p>Lvl {item.level}</p>
