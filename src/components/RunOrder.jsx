@@ -21,12 +21,8 @@ const RunOrder = ({ run, setRun, setEdit }) => {
 		}
 	});
 
-	console.log('💨 Run:', run);
-	console.log('🧮 Order:', order);
-	console.log('🤺 Encounter:', encounter);
-
 	const handleIncrement = () => {
-		if (run.initiative_position === order.length - 1 && run.round > 1) {
+		if (run.initiative_position === order.length - 1 && run.round >= 1) {
 			setRun({ ...run, initiative_position: 0, round: run.round + 1 });
 		} else {
 			setRun({ ...run, initiative_position: run.initiative_position + 1 });
