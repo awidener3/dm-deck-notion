@@ -21,8 +21,8 @@ const routes = [
 ];
 
 const Header = () => (
-	<nav className="p-2 w-screen flex justify-between">
-		<ul className="flex gap-3">
+	<nav className="p-2 w-screen">
+		<ul className="flex gap-3 flex-wrap">
 			{routes.map((route) => (
 				<NavLink
 					key={route.name}

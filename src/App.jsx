@@ -31,7 +31,7 @@ export default function App() {
 			<Header />
 
 			<div className="flex flex-1 flex-col overflow-y-auto min-h-min">
-				<div className="text-left flex flex-1 flex-col mx-auto w-3/4 max-w-xl">
+				<div className="text-left flex flex-1 flex-col px-2 md:mx-auto w-full md:w-3/4 md:max-w-xl">
 					<Routes toggleTheme={toggleTheme} />
 				</div>
 			</div>

@@ -6,7 +6,7 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
-		<BrowserRouter basename="/dm-deck-notion/">
+		<BrowserRouter basename="/dm-deck-notion">
 			<App />
 		</BrowserRouter>
 	</React.StrictMode>

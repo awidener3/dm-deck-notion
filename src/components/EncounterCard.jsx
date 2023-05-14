@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import { getLocalStorageItemById } from '../utils';
-import List from './List';
 
-const EncounterCard = ({ item }) => {
+const EncounterCard = ({ item, cardStyles }) => {
 	const characters = item.characters.map((id) => getLocalStorageItemById('characters', id));
 	const monsters = item.monsters.map((monster) => {
 		const data = getLocalStorageItemById('monsters', monster.id);
@@ -15,7 +14,7 @@ const EncounterCard = ({ item }) => {
 	});
 
 	return (
-		<div className="flex-col border-2 border-[var(--bg-secondary)] bg-[var(--card-bg)] rounded-lg text-sm my-2 p-2">
+		<div className={cardStyles.card}>
 			<h1 className="text-2xl text-left italic p-1">{item.name}</h1>
 
 			<div>

@@ -488,7 +488,6 @@ export const monsterProps = [
 	},
 ];
 
-// todo: encounter may need separate form
 export const encounterProps = {
 	name: 'name',
 	placeholder: 'encounter name',
@@ -504,3 +503,24 @@ export const initiativeProp = {
 	min: 0,
 	max: 75,
 };
+
+export const skillList = [
+	'acrobatics',
+	'animal_handling',
+	'arcana',
+	'athletics',
+	'deception',
+	'history',
+	'insight',
+	'intimidation',
+	'investigation',
+	'medicine',
+	'nature',
+	'perception',
+	'performance',
+	'persuasion',
+	'religion',
+	'sleight_of_hand',
+	'stealth',
+	'survival',
+];

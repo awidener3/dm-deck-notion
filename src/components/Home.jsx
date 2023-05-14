@@ -5,12 +5,18 @@ import { getLocalStorageItem } from '../utils';
 const Home = () => {
 	const activeRun = getLocalStorageItem('active_run');
 
+	const styles = {
+		header: 'italic text-[color:var(--text-highlight)] border-b',
+		welcomeContainer: 'flex flex-col gap-5',
+		notionCard: 'flex flex-col md:flex-row gap-5 border p-2 items-center bg-[var(--card-bg)]',
+		quickMsgContainer: 'pt-3',
+	};
+
 	return (
 		<>
-			<h1 className="italic text-[color:var(--text-highlight)]">DM Deck</h1>
-			<hr />
+			<h1 className={styles.header}>DM Deck</h1>
 
-			<div className="flex flex-col gap-5">
+			<section className={styles.welcomeContainer}>
 				<TextBlock>
 					<strong>Welcome to DM Deck!</strong> This app is built for dungeon and game masters of tabletop roleplaying
 					games (ttrp's) such as <em>Dungeons & Dragons, Pathfinder, and Gloomhaven</em>.
@@ -21,34 +27,34 @@ const Home = () => {
 					a reference for monster stats, spells, or items.
 				</TextBlock>
 
-				<div className="flex gap-5 border px-2 items-center bg-[var(--card-bg)]">
-					<SiNotion className="ml-2" size={100} />
+				<article className={styles.notionCard}>
+					<SiNotion size={75} />
 					<TextBlock>
 						This version of DM Deck was designed to be embedded into <a href="https://www.notion.so/">Notion</a>, and
 						will save your encounters in Notion's local storage.
 					</TextBlock>
-				</div>
+				</article>
+			</section>
 
-				<TextBlock>Have any suggestions or questions? Send an email here (insert email eventually)</TextBlock>
-			</div>
-
-			<h2 className="mt-3">Quick Links:</h2>
-			<ul>
-				<li>
-					<Link to={'./characters/new'}>make a character</Link>
-				</li>
-				<li>
-					<Link to={'./monsters/new'}>make a monster</Link>
-				</li>
-				<li>
-					<Link to={'./encounters/new'}>make an encounter</Link>
-				</li>
-				{activeRun && activeRun.id && (
+			<section className={styles.quickMsgContainer}>
+				<h2>Quick Links:</h2>
+				<ul>
 					<li>
-						<Link to={`./encounters/run/${activeRun.id}`}>go to active encounter</Link>
+						<Link to={'./characters/new'}>make a character</Link>
 					</li>
-				)}
-			</ul>
+					<li>
+						<Link to={'./monsters/new'}>make a monster</Link>
+					</li>
+					<li>
+						<Link to={'./encounters/new'}>make an encounter</Link>
+					</li>
+					{activeRun && activeRun.id && (
+						<li>
+							<Link to={`./encounters/run/${activeRun.id}`}>go to active encounter</Link>
+						</li>
+					)}
+				</ul>
+			</section>
 		</>
 	);
 };
