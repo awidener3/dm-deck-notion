@@ -43,7 +43,7 @@ const Home = () => {
 				<li>
 					<Link to={'./encounters/new'}>make an encounter</Link>
 				</li>
-				{activeRun && (
+				{activeRun && activeRun.id && (
 					<li>
 						<Link to={`./encounters/run/${activeRun.id}`}>go to active encounter</Link>
 					</li>

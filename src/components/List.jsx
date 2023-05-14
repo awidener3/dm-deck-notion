@@ -1,8 +1,9 @@
 import useLocalStorage from '../hooks/useLocalStorage';
 import Pagination from './Pagination';
+import ListItem from './ListItem';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getLocalStorageItem } from '../utils';
+import { getLocalStorageItem, setLocalStorageItem } from '../utils';
 
 const List = ({
 	title,
@@ -18,11 +19,6 @@ const List = ({
 	paginate = true,
 	onSelect,
 }) => {
-	const styles = {
-		heading: 'mt-3 flex justify-between border-b-2 border-b-slate-500',
-		headingTitle: 'text-lg text-[color:var(--text-highlight)]',
-		headingAdd: 'text-sm',
-	};
 	const [listItems, setListItems] = useLocalStorage(storageKey, []);
 	const [pagination, setPagination] = useState({
 		currentPage: 1,
@@ -39,6 +35,7 @@ const List = ({
 	const lastItemIndex = pagination.currentPage * pagination.perPage;
 	const firstItemIndex = lastItemIndex - pagination.perPage;
 
+	// If a filter term is in state, use that to filter listItems first
 	const currentItems = filterTerm
 		? listItems
 				.filter((item) => item.name.toLowerCase().includes(filterTerm.toLowerCase()))
@@ -53,10 +50,38 @@ const List = ({
 	const navigate = useNavigate();
 
 	const handleAdd = () => navigate(`/${title.toLowerCase()}/new`);
+
+	const handleFilter = (e) => setFilterTerm(e.target.value);
+
 	const handleRun = (itemId) => navigate(`/${title.toLowerCase()}/run/${itemId}`);
+
 	const viewItem = (itemId) => navigate(`/${title.toLowerCase()}/${itemId}`);
+
 	const editItem = (itemId) => navigate(`/${title.toLowerCase()}/edit/${itemId}`);
-	const deleteItem = (itemId) => setListItems(listItems.filter((item) => item.id !== itemId));
+
+	const deleteItem = (itemId) => {
+		// Item is not an encounter, safely remove from storage
+		if (title.toLowerCase() !== 'encounters') {
+			setListItems(listItems.filter((item) => item.id !== itemId));
+			return;
+		}
+
+		// Item is an encounter, remove all instances from "run list" if exists
+		const runs = getLocalStorageItem('runs');
+		if (runs && runs.some((run) => run.id === itemId)) {
+			const updated = runs.filter((run) => run.id !== itemId);
+			setLocalStorageItem('runs', updated);
+		}
+
+		// If encounter was the active run, set to {}
+		const activeRun = getLocalStorageItem('active_run');
+		if (activeRun && activeRun.id === itemId) {
+			setLocalStorageItem('active_run', {});
+		}
+
+		// Remove as normal
+		setListItems(listItems.filter((item) => item.id !== itemId));
+	};
 
 	const listItemProps = {
 		subtitleKeys,
@@ -70,30 +95,26 @@ const List = ({
 		onRun: handleRun,
 	};
 
-	const handleFilter = (e) => {
-		setFilterTerm(e.target.value);
-	};
+	const renderItems = currentItems
+		// Filter out "selected" items
+		.filter((item) => !selected.includes(item.id) && !selected.some((i) => i.id === item.id))
+		// Sort alphabetically
+		.sort((a, b) => {
+			if (a.name > b.name) return 1;
+			if (a.name < b.name) return -1;
+			return 0;
+		})
+		// Map list items
+		.map((item) => <ListItem key={item.id} item={item} {...listItemProps} />);
 
-	let renderItems;
-	if (!paginate) {
-		renderItems = currentItems
-			.sort((a, b) => {
-				if (a.name > b.name) return 1;
-				if (a.name < b.name) return -1;
-				return 0;
-			})
-			.filter((item) => !selected.includes(item.id) && !selected.some((i) => i.id === item.id))
-			.map((item) => <ListItem key={item.id} item={item} {...listItemProps} />);
-	} else {
-		renderItems = currentItems
-			.sort((a, b) => {
-				if (a.name > b.name) return 1;
-				if (a.name < b.name) return -1;
-				return 0;
-			})
-			.filter((item) => !selected.includes(item.id) && !selected.some((i) => i.id === item.id))
-			.map((item) => <ListItem key={item.id} item={item} {...listItemProps} />);
-	}
+	const styles = {
+		heading: 'mt-3 flex justify-between border-b-2 border-b-slate-500',
+		headingTitle: 'text-lg text-[color:var(--text-highlight)]',
+		headingAdd: 'text-sm',
+		filter: 'flex items-center mt-2 gap-2',
+		filterInput: 'flex-1 font-thin px-2 italic',
+		noItems: 'text-center p-10 italic',
+	};
 
 	return (
 		<>
@@ -106,20 +127,20 @@ const List = ({
 				)}
 			</div>
 
+			{canFilter && (
+				<label className={styles.filter}>
+					filter {storageKey}
+					<input
+						className={styles.filterInput}
+						placeholder={storageKey + ' name'}
+						value={filterTerm}
+						onChange={handleFilter}
+					/>
+				</label>
+			)}
+
 			{renderItems.length > 0 && (
 				<>
-					{canFilter && (
-						<div className="flex items-center mt-2 gap-2">
-							<label>filter {storageKey}</label>
-							<input
-								className="flex-1 font-thin px-2 italic"
-								type="text"
-								placeholder={storageKey + ' name'}
-								value={filterTerm}
-								onChange={handleFilter}
-							/>
-						</div>
-					)}
 					<ul>{renderItems}</ul>
 
 					{paginate && (
@@ -128,7 +149,7 @@ const List = ({
 							setPagination={setPagination}
 							listItems={
 								filterTerm
-									? listItems.filter((item) => item.name.toLowerCase().includes(filterTerm.toLowerCase())) // filtered list
+									? listItems.filter(({ name }) => name.toLowerCase().includes(filterTerm.toLowerCase())) // filtered list
 									: listItems // all monsters
 							}
 						/>
@@ -136,57 +157,9 @@ const List = ({
 				</>
 			)}
 
-			{renderItems.length === 0 && <p className="text-center p-10 italic">no {storageKey}</p>}
+			{!filterTerm && renderItems.length === 0 && <p className={styles.noItems}>no {storageKey}</p>}
 		</>
 	);
 };
-
-const ListItem = (props) => {
-	const [selected, setSelected] = useState(false);
-
-	const styles = {
-		listItem: 'flex justify-between items-center border-b border-b-slate-500 py-1',
-		selectedListItem: 'flex justify-between items-center border-b border-b-slate-500 py-1 bg-[var(--text-highlight)]',
-	};
-
-	const handleSelect = () => {
-		setSelected(true);
-		props.onSelect(props.item.id);
-	};
-
-	const handleRun = () => props.onRun(props.item.id);
-	const handleView = () => props.onView(props.item.id);
-	const handleEdit = () => props.onEdit(props.item.id);
-	const handleDelete = () => props.onDelete(props.item.id);
-
-	const subtitle = false || <span className="italic">({props.item[props.subtitleKeys]})</span>;
-
-	return (
-		<li className={selected ? styles.selectedListItem : styles.listItem}>
-			<div className="flex gap-2">{props.item.name}</div>
-
-			<div className="flex gap-2">
-				<ListButton text={'view'} handler={handleView} />
-
-				{props.canRun && <ListButton text={'run'} handler={handleRun} />}
-
-				{props.editable && (
-					<>
-						<ListButton text={'edit'} handler={handleEdit} />
-						<ListButton text={'delete'} handler={handleDelete} />
-					</>
-				)}
-
-				{props.selectable && <ListButton text={'select'} handler={handleSelect} />}
-			</div>
-		</li>
-	);
-};
-
-const ListButton = ({ handler, text }) => (
-	<button className="text-[color:var(--text-highlight)] text-sm" type="button" onClick={handler}>
-		{text}
-	</button>
-);
 
 export default List;
