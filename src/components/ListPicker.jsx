@@ -11,10 +11,14 @@ const ListPicker = ({ lists = ['characters', 'monsters'], appendCharacter, appen
 
 	return (
 		<>
-			<ul className="flex gap-5">
+			<ul className="flex justify-around">
 				{lists.map((list, index) => (
 					<li key={list}>
-						<button type="button" onClick={() => handleClick(index)}>
+						<button
+							className={index === selectedIndex ? 'text-[color:var(--text-highlight)]' : null}
+							type="button"
+							onClick={() => handleClick(index)}
+						>
 							select {list}
 						</button>
 					</li>

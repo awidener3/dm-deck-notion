@@ -8,16 +8,16 @@ const Home = () => {
 	const styles = {
 		header: 'italic text-[color:var(--text-highlight)] border-b',
 		message: 'gap-5 border p-2 items-center bg-[var(--card-bg)]',
-		welcomeContainer: 'flex flex-col gap-5',
+		container: 'mt-3 flex flex-col gap-5',
 		notionCard: 'flex flex-col md:flex-row gap-5 border p-2 items-center bg-[var(--card-bg)]',
-		quickMsgContainer: 'pt-3',
+		quickMsgContainer: 'py-3',
 	};
 
 	return (
 		<>
 			<h1 className={styles.header}>DM Deck</h1>
 
-			<section className={styles.welcomeContainer}>
+			<section className={styles.container}>
 				<p>
 					<strong>Welcome to DM Deck!</strong> This app is built for dungeon and game masters of tabletop roleplaying
 					games (ttrp's) such as <em>Dungeons & Dragons, Pathfinder, and Gloomhaven</em>.
@@ -37,8 +37,35 @@ const Home = () => {
 				</article>
 			</section>
 
+			<section className={styles.container}>
+				<h2 className="text-lg border-b">What now?</h2>
+
+				<ol className="flex flex-col gap-2">
+					<li>
+						<strong>
+							<em>1. Create Your Characters.</em>
+						</strong>
+						Start by adding your party members. The details are limited, but that's because their abilities aren't your
+						job!
+					</li>
+					<li>
+						<strong>
+							<em>2. Make an Encounter.</em>
+						</strong>
+						Name it, assign some characters, assign some monsters, and push save!
+					</li>
+					<li>
+						<strong>
+							<em>3. Run Your Encounter.</em>
+						</strong>
+						Set your initiatives, and begin your encounter! Your cards will be ordered automatically, and all you need
+						to do is cycle through them as the encounter plays out!
+					</li>
+				</ol>
+			</section>
+
 			<section className={styles.quickMsgContainer}>
-				<h2>Quick Links:</h2>
+				<h2 className="text-lg border-b">Quick Links:</h2>
 				<ul>
 					<li>
 						<Link to={'./characters/new'}>make a character</Link>
