@@ -123,7 +123,7 @@ const Ability = ({ title, description }) => {
 			// remove [spell] and [/spell]
 			const spellStr = word.substring(7, word.length - 8);
 			spells.push(spellStr);
-			return `<span class="cursor-pointer italic text-[color:var(--text-highlight)]" id="${spellStr}">${spellStr}</span>`;
+			return `<span class="cursor-pointer italic text-[color:var(--text-highlight)] hover:font-bold" id="${spellStr}">${spellStr}</span>`;
 		});
 		description = spellString;
 	}

@@ -7,6 +7,7 @@ const Home = () => {
 
 	const styles = {
 		header: 'italic text-[color:var(--text-highlight)] border-b',
+		message: 'gap-5 border p-2 items-center bg-[var(--card-bg)]',
 		welcomeContainer: 'flex flex-col gap-5',
 		notionCard: 'flex flex-col md:flex-row gap-5 border p-2 items-center bg-[var(--card-bg)]',
 		quickMsgContainer: 'pt-3',
@@ -17,22 +18,22 @@ const Home = () => {
 			<h1 className={styles.header}>DM Deck</h1>
 
 			<section className={styles.welcomeContainer}>
-				<TextBlock>
+				<p>
 					<strong>Welcome to DM Deck!</strong> This app is built for dungeon and game masters of tabletop roleplaying
 					games (ttrp's) such as <em>Dungeons & Dragons, Pathfinder, and Gloomhaven</em>.
-				</TextBlock>
+				</p>
 
-				<TextBlock>
+				<p>
 					Use this tool to build your party, create encounters, and run them like a card game! You can also use this as
 					a reference for monster stats, spells, or items.
-				</TextBlock>
+				</p>
 
 				<article className={styles.notionCard}>
 					<SiNotion size={75} />
-					<TextBlock>
+					<p>
 						This version of DM Deck was designed to be embedded into <a href="https://www.notion.so/">Notion</a>, and
 						will save your encounters in Notion's local storage.
-					</TextBlock>
+					</p>
 				</article>
 			</section>
 
@@ -58,7 +59,5 @@ const Home = () => {
 		</>
 	);
 };
-
-const TextBlock = ({ children }) => <p>{children}</p>;
 
 export default Home;
