@@ -1,6 +1,6 @@
 {
 	"source": "Systems Reference Document (SRD)",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"monsters": [
 		{
 			"name": "Aboleth",
@@ -108,7 +108,7 @@
 			"special_abilities": [
 				{
 					"name": "Spellcasting",
-					"desc": "The acolyte is a 1st-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). The acolyte has following cleric spells prepared:\n\n• Cantrips (at will): light, sacred flame, thaumaturgy\n• 1st level (3 slots): bless, cure wounds, sanctuary",
+					"desc": "The acolyte is a 1st-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). The acolyte has following cleric spells prepared:\n\n• Cantrips (at will): [spell]light[/spell], [spell]sacred flame[/spell], [spell]thaumaturgy[/spell]\n• 1st level (3 slots): [spell]bless[/spell], [spell]cure wounds[/spell], [spell]sanctuary[/spell]",
 					"attack_bonus": 4
 				}
 			],
@@ -2128,7 +2128,7 @@
 				},
 				{
 					"name": "Spellcasting",
-					"desc": "The sphinx is a 12th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 18, +10 to hit with spell attacks). It requires no material components to cast its spells. The sphinx has the following cleric spells prepared:\n\n• Cantrips (at will): sacred flame, spare the dying, thaumaturgy\n• 1st level (4 slots): command, detect evil and good, detect magic\n• 2nd level (3 slots): lesser restoration, zone of truth\n• 3rd level (3 slots): dispel magic, tongues\n• 4th level (3 slots): banishment, freedom of movement\n• 5th level (2 slots): flame strike, greater restoration\n• 6th level (1 slot): heroes' feast"
+					"desc": "The sphinx is a 12th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 18, +10 to hit with spell attacks). It requires no material components to cast its spells. The sphinx has the following cleric spells prepared:\n\n• Cantrips (at will): [spell]sacred flame[/spell], [spell]spare the dying[/spell], [spell]thaumaturgy[/spell]\n• 1st level (4 slots): [spell]command[/spell], [spell]detect evil and good[/spell], [spell]detect magic[/spell]\n• 2nd level (3 slots): [spell]lesser restoration[/spell], [spell]zone of truth[/spell]\n• 3rd level (3 slots): [spell]dispel magic[/spell], [spell]tongues[/spell]\n• 4th level (3 slots): [spell]banishment[/spell], [spell]freedom of movement[/spell]\n• 5th level (2 slots): [spell]flame strike[/spell], [spell]greater restoration[/spell]\n• 6th level (1 slot): [spell]heroes' feast[/spell]"
 				}
 			],
 			"actions": [
@@ -2322,7 +2322,7 @@
 				},
 				{
 					"name": "Spellcasting",
-					"desc": "The archmage is an 18th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 17, +9 to hit with spell attacks). The archmage can cast disguise self and invisibility at will and has the following wizard spells prepared:\n\n• Cantrips (at will): fire bolt, light, mage hand, prestidigitation, shocking grasp\n• 1st level (4 slots): detect magic, identify, mage armor*, magic missile\n• 2nd level (3 slots): detect thoughts, mirror image, misty step\n• 3rd level (3 slots): counterspell,fly, lightning bolt\n• 4th level (3 slots): banishment, fire shield, stoneskin*\n• 5th level (3 slots): cone of cold, scrying, wall of force\n• 6th level (1 slot): globe of invulnerability\n• 7th level (1 slot): teleport\n• 8th level (1 slot): mind blank*\n• 9th level (1 slot): time stop\n* The archmage casts these spells on itself before combat."
+					"desc": "The archmage is an 18th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 17, +9 to hit with spell attacks). The archmage can cast disguise self and invisibility at will and has the following wizard spells prepared:\n\n• Cantrips (at will): [spell]fire bolt[/spell], [spell]light[/spell], [spell]mage hand[/spell], [spell]prestidigitation[/spell], [spell]shocking grasp[/spell]\n• 1st level (4 slots): [spell]detect magic[/spell], [spell]identify[/spell], [spell]mage armor[/spell]*, [spell]magic missile[/spell]\n• 2nd level (3 slots): [spell]detect thoughts[/spell], [spell]mirror image[/spell], [spell]misty step[/spell]\n• 3rd level (3 slots): [spell]counterspell[/spell], [spell]fly[/spell], [spell]lightning bolt[/spell]\n• 4th level (3 slots): [spell]banishment[/spell], [spell]fire shield[/spell], [spell]stoneskin[/spell]*\n• 5th level (3 slots): [spell]cone of cold[/spell], [spell]scrying[/spell], [spell]wall of force[/spell]\n• 6th level (1 slot): [spell]globe of invulnerability[/spell]\n• 7th level (1 slot): [spell]teleport[/spell]\n• 8th level (1 slot): [spell]mind blank[/spell]*\n• 9th level (1 slot): [spell]time stop[/spell]\n* The archmage casts these spells on itself before combat."
 				}
 			],
 			"actions": [
@@ -4242,7 +4242,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The giant's innate spellcasting ability is Charisma. It can innately cast the following spells, requiring no material components:\n\nAt will: detect magic, fog cloud, light\n3/day each: feather fall, fly, misty step, telekinesis\n1/day each: control weather, gaseous form"
+					"desc": "The giant's innate spellcasting ability is Charisma. It can innately cast the following spells, requiring no material components:\n\nAt will: [spell]detect magic[/spell], [spell]fog cloud[/spell], [spell]light[/spell]\n3/day each: [spell]feather fall[/spell], [spell]fly[/spell], [spell]misty step[/spell], [spell]telekinesis[/spell]\n1/day each: [spell]control weather[/spell], [spell]gaseous form[/spell]"
 				}
 			],
 			"actions": [
@@ -4432,7 +4432,7 @@
 			"special_abilities": [
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The couatl's spellcasting ability is Charisma (spell save DC 14). It can innately cast the following spells, requiring only verbal components:\n\nAt will: detect evil and good, detect magic, detect thoughts\n3/day each: bless, create food and water, cure wounds, lesser restoration, protection from poison, sanctuary, shield\n1/day each: dream, greater restoration, scrying"
+					"desc": "The couatl's spellcasting ability is Charisma (spell save DC 14). It can innately cast the following spells, requiring only verbal components:\n\nAt will: [spell]detect evil and good[/spell], [spell]detect magic[/spell], [spell]detect thoughts[/spell]\n3/day each: [spell]bless[/spell], [spell]create food and water[/spell], [spell]cure wounds[/spell], [spell]lesser restoration[/spell], [spell]protection from poison[/spell], [spell]sanctuary[/spell], [spell]shield[/spell]\n1/day each: [spell]dream[/spell], [spell]greater restoration[/spell], [spell]scrying[/spell]"
 				},
 				{
 					"name": "Magic Weapons",
@@ -4567,7 +4567,7 @@
 				},
 				{
 					"name": "Spellcasting",
-					"desc": "The fanatic is a 4th-level spellcaster. Its spell casting ability is Wisdom (spell save DC 11, +3 to hit with spell attacks). The fanatic has the following cleric spells prepared:\n\nCantrips (at will): light, sacred flame, thaumaturgy\n• 1st level (4 slots): command, inflict wounds, shield of faith\n• 2nd level (3 slots): hold person, spiritual weapon"
+					"desc": "The fanatic is a 4th-level spellcaster. Its spell casting ability is Wisdom (spell save DC 11, +3 to hit with spell attacks). The fanatic has the following cleric spells prepared:\n\nCantrips (at will): [spell]light[/spell], [spell]sacred flame[/spell], [spell]thaumaturgy[/spell]\n• 1st level (4 slots): [spell]command[/spell], [spell]inflict wounds[/spell], [spell]shield of faith[/spell]\n• 2nd level (3 slots): [spell]hold person[/spell], [spell]spiritual weapon[/spell]"
 				}
 			],
 			"actions": [
@@ -4745,7 +4745,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The gnome's innate spellcasting ability is Intelligence (spell save DC 11). It can innately cast the following spells, requiring no material components:\nAt will: nondetection (self only)\n1/day each: blindness/deafness, blur, disguise self"
+					"desc": "The gnome's innate spellcasting ability is Intelligence (spell save DC 11). It can innately cast the following spells, requiring no material components:\nAt will: [spell]nondetection[/spell] (self only)\n1/day each: [spell]blindness/deafness[/spell], [spell]blur[/spell], [spell]disguise self[/spell]"
 				}
 			],
 			"actions": [
@@ -4827,7 +4827,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The deva's spellcasting ability is Charisma (spell save DC 17). The deva can innately cast the following spells, requiring only verbal components:\nAt will: detect evil and good\n1/day each: commune, raise dead"
+					"desc": "The deva's spellcasting ability is Charisma (spell save DC 17). The deva can innately cast the following spells, requiring only verbal components:\nAt will: [spell]detect evil and good[/spell]\n1/day each: [spell]commune[/spell], [spell]raise dead[/spell]"
 				},
 				{
 					"name": "Magic Resistance",
@@ -4929,7 +4929,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The djinni's innate spellcasting ability is Charisma (spell save DC 17, +9 to hit with spell attacks). It can innately cast the following spells, requiring no material components:\n\nAt will: detect evil and good, detect magic, thunderwave 3/day each: create food and water (can create wine instead of water), tongues, wind walk\n1/day each: conjure elemental (air elemental only), creation, gaseous form, invisibility, major image, plane shift"
+					"desc": "The djinni's innate spellcasting ability is Charisma (spell save DC 17, +9 to hit with spell attacks). It can innately cast the following spells, requiring no material components:\n\nAt will: [spell]detect evil and good[/spell], [spell]detect magic[/spell], [spell]thunderwave[/spell] 3/day each: [spell]create food and water[/spell] (can create wine instead of water), [spell]tongues[/spell], [spell]wind walk[/spell]\n1/day each: [spell]conjure elemental[/spell] (air elemental only), [spell]creation[/spell], [spell]gaseous form[/spell], [spell]invisibility[/spell], [spell]major image[/spell], [spell]plane shift[/spell]"
 				},
 				{
 					"name": "Variant: Genie Powers",
@@ -5178,7 +5178,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The drider's innate spellcasting ability is Wisdom (spell save DC 13). The drider can innately cast the following spells, requiring no material components:\nAt will: dancing lights\n1/day each: darkness, faerie fire"
+					"desc": "The drider's innate spellcasting ability is Wisdom (spell save DC 13). The drider can innately cast the following spells, requiring no material components:\nAt will: [spell]dancing lights[/spell]\n1/day each: [spell]darkness[/spell], [spell]faerie fire[/spell]"
 				},
 				{
 					"name": "Spider Climb",
@@ -5251,7 +5251,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The drow's spellcasting ability is Charisma (spell save DC 11). It can innately cast the following spells, requiring no material components:\nAt will: dancing lights\n1/day each: darkness, faerie fire"
+					"desc": "The drow's spellcasting ability is Charisma (spell save DC 11). It can innately cast the following spells, requiring no material components:\nAt will: [spell]dancing lights[/spell]\n1/day each: [spell]darkness[/spell], [spell]faerie fire[/spell]"
 				},
 				{
 					"name": "Sunlight Sensitivity",
@@ -5302,7 +5302,7 @@
 			"special_abilities": [
 				{
 					"name": "Spellcasting",
-					"desc": "The druid is a 4th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). It has the following druid spells prepared:\n\n• Cantrips (at will): druidcraft, produce flame, shillelagh\n• 1st level (4 slots): entangle, longstrider, speak with animals, thunderwave\n• 2nd level (3 slots): animal messenger, barkskin"
+					"desc": "The druid is a 4th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). It has the following druid spells prepared:\n\n• Cantrips (at will): [spell]druidcraft[/spell], [spell]produce flame[/spell], [spell]shillelagh[/spell]\n• 1st level (4 slots): [spell]entangle[/spell], [spell]longstrider[/spell], [spell]speak with animals[/spell], [spell]thunderwave[/spell]\n• 2nd level (3 slots): [spell]animal messenger[/spell], [spell]barkskin[/spell]"
 				}
 			],
 			"actions": [
@@ -5339,7 +5339,7 @@
 			"special_abilities": [
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The dryad's innate spellcasting ability is Charisma (spell save DC 14). The dryad can innately cast the following spells, requiring no material components:\n\nAt will: druidcraft\n3/day each: entangle, goodberry\n1/day each: barkskin, pass without trace, shillelagh"
+					"desc": "The dryad's innate spellcasting ability is Charisma (spell save DC 14). The dryad can innately cast the following spells, requiring no material components:\n\nAt will: [spell]druidcraft[/spell]\n3/day each: [spell]entangle[/spell], [spell]goodberry[/spell]\n1/day each: [spell]barkskin[/spell], [spell]pass without trace[/spell], [spell]shillelagh[/spell]"
 				},
 				{
 					"name": "Magic Resistance",
@@ -5456,7 +5456,7 @@
 				},
 				{
 					"name": "Innate Spellcasting (1/Day)",
-					"desc": "The mephit can innately cast sleep, requiring no material components. Its innate spellcasting ability is Charisma."
+					"desc": "The mephit can innately cast [spell]sleep[/spell], requiring no material components. Its innate spellcasting ability is Charisma."
 				}
 			],
 			"actions": [
@@ -5593,7 +5593,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The efreeti's innate spell casting ability is Charisma (spell save DC 15, +7 to hit with spell attacks). It can innately cast the following spells, requiring no material components:\n\nAt will: detect magic\n3/day: enlarge/reduce, tongues\n1/day each: conjure elemental (fire elemental only), gaseous form, invisibility, major image, plane shift, wall of fire"
+					"desc": "The efreeti's innate spell casting ability is Charisma (spell save DC 15, +7 to hit with spell attacks). It can innately cast the following spells, requiring no material components:\n\nAt will: [spell]detect magic[/spell]\n3/day: [spell]enlarge/reduce[/spell], [spell]tongues[/spell]\n1/day each: [spell]conjure elemental[/spell] (fire elemental only), [spell]gaseous form[/spell], [spell]invisibility[/spell], [spell]major image[/spell], [spell]plane shift[/spell], [spell]wall of fire[/spell]"
 				},
 				{
 					"name": "Variant: Genie Powers",
@@ -7709,7 +7709,7 @@
 			"special_abilities": [
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The glabrezu's spellcasting ability is Intelligence (spell save DC 16). The glabrezu can innately cast the following spells, requiring no material components:\nAt will: darkness, detect magic, dispel magic\n1/day each: confusion, fly, power word stun"
+					"desc": "The glabrezu's spellcasting ability is Intelligence (spell save DC 16). The glabrezu can innately cast the following spells, requiring no material components:\nAt will: [spell]darkness[/spell], [spell]detect magic[/spell], [spell]dispel magic[/spell]\n1/day each: [spell]confusion[/spell], [spell]fly[/spell], [spell]power word stun[/spell]"
 				},
 				{
 					"name": "Magic Resistance",
@@ -8162,7 +8162,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The hag's innate spellcasting ability is Charisma (spell save DC 12). She can innately cast the following spells, requiring no material components:\n\nAt will: dancing lights, minor illusion, vicious mockery"
+					"desc": "The hag's innate spellcasting ability is Charisma (spell save DC 12). She can innately cast the following spells, requiring no material components:\n\nAt will: [spell]dancing lights[/spell], [spell]minor illusion[/spell], [spell]vicious mockery[/spell]"
 				},
 				{
 					"name": "Mimicry",
@@ -8174,7 +8174,7 @@
 				},
 				{
 					"name": "Shared Spellcasting (Coven Only)",
-					"desc": "While all three members of a hag coven are within 30 feet of one another, they can each cast the following spells from the wizard's spell list but must share the spell slots among themselves:\n\n• 1st level (4 slots): identify, ray of sickness\n• 2nd level (3 slots): hold person, locate object\n• 3rd level (3 slots): bestow curse, counterspell, lightning bolt\n• 4th level (3 slots): phantasmal killer, polymorph\n• 5th level (2 slots): contact other plane, scrying\n• 6th level (1 slot): eye bite\n\nFor casting these spells, each hag is a 12th-level spellcaster that uses Intelligence as her spellcasting ability. The spell save DC is 12+the hag's Intelligence modifier, and the spell attack bonus is 4+the hag's Intelligence modifier."
+					"desc": "While all three members of a hag coven are within 30 feet of one another, they can each cast the following spells from the wizard's spell list but must share the spell slots among themselves:\n\n• 1st level (4 slots): [spell]identify[/spell], [spell]ray of sickness[/spell]\n• 2nd level (3 slots): [spell]hold person[/spell], [spell]locate object[/spell]\n• 3rd level (3 slots): [spell]bestow curse[/spell], [spell]counterspell[/spell], [spell]lightning bolt[/spell]\n• 4th level (3 slots): [spell]phantasmal killer[/spell], [spell]polymorph[/spell]\n• 5th level (2 slots): [spell]contact other plane[/spell], [spell]scrying[/spell]\n• 6th level (1 slot): [spell]eye bite[/spell]\n\nFor casting these spells, each hag is a 12th-level spellcaster that uses Intelligence as her spellcasting ability. The spell save DC is 12+the hag's Intelligence modifier, and the spell attack bonus is 4+the hag's Intelligence modifier."
 				},
 				{
 					"name": "Hag Eye (Coven Only)",
@@ -8410,7 +8410,7 @@
 				},
 				{
 					"name": "Spellcasting",
-					"desc": "The naga is an 11th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 16, +8 to hit with spell attacks), and it needs only verbal components to cast its spells. It has the following cleric spells prepared:\n\n• Cantrips (at will): mending, sacred flame, thaumaturgy\n• 1st level (4 slots): command, cure wounds, shield of faith\n• 2nd level (3 slots): calm emotions, hold person\n• 3rd level (3 slots): bestow curse, clairvoyance\n• 4th level (3 slots): banishment, freedom of movement\n• 5th level (2 slots): flame strike, geas\n• 6th level (1 slot): true seeing"
+					"desc": "The naga is an 11th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 16, +8 to hit with spell attacks), and it needs only verbal components to cast its spells. It has the following cleric spells prepared:\n\n• Cantrips (at will): [spell]mending[/spell], [spell]sacred flame[/spell], [spell]thaumaturgy[/spell]\n• 1st level (4 slots): [spell]command[/spell], [spell]cure wounds[/spell], [spell]shield of faith[/spell]\n• 2nd level (3 slots): [spell]calm emotions[/spell], [spell]hold person[/spell]\n• 3rd level (3 slots): [spell]bestow curse[/spell], [spell]clairvoyance[/spell]\n• 4th level (3 slots): [spell]banishment[/spell], [spell]freedom of movement[/spell]\n• 5th level (2 slots): [spell]flame strike[/spell], [spell]geas[/spell]\n• 6th level (1 slot): [spell]true seeing[/spell]"
 				}
 			],
 			"actions": [
@@ -8467,7 +8467,7 @@
 				},
 				{
 					"name": "Spellcasting",
-					"desc": "The sphinx is a 9th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 16, +8 to hit with spell attacks). It requires no material components to cast its spells. The sphinx has the following wizard spells prepared:\n\n• Cantrips (at will): mage hand, minor illusion, prestidigitation\n• 1st level (4 slots): detect magic, identify, shield\n• 2nd level (3 slots): darkness, locate object, suggestion\n• 3rd level (3 slots): dispel magic, remove curse, tongues\n• 4th level (3 slots): banishment, greater invisibility\n• 5th level (1 slot): legend lore"
+					"desc": "The sphinx is a 9th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 16, +8 to hit with spell attacks). It requires no material components to cast its spells. The sphinx has the following wizard spells prepared:\n\n• Cantrips (at will): [spell]mage hand[/spell], [spell]minor illusion[/spell], [spell]prestidigitation[/spell]\n• 1st level (4 slots): [spell]detect magic[/spell], [spell]identify[/spell], [spell]shield[/spell]\n• 2nd level (3 slots): [spell]darkness[/spell], [spell]locate object[/spell], [spell]suggestion[/spell]\n• 3rd level (3 slots): [spell]dispel magic[/spell], [spell]remove curse[/spell], [spell]tongues[/spell]\n• 4th level (3 slots): [spell]banishment[/spell], [spell]greater invisibility[/spell]\n• 5th level (1 slot): [spell]legend lore[/spell]"
 				}
 			],
 			"actions": [
@@ -9213,7 +9213,7 @@
 				},
 				{
 					"name": "Innate Spellcasting (1/Day)",
-					"desc": "The mephit can innately cast fog cloud, requiring no material components. Its innate spellcasting ability is Charisma."
+					"desc": "The mephit can innately cast [spell]fog cloud[/spell], requiring no material components. Its innate spellcasting ability is Charisma."
 				}
 			],
 			"actions": [
@@ -9709,7 +9709,7 @@
 			"special_abilities": [
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The lamia's innate spellcasting ability is Charisma (spell save DC 13). It can innately cast the following spells, requiring no material components. At will: disguise self (any humanoid form), major image 3/day each: charm person, mirror image, scrying, suggestion 1/day: geas"
+					"desc": "The lamia's innate spellcasting ability is Charisma (spell save DC 13). It can innately cast the following spells, requiring no material components. At will: [spell]disguise self[/spell] (any humanoid form), [spell]major image[/spell] 3/day each: [spell]charm person[/spell], [spell]mirror image[/spell], [spell]scrying[/spell], [spell]suggestion[/spell] 1/day: [spell]geas[/spell]"
 				}
 			],
 			"actions": [
@@ -9821,7 +9821,7 @@
 				},
 				{
 					"name": "Spellcasting",
-					"desc": "The lich is an 18th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 20, +12 to hit with spell attacks). The lich has the following wizard spells prepared:\n\n• Cantrips (at will): mage hand, prestidigitation, ray of frost\n• 1st level (4 slots): detect magic, magic missile, shield, thunderwave\n• 2nd level (3 slots): detect thoughts, invisibility, Melf's acid arrow, mirror image\n• 3rd level (3 slots): animate dead, counterspell, dispel magic, fireball\n• 4th level (3 slots): blight, dimension door\n• 5th level (3 slots): cloudkill, scrying\n• 6th level (1 slot): disintegrate, globe of invulnerability\n• 7th level (1 slot): finger of death, plane shift\n• 8th level (1 slot): dominate monster, power word stun\n• 9th level (1 slot): power word kill"
+					"desc": "The lich is an 18th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 20, +12 to hit with spell attacks). The lich has the following wizard spells prepared:\n\n• Cantrips (at will): [spell]mage hand[/spell], [spell]prestidigitation[/spell], [spell]ray of frost[/spell]\n• 1st level (4 slots): [spell]detect magic[/spell], [spell]magic missile[/spell], [spell]shield[/spell], [spell]thunderwave[/spell]\n• 2nd level (3 slots): [spell]detect thoughts[/spell], [spell]invisibility[/spell], [spell]Melf's acid arrow[/spell], [spell]mirror image[/spell]\n• 3rd level (3 slots): [spell]animate dead[/spell], [spell]counterspell[/spell], [spell]dispel magic[/spell], [spell]fireball[/spell]\n• 4th level (3 slots): [spell]blight[/spell], [spell]dimension door[/spell]\n• 5th level (3 slots): [spell]cloudkill[/spell], [spell]scrying[/spell]\n• 6th level (1 slot): [spell]disintegrate[/spell], [spell]globe of invulnerability[/spell]\n• 7th level (1 slot): [spell]finger of death[/spell], [spell]plane shift[/spell]\n• 8th level (1 slot): [spell]dominate monster[/spell], [spell]power word stun[/spell]\n• 9th level (1 slot): [spell]power word kill[/spell]"
 				},
 				{
 					"name": "Turn Resistance",
@@ -10033,7 +10033,7 @@
 			"special_abilities": [
 				{
 					"name": "Spellcasting",
-					"desc": "The mage is a 9th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 14, +6 to hit with spell attacks). The mage has the following wizard spells prepared:\n\n• Cantrips (at will): fire bolt, light, mage hand, prestidigitation\n• 1st level (4 slots): detect magic, mage armor, magic missile, shield\n• 2nd level (3 slots): misty step, suggestion\n• 3rd level (3 slots): counterspell, fireball, fly\n• 4th level (3 slots): greater invisibility, ice storm\n• 5th level (1 slot): cone of cold"
+					"desc": "The mage is a 9th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 14, +6 to hit with spell attacks). The mage has the following wizard spells prepared:\n\n• Cantrips (at will): [spell]fire bolt[/spell], [spell]light[/spell], [spell]mage hand[/spell], [spell]prestidigitation[/spell]\n• 1st level (4 slots): [spell]detect magic[/spell], [spell]mage armor[/spell], [spell]magic missile[/spell], [spell]shield[/spell]\n• 2nd level (3 slots): [spell]misty step[/spell], [spell]suggestion[/spell]\n• 3rd level (3 slots): [spell]counterspell[/spell], [spell]fireball[/spell], [spell]fly[/spell]\n• 4th level (3 slots): [spell]greater invisibility[/spell], [spell]ice storm[/spell]\n• 5th level (1 slot): [spell]cone of cold[/spell]"
 				}
 			],
 			"actions": [
@@ -10081,7 +10081,7 @@
 				},
 				{
 					"name": "Innate Spellcasting (1/Day)",
-					"desc": "The mephit can innately cast heat metal (spell save DC 10), requiring no material components. Its innate spellcasting ability is Charisma."
+					"desc": "The mephit can innately cast [spell]heat metal[/spell] (spell save DC 10), requiring no material components. Its innate spellcasting ability is Charisma."
 				}
 			],
 			"actions": [
@@ -10781,7 +10781,7 @@
 				},
 				{
 					"name": "Spellcasting",
-					"desc": "The mummy lord is a 10th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 17, +9 to hit with spell attacks). The mummy lord has the following cleric spells prepared:\n\n• Cantrips (at will): sacred flame, thaumaturgy\n• 1st level (4 slots): command, guiding bolt, shield of faith\n• 2nd level (3 slots): hold person, silence, spiritual weapon\n• 3rd level (3 slots): animate dead, dispel magic\n• 4th level (3 slots): divination, guardian of faith\n• 5th level (2 slots): contagion, insect plague\n• 6th level (1 slot): harm"
+					"desc": "The mummy lord is a 10th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 17, +9 to hit with spell attacks). The mummy lord has the following cleric spells prepared:\n\n• Cantrips (at will): [spell]sacred flame[/spell], [spell]thaumaturgy[/spell]\n• 1st level (4 slots): [spell]command[/spell], [spell]guiding bolt[/spell], [spell]shield of faith[/spell]\n• 2nd level (3 slots): [spell]hold person[/spell], [spell]silence[/spell], [spell]spiritual weapon[/spell]\n• 3rd level (3 slots): [spell]animate dead[/spell], [spell]dispel magic[/spell]\n• 4th level (3 slots): [spell]divination[/spell], [spell]guardian of faith[/spell]\n• 5th level (2 slots): [spell]contagion[/spell], [spell]insect plague[/spell]\n• 6th level (1 slot): [spell]harm[/spell]"
 				}
 			],
 			"actions": [
@@ -10920,7 +10920,7 @@
 			"special_abilities": [
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The hag's innate spellcasting ability is Charisma (spell save DC 14, +6 to hit with spell attacks). She can innately cast the following spells, requiring no material components:\n\nAt will: detect magic, magic missile\n2/day each: plane shift (self only), ray of enfeeblement, sleep"
+					"desc": "The hag's innate spellcasting ability is Charisma (spell save DC 14, +6 to hit with spell attacks). She can innately cast the following spells, requiring no material components:\n\nAt will: [spell]detect magic[/spell], [spell]magic missile[/spell]\n2/day each: [spell]plane shift[/spell] (self only), [spell]ray of enfeeblement[/spell], [spell]sleep[/spell]"
 				},
 				{
 					"name": "Magic Resistance",
@@ -10936,7 +10936,7 @@
 				},
 				{
 					"name": "Shared Spellcasting (Coven Only)",
-					"desc": "While all three members of a hag coven are within 30 feet of one another, they can each cast the following spells from the wizard's spell list but must share the spell slots among themselves:\n\n• 1st level (4 slots): identify, ray of sickness\n• 2nd level (3 slots): hold person, locate object\n• 3rd level (3 slots): bestow curse, counterspell, lightning bolt\n• 4th level (3 slots): phantasmal killer, polymorph\n• 5th level (2 slots): contact other plane, scrying\n• 6th level (1 slot): eye bite\n\nFor casting these spells, each hag is a 12th-level spellcaster that uses Intelligence as her spellcasting ability. The spell save DC is 12+the hag's Intelligence modifier, and the spell attack bonus is 4+the hag's Intelligence modifier."
+					"desc": "While all three members of a hag coven are within 30 feet of one another, they can each cast the following spells from the wizard's spell list but must share the spell slots among themselves:\n\n• 1st level (4 slots): [spell]identify[/spell], [spell]ray of sickness[/spell]\n• 2nd level (3 slots): [spell]hold person[/spell], [spell]locate object[/spell]\n• 3rd level (3 slots): [spell]bestow curse[/spell], [spell]counterspell[/spell], [spell]lightning bolt[/spell]\n• 4th level (3 slots): [spell]phantasmal killer[/spell], [spell]polymorph[/spell]\n• 5th level (2 slots): [spell]contact other plane[/spell], [spell]scrying[/spell]\n• 6th level (1 slot): [spell]eye bite[/spell]\n\nFor casting these spells, each hag is a 12th-level spellcaster that uses Intelligence as her spellcasting ability. The spell save DC is 12+the hag's Intelligence modifier, and the spell attack bonus is 4+the hag's Intelligence modifier."
 				},
 				{
 					"name": "Hag Eye (Coven Only)",
@@ -11254,7 +11254,7 @@
 			"special_abilities": [
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The oni's innate spellcasting ability is Charisma (spell save DC 13). The oni can innately cast the following spells, requiring no material components:\n\nAt will: darkness, invisibility\n1/day each: charm person, cone of cold, gaseous form, sleep"
+					"desc": "The oni's innate spellcasting ability is Charisma (spell save DC 13). The oni can innately cast the following spells, requiring no material components:\n\nAt will: [spell]darkness[/spell], [spell]invisibility[/spell]\n1/day each: [spell]charm person[/spell], [spell]cone of cold[/spell], [spell]gaseous form[/spell], [spell]sleep[/spell]"
 				},
 				{
 					"name": "Magic Weapons",
@@ -11646,7 +11646,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The pit fiend's spellcasting ability is Charisma (spell save DC 21). The pit fiend can innately cast the following spells, requiring no material components:\nAt will: detect magic, fireball\n3/day each: hold monster, wall of fire"
+					"desc": "The pit fiend's spellcasting ability is Charisma (spell save DC 21). The pit fiend can innately cast the following spells, requiring no material components:\nAt will: [spell]detect magic[/spell], [spell]fireball[/spell]\n3/day each: [spell]hold monster[/spell], [spell]wall of fire[/spell]"
 				}
 			],
 			"actions": [
@@ -11721,7 +11721,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The planetar's spellcasting ability is Charisma (spell save DC 20). The planetar can innately cast the following spells, requiring no material components:\nAt will: detect evil and good, invisibility (self only)\n3/day each: blade barrier, dispel evil and good, flame strike, raise dead\n1/day each: commune, control weather, insect plague"
+					"desc": "The planetar's spellcasting ability is Charisma (spell save DC 20). The planetar can innately cast the following spells, requiring no material components:\nAt will: [spell]detect evil and good[/spell], [spell]invisibility[/spell] (self only)\n3/day each: [spell]blade barrier[/spell], [spell]dispel evil and good[/spell], [spell]flame strike[/spell], [spell]raise dead[/spell]\n1/day each: [spell]commune[/spell], [spell]control weather[/spell], [spell]insect plague[/spell]"
 				},
 				{
 					"name": "Magic Resistance",
@@ -11922,7 +11922,7 @@
 				},
 				{
 					"name": "Spellcasting",
-					"desc": "The priest is a 5th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 13, +5 to hit with spell attacks). The priest has the following cleric spells prepared:\n\n• Cantrips (at will): light, sacred flame, thaumaturgy\n• 1st level (4 slots): cure wounds, guiding bolt, sanctuary\n• 2nd level (3 slots): lesser restoration, spiritual weapon\n• 3rd level (2 slots): dispel magic, spirit guardians"
+					"desc": "The priest is a 5th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 13, +5 to hit with spell attacks). The priest has the following cleric spells prepared:\n\n• Cantrips (at will): [spell]light[/spell], [spell]sacred flame[/spell], [spell]thaumaturgy[/spell]\n• 1st level (4 slots): [spell]cure wounds[/spell], [spell]guiding bolt[/spell], [spell]sanctuary[/spell]\n• 2nd level (3 slots): [spell]lesser restoration[/spell], [spell]spiritual weapon[/spell]\n• 3rd level (2 slots): [spell]dispel magic[/spell], [spell]spirit guardians[/spell]"
 				}
 			],
 			"actions": [
@@ -12167,7 +12167,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The rakshasa's innate spellcasting ability is Charisma (spell save DC 18, +10 to hit with spell attacks). The rakshasa can innately cast the following spells, requiring no material components:\n\nAt will: detect thoughts, disguise self, mage hand, minor illusion\n3/day each: charm person, detect magic, invisibility, major image, suggestion\n1/day each: dominate person, fly, plane shift, true seeing"
+					"desc": "The rakshasa's innate spellcasting ability is Charisma (spell save DC 18, +10 to hit with spell attacks). The rakshasa can innately cast the following spells, requiring no material components:\n\nAt will: [spell]detect thoughts[/spell], [spell]disguise self[/spell], [spell]mage hand[/spell], [spell]minor illusion[/spell]\n3/day each: [spell]charm person[/spell], [spell]detect magic[/spell], [spell]invisibility[/spell], [spell]major image[/spell], [spell]suggestion[/spell]\n1/day each: [spell]dominate person[/spell], [spell]fly[/spell], [spell]plane shift[/spell], [spell]true seeing[/spell]"
 				}
 			],
 			"actions": [
@@ -12981,7 +12981,7 @@
 				},
 				{
 					"name": "Shared Spellcasting (Coven Only)",
-					"desc": "While all three members of a hag coven are within 30 feet of one another, they can each cast the following spells from the wizard's spell list but must share the spell slots among themselves:\n\n• 1st level (4 slots): identify, ray of sickness\n• 2nd level (3 slots): hold person, locate object\n• 3rd level (3 slots): bestow curse, counterspell, lightning bolt\n• 4th level (3 slots): phantasmal killer, polymorph\n• 5th level (2 slots): contact other plane, scrying\n• 6th level (1 slot): eye bite\n\nFor casting these spells, each hag is a 12th-level spellcaster that uses Intelligence as her spellcasting ability. The spell save DC is 12+the hag's Intelligence modifier, and the spell attack bonus is 4+the hag's Intelligence modifier."
+					"desc": "While all three members of a hag coven are within 30 feet of one another, they can each cast the following spells from the wizard's spell list but must share the spell slots among themselves:\n\n• 1st level (4 slots): [spell]identify[/spell], [spell]ray of sickness[/spell]\n• 2nd level (3 slots): [spell]hold person[/spell], [spell]locate object[/spell]\n• 3rd level (3 slots): [spell]bestow curse[/spell], [spell]counterspell[/spell], [spell]lightning bolt[/spell]\n• 4th level (3 slots): [spell]phantasmal killer[/spell], [spell]polymorph[/spell]\n• 5th level (2 slots): [spell]contact other plane[/spell], [spell]scrying[/spell]\n• 6th level (1 slot): [spell]eye bite[/spell]\n\nFor casting these spells, each hag is a 12th-level spellcaster that uses Intelligence as her spellcasting ability. The spell save DC is 12+the hag's Intelligence modifier, and the spell attack bonus is 4+the hag's Intelligence modifier."
 				},
 				{
 					"name": "Hag Eye (Coven Only)",
@@ -13338,7 +13338,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The solar's spell casting ability is Charisma (spell save DC 25). It can innately cast the following spells, requiring no material components:\nAt will: detect evil and good, invisibility (self only)\n3/day each: blade barrier, dispel evil and good, resurrection\n1/day each: commune, control weather"
+					"desc": "The solar's spell casting ability is Charisma (spell save DC 25). It can innately cast the following spells, requiring no material components:\nAt will: [spell]detect evil and good[/spell], [spell]invisibility[/spell] (self only)\n3/day each: [spell]blade barrier[/spell], [spell]dispel evil and good[/spell], [spell]resurrection[/spell]\n1/day each: [spell]commune[/spell], [spell]control weather[/spell]"
 				},
 				{
 					"name": "Magic Resistance",
@@ -13507,7 +13507,7 @@
 				},
 				{
 					"name": "Spellcasting",
-					"desc": "The naga is a 10th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 14, +6 to hit with spell attacks), and it needs only verbal components to cast its spells. It has the following wizard spells prepared:\n\n• Cantrips (at will): mage hand, minor illusion, ray of frost\n• 1st level (4 slots): charm person, detect magic, sleep\n• 2nd level (3 slots): detect thoughts, hold person\n• 3rd level (3 slots): lightning bolt, water breathing\n• 4th level (3 slots): blight, dimension door\n• 5th level (2 slots): dominate person"
+					"desc": "The naga is a 10th-level spellcaster. Its spellcasting ability is Intelligence (spell save DC 14, +6 to hit with spell attacks), and it needs only verbal components to cast its spells. It has the following wizard spells prepared:\n\n• Cantrips (at will): [spell]mage hand[/spell], [spell]minor illusion[/spell], [spell]ray of frost[/spell]\n• 1st level (4 slots): [spell]charm person[/spell], [spell]detect magic[/spell], [spell]sleep[/spell]\n• 2nd level (3 slots): [spell]detect thoughts[/spell], [spell]hold person[/spell]\n• 3rd level (3 slots): [spell]lightning bolt[/spell], [spell]water breathing[/spell]\n• 4th level (3 slots): [spell]blight[/spell], [spell]dimension door[/spell]\n• 5th level (2 slots): [spell]dominate person[/spell]"
 				}
 			],
 			"actions": [
@@ -13652,7 +13652,7 @@
 				},
 				{
 					"name": "Innate Spellcasting (1/Day)",
-					"desc": "The mephit can innately cast blur, requiring no material components. Its innate spellcasting ability is Charisma."
+					"desc": "The mephit can innately cast [spell]blur[/spell], requiring no material components. Its innate spellcasting ability is Charisma."
 				}
 			],
 			"actions": [
@@ -13851,7 +13851,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The giant's innate spellcasting ability is Charisma (spell save DC 17). It can innately cast the following spells, requiring no material components:\n\nAt will: detect magic, feather fall, levitate, light\n3/day each: control weather, water breathing"
+					"desc": "The giant's innate spellcasting ability is Charisma (spell save DC 17). It can innately cast the following spells, requiring no material components:\n\nAt will: [spell]detect magic[/spell], [spell]feather fall[/spell], [spell]levitate[/spell], [spell]light[/spell]\n3/day each: [spell]control weather[/spell], [spell]water breathing[/spell]"
 				}
 			],
 			"actions": [
@@ -14801,7 +14801,7 @@
 				},
 				{
 					"name": "Innate Spellcasting",
-					"desc": "The unicorn's innate spellcasting ability is Charisma (spell save DC 14). The unicorn can innately cast the following spells, requiring no components:\n\nAt will: detect evil and good, druidcraft, pass without trace\n1/day each: calm emotions, dispel evil and good, entangle"
+					"desc": "The unicorn's innate spellcasting ability is Charisma (spell save DC 14). The unicorn can innately cast the following spells, requiring no components:\n\nAt will: [spell]detect evil and good[/spell], [spell]druidcraft[/spell], [spell]pass without trace[/spell]\n1/day each: [spell]calm emotions[/spell], [spell]dispel evil and good[/spell], [spell]entangle[/spell]"
 				},
 				{
 					"name": "Magic Resistance",

@@ -29,3 +29,14 @@ export const getLocalStorageItemById = (key, id) => {
 	const items = JSON.parse(localStorage.getItem(key));
 	return items && items.find((item) => item.id === id);
 };
+
+/**
+ *
+ * @param {string} key Local storage string (i.e. `'monsters'`, `'encounters'`)
+ * @param {string} id ID of item
+ * @returns {object|error} Object of item or error if not found
+ */
+export const getLocalStorageItemByName = (key, name) => {
+	const items = JSON.parse(localStorage.getItem(key));
+	return items && items.find((item) => item.name.toLowerCase() === name.toLowerCase());
+};

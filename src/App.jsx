@@ -1,7 +1,6 @@
 import Header from './components/Header';
 import useLocalStorage from './hooks/useLocalStorage';
 import Routes from './Routes';
-import srdSource from './assets/json/srd_monsters.json';
 import { useEffect } from 'react';
 
 export default function App() {
@@ -14,17 +13,6 @@ export default function App() {
 	useEffect(() => {
 		document.documentElement.setAttribute('data-theme', theme);
 	}, [theme]);
-
-	// Default monster handling
-	const [localMonsters, setLocalMonsters] = useLocalStorage('monsters', []);
-
-	useEffect(() => {
-		const loadMsg = 'You have no monsters saved, would you like to load the defaults?';
-		if (localMonsters.length === 0 && confirm(loadMsg)) {
-			console.log('loading SRD monsters...');
-			setLocalMonsters(srdSource.monsters);
-		}
-	}, [localMonsters]);
 
 	return (
 		<div className="flex flex-col h-screen">

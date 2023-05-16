@@ -15,6 +15,10 @@ const routes = [
 		path: '/encounters',
 	},
 	{
+		name: 'spells',
+		path: '/spells',
+	},
+	{
 		name: 'preferences',
 		path: '/preferences',
 	},

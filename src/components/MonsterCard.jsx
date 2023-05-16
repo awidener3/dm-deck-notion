@@ -2,6 +2,7 @@ import CardActions from './CardActions';
 import CardSection from './CardSection';
 import { useState } from 'react';
 import { hasSkills, getSkillStr } from '../utils/cardUtils';
+import { useNavigate } from 'react-router-dom';
 
 function MonsterCard({ item, cardStyles }) {
 	const [checked, setChecked] = useState(false);
@@ -28,17 +29,17 @@ function MonsterCard({ item, cardStyles }) {
 				</p>
 
 				<ul className={styles.statList}>
-					<li>
+					<li className="flex-1">
 						<strong>AC</strong>&nbsp;
 						<em>{item.armor_class}</em>
 					</li>
-					<li>
+					<li className="flex-1">
 						<strong>HP</strong>&nbsp;
 						<em>
 							{item.hit_points} ({item.hit_dice})
 						</em>
 					</li>
-					<li>
+					<li className="flex-1">
 						<strong>SPD</strong>&nbsp;
 						<em>{item.speed}</em>
 					</li>
@@ -112,10 +113,34 @@ function MonsterCard({ item, cardStyles }) {
 	);
 }
 
-const Ability = ({ title, description }) => (
-	<p>
-		<span className="font-bold italic">{title}</span> {description}
-	</p>
-);
+const Ability = ({ title, description }) => {
+	const navigate = useNavigate();
+
+	let spells = [];
+	if (description.includes('[spell]')) {
+		// look for [spell]spell name[/spell]
+		const spellString = description.replace(/(\[spell\](.*?)\[\/spell\])/g, (word) => {
+			// remove [spell] and [/spell]
+			const spellStr = word.substring(7, word.length - 8);
+			spells.push(spellStr);
+			return `<span class="cursor-pointer italic text-[color:var(--text-highlight)]" id="${spellStr}">${spellStr}</span>`;
+		});
+		description = spellString;
+	}
+
+	function handleClick(e) {
+		if (spells.length > 0 && spells.includes(e.target.id)) {
+			const spell = e.target.id;
+			navigate(`/spells/${spell}`);
+		}
+	}
+
+	return (
+		<div className="whitespace-pre-wrap">
+			<span className="font-bold italic">{title}</span>
+			<p onClick={handleClick} dangerouslySetInnerHTML={{ __html: description }} />
+		</div>
+	);
+};
 
 export default MonsterCard;

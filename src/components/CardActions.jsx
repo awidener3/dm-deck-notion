@@ -7,7 +7,7 @@ const CardActions = ({ checked, handleChecked, actions }) => {
 		heading: 'text-lg self-center',
 		label: 'flex gap-2 items-center',
 		action: 'mt-2 gap-2 flex',
-		actionChecked: 'mt-2 inline-block',
+		actionChecked: 'mt-2 inline-block whitespace-pre-wrap',
 	};
 	return (
 		<CardSection>
