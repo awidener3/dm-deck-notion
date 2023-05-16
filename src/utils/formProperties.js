@@ -499,7 +499,7 @@ export const encounterProps = {
 
 export const initiativeProp = {
 	type: 'number',
-	placeholder: 'initiative',
+	placeholder: '0',
 	min: 0,
 	max: 75,
 };

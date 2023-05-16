@@ -7,9 +7,10 @@ const SelectedList = ({ name, remove, getValues, setValue }) => {
 	return (
 		<div className="flex-1">
 			<h2 className="border-b mb-1">selected {name}</h2>
-			<ul className="flex flex-col gap-2">
-				{items &&
-					items.map((item, index) =>
+
+			{items && (
+				<ul className="flex flex-col gap-2">
+					{items.map((item, index) =>
 						item.quantity ? (
 							<QuantitySelect
 								key={item.id}
@@ -23,7 +24,14 @@ const SelectedList = ({ name, remove, getValues, setValue }) => {
 							<SelectedItem key={item} storageKey={name} id={item} remove={remove} valueIndex={index} />
 						)
 					)}
-			</ul>
+				</ul>
+			)}
+
+			{(!items || items.length === 0) && (
+				<p className="text-sm italic py-5">
+					No {name} yet, use the lists below to select some {name}
+				</p>
+			)}
 		</div>
 	);
 };

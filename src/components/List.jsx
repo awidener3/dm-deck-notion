@@ -38,9 +38,20 @@ const List = ({
 	// If a filter term is in state, use that to filter listItems first
 	const currentItems = filterTerm
 		? listItems
+				.sort((a, b) => {
+					if (a.name > b.name) return 1;
+					if (a.name < b.name) return -1;
+					return 0;
+				})
 				.filter((item) => item.name.toLowerCase().includes(filterTerm.toLowerCase()))
 				.slice(firstItemIndex, lastItemIndex)
-		: listItems.slice(firstItemIndex, lastItemIndex);
+		: listItems
+				.sort((a, b) => {
+					if (a.name > b.name) return 1;
+					if (a.name < b.name) return -1;
+					return 0;
+				})
+				.slice(firstItemIndex, lastItemIndex);
 
 	// Optional storage key to retrieve all items
 	useEffect(() => {

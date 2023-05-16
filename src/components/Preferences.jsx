@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import encounters from '../assets/json/sample_encounters.json';
 import characters from '../assets/json/sample_characters.json';
 import srdSource from '../assets/json/srd_monsters.json';
+import srdSpells from '../assets/json/srd_spells.json';
 
 const Preferences = ({ toggleTheme }) => {
 	const clearStorage = () => window.localStorage.clear();
@@ -21,6 +22,7 @@ const Preferences = ({ toggleTheme }) => {
 		localStorage.setItem('sources', JSON.stringify(sources));
 		localStorage.setItem('encounters', JSON.stringify(encounters));
 		localStorage.setItem('characters', JSON.stringify(characters));
+		localStorage.setItem('spells', JSON.stringify(srdSpells.spells));
 	};
 
 	return (

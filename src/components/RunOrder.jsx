@@ -6,6 +6,11 @@ import { FaPencilAlt } from 'react-icons/fa';
 
 const RunOrder = ({ run, setRun, setEdit }) => {
 	const encounter = getLocalStorageItemById('encounters', run.id);
+
+	const cardStyles = {
+		card: 'flex-col border-2 border-[var(--bg-secondary)] bg-[var(--card-bg)] rounded-lg text-sm my-2 p-2 min-h-[750px]',
+	};
+
 	const order = run.initiative_order.map((item) => {
 		if (item.creature_type === 'monster') {
 			const data = getLocalStorageItemById('monsters', item.id);
@@ -14,10 +19,10 @@ const RunOrder = ({ run, setRun, setEdit }) => {
 				data.name += ` ${item.suffix}`;
 			}
 
-			return { data, element: <MonsterCard key={item.initiative} item={data} /> };
+			return { data, element: <MonsterCard key={item.initiative} item={data} cardStyles={cardStyles} /> };
 		} else {
 			const data = getLocalStorageItemById('characters', item.id);
-			return { data, element: <CharacterCard key={item.initiative} item={data} /> };
+			return { data, element: <CharacterCard key={item.initiative} item={data} cardStyles={cardStyles} /> };
 		}
 	});
 

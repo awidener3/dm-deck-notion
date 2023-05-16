@@ -56,22 +56,29 @@ const EncounterForm = () => {
 		<>
 			<div className="flex justify-between items-center pb-1 border-b">
 				<h2 className="text-lg text-[color:var(--text-highlight)]">{id ? 'Edit' : 'New'} Encounter</h2>
-				<Link to={-1}>go back</Link>
+				<div className="flex gap-2">
+					<Link to={-1}>go back</Link>
+					<button type="button" onClick={() => reset()}>
+						reset
+					</button>
+					<button form="encounterForm">{id ? 'update' : 'save'}</button>
+				</div>
 			</div>
 
-			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2 gap-2">
+			<form id="encounterForm" onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2 gap-2">
 				<InputWithLabel {...encounterProps} register={register} />
 
 				<div className="flex gap-4">
 					<SelectedList name={'characters'} remove={removeCharacter} getValues={getValues} />
 					<SelectedList name={'monsters'} remove={removeMonster} getValues={getValues} setValue={setValue} />
 				</div>
-
-				<FormFooter reset={reset} existing={id} />
 			</form>
 
-			<hr className="my-2" />
+			<section className="my-5 gap-5 border p-2 items-center bg-[var(--card-bg)]">
+				<h2>Choose your characters/monsters:</h2>
 
+				<p>Use the links below to switch between your saved characters and monsters.</p>
+			</section>
 			<ListPicker appendCharacter={appendCharacter} appendMonster={appendMonster} getValues={getValues} />
 		</>
 	);

@@ -1,8 +1,10 @@
 import Header from './components/Header';
 import useLocalStorage from './hooks/useLocalStorage';
 import Routes from './Routes';
-import srdSource from './assets/json/srd_monsters.json';
 import { useEffect } from 'react';
+import srdSource from './assets/json/srd_monsters.json';
+import srdSpells from './assets/json/srd_spells.json';
+import { setLocalStorageItem } from './utils';
 
 export default function App() {
 	// Theme handling
@@ -10,21 +12,36 @@ export default function App() {
 		'theme',
 		window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 	);
-	const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+	const [monsters, setMonsters] = useLocalStorage('monsters', []);
+	const [spells, setSpells] = useLocalStorage('spells', []);
+
 	useEffect(() => {
 		document.documentElement.setAttribute('data-theme', theme);
 	}, [theme]);
 
-	// Default monster handling
-	const [localMonsters, setLocalMonsters] = useLocalStorage('monsters', []);
+	useEffect(() => {
+		if (!monsters || monsters.length === 0) {
+			setMonsters;
+			const sources = [
+				{
+					source: 'Systems Reference Document',
+					abbr: 'srd',
+					version: srdSource.version,
+				},
+			];
+
+			setMonsters(srdSource.monsters);
+			setLocalStorageItem('sources', sources);
+		}
+	}, [monsters]);
 
 	useEffect(() => {
-		const loadMsg = 'You have no monsters saved, would you like to load the defaults?';
-		if (localMonsters.length === 0 && confirm(loadMsg)) {
-			console.log('loading SRD monsters...');
-			setLocalMonsters(srdSource.monsters);
+		if (!spells || spells.length === 0) {
+			setSpells(srdSpells.spells);
 		}
-	}, [localMonsters]);
+	}, [spells]);
+
+	const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
 
 	return (
 		<div className="flex flex-col h-screen">

@@ -1,20 +1,21 @@
 import Characters from './components/Characters';
-import CardView from './components/CardView';
-import CharacterCard from './components/CharacterCard';
 import Encounters from './components/Encounters';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 import Preferences from './components/Preferences';
 import SourceUpload from './components/SourceUpload';
 import EncounterForm from './components/EncounterForm';
-import EncounterCard from './components/EncounterCard';
 import Form from './components/Form';
 import Monsters from './components/Monsters';
-import MonsterCard from './components/MonsterCard';
 import Run from './components/Run';
+import Error from './components/Error';
+import Spells from './components/Spells';
+import Monster from './components/Monster';
+import Encounter from './components/Encounter';
+import Character from './components/Character';
+import Spell from './components/Spell';
 import { characterProps, monsterProps } from './utils/formProperties';
 import { Link, useRoutes } from 'react-router-dom';
-import Error from './components/Error';
 
 const Routes = ({ toggleTheme }) => {
 	const element = useRoutes([
@@ -31,11 +32,7 @@ const Routes = ({ toggleTheme }) => {
 				},
 				{
 					path: ':id',
-					element: (
-						<CardView storageKey={'characters'}>
-							<CharacterCard />
-						</CardView>
-					),
+					element: <Character />,
 				},
 				{
 					path: 'new',
@@ -60,11 +57,7 @@ const Routes = ({ toggleTheme }) => {
 				},
 				{
 					path: ':id',
-					element: (
-						<CardView storageKey={'encounters'}>
-							<EncounterCard storageKey={'encounters'} />
-						</CardView>
-					),
+					element: <Encounter />,
 				},
 				{
 					path: 'edit/:id',
@@ -110,15 +103,24 @@ const Routes = ({ toggleTheme }) => {
 				},
 				{
 					path: ':id',
-					element: (
-						<CardView storageKey={'monsters'}>
-							<MonsterCard />
-						</CardView>
-					),
+					element: <Monster />,
 				},
 				{
 					path: 'edit/:id',
 					element: <Form storageKey={'monsters'} title={'Monster'} properties={monsterProps} isEditing />,
+				},
+			],
+		},
+		{
+			path: '/spells',
+			children: [
+				{
+					index: true,
+					element: <Spells />,
+				},
+				{
+					path: ':id',
+					element: <Spell />,
 				},
 			],
 		},
