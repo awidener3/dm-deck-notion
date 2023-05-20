@@ -1,5 +1,4 @@
 import CardActions from './CardActions';
-import CardSection from './CardSection';
 import { useState } from 'react';
 import { hasSkills, getSkillStr } from '../utils/cardUtils';
 import { useNavigate } from 'react-router-dom';
@@ -9,10 +8,12 @@ function MonsterCard({ item, cardStyles }) {
 
 	const handleChecked = () => setChecked(!checked);
 
+	const calcModifier = (score) => {
+		const modifier = Math.floor((score - 10) / 2);
+		return (modifier < 0 ? '' : '+') + modifier;
+	};
+
 	const styles = {
-		header: 'text-2xl italic p-1',
-		statList: 'flex justify-between py-1 px-2',
-		abilityList: 'flex justify-between p-2',
 		ability: 'flex flex-col',
 		sectionTitle: 'text-lg',
 		sectionText: 'mt-2',
@@ -20,73 +21,75 @@ function MonsterCard({ item, cardStyles }) {
 	};
 
 	return (
-		<div className={cardStyles.card}>
-			<CardSection noBorder>
-				<h1 className={styles.header}>{item.name}</h1>
-				<p>
-					{item.size} {item.type}
-					{item.subtype && ` (${item.subtype})`}, {item.alignment}
-				</p>
+		<article className={cardStyles.monsterCard}>
+			<h1 className="text-center py-3">{item.name}</h1>
 
-				<ul className={styles.statList}>
-					<li className="flex-1">
-						<strong>AC</strong>&nbsp;
-						<em>{item.armor_class}</em>
-					</li>
-					<li className="flex-1">
-						<strong>HP</strong>&nbsp;
-						<em>
-							{item.hit_points} ({item.hit_dice})
-						</em>
-					</li>
-					<li className="flex-1">
-						<strong>SPD</strong>&nbsp;
-						<em>{item.speed}</em>
-					</li>
-				</ul>
+			<p className="text-center italic text-white bg-[var(--monster-card)]">
+				{item.size} {item.type}
+				{item.subtype && ` (${item.subtype})`}, {item.alignment}
+			</p>
 
-				<ul className={styles.abilityList}>
-					<li className={styles.ability}>
-						<strong>STR</strong> {item.strength}
-					</li>
-					<li className={styles.ability}>
-						<strong>DEX</strong> {item.dexterity}
-					</li>
-					<li className={styles.ability}>
-						<strong>CON</strong> {item.constitution}
-					</li>
-					<li className={styles.ability}>
-						<strong>INT</strong> {item.intelligence}
-					</li>
-					<li className={styles.ability}>
-						<strong>WIS</strong> {item.wisdom}
-					</li>
-					<li className={styles.ability}>
-						<strong>CHA</strong> {item.charisma}
-					</li>
-				</ul>
-			</CardSection>
+			<section className="flex gap-5 p-2">
+				<span>
+					<strong>AC</strong>&nbsp;
+					<em>{item.armor_class}</em>
+				</span>
+				<span>
+					<strong>HP</strong>&nbsp;
+					<em>
+						{item.hit_points} ({item.hit_dice})
+					</em>
+				</span>
+				<span>
+					<strong>SPD</strong>&nbsp;
+					<em>{item.speed}</em>
+				</span>
+			</section>
 
-			<CardSection>
+			<section className="flex justify-evenly p-2 border-b-2 border-[var(--monster-card)]">
+				<span className="flex flex-col text-center">
+					<strong>STR</strong> {item.strength} ({calcModifier(item.strength)})
+				</span>
+				<span className="flex flex-col text-center">
+					<strong>DEX</strong> {item.dexterity} ({calcModifier(item.dexterity)})
+				</span>
+				<span className="flex flex-col text-center">
+					<strong>CON</strong> {item.constitution} ({calcModifier(item.constitution)})
+				</span>
+				<span className="flex flex-col text-center">
+					<strong>INT</strong> {item.intelligence} ({calcModifier(item.intelligence)})
+				</span>
+				<span className="flex flex-col text-center">
+					<strong>WIS</strong> {item.wisdom} ({calcModifier(item.wisdom)})
+				</span>
+				<span className="flex flex-col text-center">
+					<strong>CHA</strong> {item.charisma} ({calcModifier(item.charisma)})
+				</span>
+			</section>
+
+			{/* skills, sense, langauges */}
+			<section className="p-2">
 				{hasSkills(item) && <Ability title={'Skills:'} description={getSkillStr(item)} />}
 
 				<Ability title={'Senses:'} description={item.senses} />
 
 				<Ability title={'Languages:'} description={item.languages} />
-			</CardSection>
+			</section>
 
+			{/* abilities (spellcasting, nimble escape, etc) */}
 			{item.special_abilities && (
-				<CardSection>
+				<section className="p-2 flex flex-col gap-2">
 					{item.special_abilities.map((ability) => (
 						<Ability key={ability.name} title={ability.name + '.'} description={ability.desc} />
 					))}
-				</CardSection>
+				</section>
 			)}
 
+			{/* actions */}
 			{item.actions && <CardActions handleChecked={handleChecked} checked={checked} actions={item.actions} />}
 
 			{item.reactions && (
-				<CardSection>
+				<section className="border-t-2 border-[var(--monster-card)] p-2">
 					<h1 className={styles.sectionTitle}>Reactions</h1>
 
 					{item.reactions.map((reaction) => (
@@ -94,11 +97,11 @@ function MonsterCard({ item, cardStyles }) {
 							<span className={styles.sectionSpan}>{reaction.name}.</span> {reaction.desc}
 						</p>
 					))}
-				</CardSection>
+				</section>
 			)}
 
 			{item.legendary_actions && (
-				<CardSection>
+				<section className="border-t-2 border-[var(--monster-card)] p-2">
 					<h1 className={styles.sectionTitle}>Legendary Actions</h1>
 
 					{item.legendary_actions.map((action, index) => (
@@ -107,9 +110,9 @@ function MonsterCard({ item, cardStyles }) {
 							{action.desc}
 						</p>
 					))}
-				</CardSection>
+				</section>
 			)}
-		</div>
+		</article>
 	);
 }
 
@@ -137,8 +140,8 @@ const Ability = ({ title, description }) => {
 
 	return (
 		<div className="whitespace-pre-wrap">
-			<span className="font-bold italic">{title}</span>
-			<p onClick={handleClick} dangerouslySetInnerHTML={{ __html: description }} />
+			<span className="font-bold italic">{title} </span>
+			<span onClick={handleClick} dangerouslySetInnerHTML={{ __html: description }} />
 		</div>
 	);
 };

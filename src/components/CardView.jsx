@@ -1,7 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { getLocalStorageItemById, getLocalStorageItemByName } from '../utils';
 import { cloneElement, useEffect, useState } from 'react';
-import NotFound from './NotFound';
 import Loading from './Loading';
 
 const CardView = ({ storageKey, children }) => {
@@ -29,7 +28,8 @@ const CardView = ({ storageKey, children }) => {
 	}, [id]);
 
 	const cardStyles = {
-		card: 'flex-col border-2 border-[var(--bg-secondary)] bg-[var(--card-bg)] rounded-lg text-sm my-2 p-2 min-h-[750px]',
+		card: 'border-8 border-[var(--bg-secondary)] bg-[var(--card-bg)] rounded-lg text-sm my-2 p-2 min-h-[750px]',
+		monsterCard: 'border-8 border-[var(--monster-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[750px]',
 	};
 
 	if (status === 'loading') {
