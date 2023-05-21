@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getLocalStorageItemById } from '../utils';
+import { getLocalStorageItemById } from '../../utils';
 
 const QuantitySelect = ({ item, valueIndex, setValue, storageKey, remove }) => {
 	const [quantity, setQuantity] = useState(item.quantity);

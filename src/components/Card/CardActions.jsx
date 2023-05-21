@@ -1,8 +1,8 @@
 import CardAction from './CardAction';
-import CardSection from './CardSection';
 
 const CardActions = ({ checked, handleChecked, actions }) => {
 	const styles = {
+		section: 'border-t-2 border-[var(--monster-card)] p-2',
 		header: 'flex justify-between',
 		heading: 'text-lg self-center',
 		label: 'flex gap-2 items-center',
@@ -10,7 +10,7 @@ const CardActions = ({ checked, handleChecked, actions }) => {
 		actionChecked: 'mt-2 inline-block whitespace-pre-wrap',
 	};
 	return (
-		<section className="border-t-2 border-[var(--monster-card)] p-2">
+		<section className={styles.section}>
 			<section className={styles.header}>
 				<h1 className={styles.heading}>Actions</h1>
 

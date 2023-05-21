@@ -1,4 +1,4 @@
-import CardView from '../CardView';
+import CardView from '../Card/CardView';
 import MonsterCard from './MonsterCard';
 
 const Monster = () => {

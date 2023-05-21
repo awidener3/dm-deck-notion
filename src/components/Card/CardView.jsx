@@ -1,6 +1,6 @@
-import Loading from './Loading';
+import Loading from '../Loading';
 import { Link, useParams } from 'react-router-dom';
-import { getLocalStorageItemById, getLocalStorageItemByName } from '../utils';
+import { getLocalStorageItemById, getLocalStorageItemByName } from '../../utils';
 import { cloneElement, useEffect, useState } from 'react';
 
 const CardView = ({ storageKey, children }) => {

@@ -1,11 +1,11 @@
-import useLocalStorage from '../hooks/useLocalStorage';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import FormFooter from './FormFooter';
 import InputWithLabel from './InputWithLabel';
 import NestedFieldArray from './NestedFieldArray';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getLocalStorageItemById } from '../utils';
+import { getLocalStorageItemById } from '../../utils';
 
 const Form = ({ storageKey, title, properties, isEditing = null }) => {
 	const { id } = useParams();

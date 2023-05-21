@@ -1,5 +1,5 @@
 import { useFieldArray } from 'react-hook-form';
-import { actionDefaults } from '../utils/formProperties';
+import { actionDefaults } from '../../utils/formProperties';
 import InputWithLabel from './InputWithLabel';
 
 const NestedFieldArray = ({ name, fullWidth = false, properties, control, register }) => {

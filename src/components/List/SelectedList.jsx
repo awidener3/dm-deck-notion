@@ -1,5 +1,5 @@
 import QuantitySelect from './QuantitySelect';
-import { getLocalStorageItemById } from '../utils';
+import { getLocalStorageItemById } from '../../utils';
 
 const SelectedList = ({ name, remove, getValues, setValue }) => {
 	const items = getValues(name);

@@ -1,7 +1,7 @@
 import useLocalStorage from '../../hooks/useLocalStorage';
-import InputWithLabel from '../InputWithLabel';
-import ListPicker from '../ListPicker';
-import SelectedList from '../SelectedList';
+import InputWithLabel from '../Form/InputWithLabel';
+import ListPicker from '../List/ListPicker';
+import SelectedList from '../List/SelectedList';
 import { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';

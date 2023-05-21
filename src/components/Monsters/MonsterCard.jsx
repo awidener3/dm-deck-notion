@@ -1,4 +1,4 @@
-import CardActions from '../CardActions';
+import CardActions from '../Card/CardActions';
 import { useState } from 'react';
 import { hasSkills, getSkillStr } from '../../utils/cardUtils';
 import { useNavigate } from 'react-router-dom';

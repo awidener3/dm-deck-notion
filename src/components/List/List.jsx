@@ -1,9 +1,9 @@
-import useLocalStorage from '../hooks/useLocalStorage';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import Pagination from './Pagination';
 import ListItem from './ListItem';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getLocalStorageItem, setLocalStorageItem } from '../utils';
+import { getLocalStorageItem, setLocalStorageItem } from '../../utils';
 
 const List = ({
 	title,
