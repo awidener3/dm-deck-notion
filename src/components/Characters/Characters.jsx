@@ -1,4 +1,4 @@
-import List from './List';
+import List from '../List';
 
 const Characters = () => {
 	const config = {

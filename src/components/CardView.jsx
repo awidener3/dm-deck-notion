@@ -1,7 +1,7 @@
+import Loading from './Loading';
 import { Link, useParams } from 'react-router-dom';
 import { getLocalStorageItemById, getLocalStorageItemByName } from '../utils';
 import { cloneElement, useEffect, useState } from 'react';
-import Loading from './Loading';
 
 const CardView = ({ storageKey, children }) => {
 	const { id } = useParams();
@@ -27,11 +27,6 @@ const CardView = ({ storageKey, children }) => {
 		}
 	}, [id]);
 
-	const cardStyles = {
-		card: 'border-8 border-[var(--bg-secondary)] bg-[var(--card-bg)] rounded-lg text-sm my-2 p-2 min-h-[750px]',
-		monsterCard: 'border-8 border-[var(--monster-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[750px]',
-	};
-
 	if (status === 'loading') {
 		return <Loading />;
 	}
@@ -42,7 +37,7 @@ const CardView = ({ storageKey, children }) => {
 				go back
 			</Link>
 
-			{item && cloneElement(children, { item, cardStyles })}
+			{item && cloneElement(children, { item })}
 		</>
 	);
 };

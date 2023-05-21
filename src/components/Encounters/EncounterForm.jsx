@@ -1,13 +1,12 @@
-import useLocalStorage from '../hooks/useLocalStorage';
-import InputWithLabel from './InputWithLabel';
-import FormFooter from './FormFooter';
-import ListPicker from './ListPicker';
-import SelectedList from './SelectedList';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import InputWithLabel from '../InputWithLabel';
+import ListPicker from '../ListPicker';
+import SelectedList from '../SelectedList';
 import { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getLocalStorageItemById } from '../utils';
-import { encounterProps } from '../utils/formProperties';
+import { getLocalStorageItemById } from '../../utils';
+import { encounterProps } from '../../utils/formProperties';
 
 const EncounterForm = () => {
 	const { id } = useParams();

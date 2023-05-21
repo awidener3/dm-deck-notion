@@ -7,7 +7,7 @@ import srdSpells from './assets/json/srd_spells.json';
 import { setLocalStorageItem } from './utils';
 
 export default function App() {
-	// Theme handling
+	// theme handling
 	const [theme, setTheme] = useLocalStorage(
 		'theme',
 		window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
@@ -15,10 +15,12 @@ export default function App() {
 	const [monsters, setMonsters] = useLocalStorage('monsters', []);
 	const [spells, setSpells] = useLocalStorage('spells', []);
 
+	// update theme
 	useEffect(() => {
 		document.documentElement.setAttribute('data-theme', theme);
 	}, [theme]);
 
+	// auto-load monsters and sources
 	useEffect(() => {
 		if (!monsters || monsters.length === 0) {
 			setMonsters;
@@ -35,6 +37,7 @@ export default function App() {
 		}
 	}, [monsters]);
 
+	// auto-load spells
 	useEffect(() => {
 		if (!spells || spells.length === 0) {
 			setSpells(srdSpells.spells);
@@ -43,15 +46,21 @@ export default function App() {
 
 	const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
 
+	const styles = {
+		container: 'flex flex-col h-screen',
+		appWrapper: 'flex flex-1 flex-col overflow-y-auto min-h-min',
+		contentWrapper: 'flex flex-col px-2 sm:mx-auto sm:w-3/4 sm:max-w-xl',
+	};
+
 	return (
-		<div className="flex flex-col h-screen">
+		<main className={styles.container}>
 			<Header />
 
-			<div className="flex flex-1 flex-col overflow-y-auto min-h-min">
-				<div className="text-left flex flex-1 flex-col px-2 md:mx-auto w-full md:w-3/4 md:max-w-xl">
+			<section className={styles.appWrapper}>
+				<section className={styles.contentWrapper}>
 					<Routes toggleTheme={toggleTheme} />
-				</div>
-			</div>
-		</div>
+				</section>
+			</section>
+		</main>
 	);
 }

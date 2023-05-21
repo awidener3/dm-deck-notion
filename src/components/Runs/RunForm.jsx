@@ -1,10 +1,10 @@
-import useLocalStorage from '../hooks/useLocalStorage';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import { FaDiceD20 } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getLocalStorageItemById } from '../utils';
-import { initiativeProp } from '../utils/formProperties';
+import { getLocalStorageItemById } from '../../utils';
+import { initiativeProp } from '../../utils/formProperties';
 
 function handleRoll() {
 	return Math.floor(Math.random() * 25 + 1);

@@ -1,14 +1,19 @@
-import MonsterCard from './MonsterCard';
-import CharacterCard from './CharacterCard';
+import MonsterCard from '../Monsters/MonsterCard';
+import CharacterCard from '../Characters/CharacterCard';
 import { Link } from 'react-router-dom';
-import { getLocalStorageItemById } from '../utils';
+import { getLocalStorageItemById } from '../../utils';
 import { FaPencilAlt } from 'react-icons/fa';
 
 const RunOrder = ({ run, setRun, setEdit }) => {
 	const encounter = getLocalStorageItemById('encounters', run.id);
 
 	const cardStyles = {
-		card: 'flex-col border-2 border-[var(--bg-secondary)] bg-[var(--card-bg)] rounded-lg text-sm my-2 p-2 min-h-[750px]',
+		monsterCard:
+			'flex flex-col border-8 border-[var(--monster-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[750px]',
+		spellCard:
+			'flex flex-col border-8 border-[var(--spell-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[750px]',
+		characterCard:
+			'flex flex-col border-8 border-[var(--character-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[750px]',
 	};
 
 	const order = run.initiative_order.map((item) => {
@@ -19,10 +24,17 @@ const RunOrder = ({ run, setRun, setEdit }) => {
 				data.name += ` ${item.suffix}`;
 			}
 
-			return { data, element: <MonsterCard key={item.initiative} item={data} cardStyles={cardStyles} /> };
+			return {
+				data,
+				element: <MonsterCard key={item.initiative} item={data} cardStyles={cardStyles} />,
+			};
 		} else {
 			const data = getLocalStorageItemById('characters', item.id);
-			return { data, element: <CharacterCard key={item.initiative} item={data} cardStyles={cardStyles} /> };
+
+			return {
+				data,
+				element: <CharacterCard key={item.initiative} item={data} cardStyles={cardStyles} showActions />,
+			};
 		}
 	});
 

@@ -1,9 +1,10 @@
-import CardActions from './CardActions';
+import CardActions from '../CardActions';
 import { useState } from 'react';
-import { hasSkills, getSkillStr } from '../utils/cardUtils';
+import { hasSkills, getSkillStr } from '../../utils/cardUtils';
 import { useNavigate } from 'react-router-dom';
+import { TbHeartFilled, TbShieldFilled } from 'react-icons/tb';
 
-function MonsterCard({ item, cardStyles }) {
+function MonsterCard({ item }) {
 	const [checked, setChecked] = useState(false);
 
 	const handleChecked = () => setChecked(!checked);
@@ -14,6 +15,15 @@ function MonsterCard({ item, cardStyles }) {
 	};
 
 	const styles = {
+		card: 'flex flex-col border-8 border-[var(--monster-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[750px] mx-auto',
+		header: 'text-center py-3',
+		subHeader: 'text-center italic text-white bg-[var(--monster-card)]',
+		basicStatSection: 'flex gap-5 p-2',
+		abilityScoreSection: 'flex justify-evenly p-2 border-b-2 border-[var(--monster-card)]',
+		abilityScore: 'flex flex-col text-center',
+		skillsSection: 'p-2',
+		specialAbilitiesSection: 'p-2 flex flex-col gap-2',
+		actionSection: 'border-t-2 border-[var(--monster-card)] p-2',
 		ability: 'flex flex-col',
 		sectionTitle: 'text-lg',
 		sectionText: 'mt-2',
@@ -21,15 +31,15 @@ function MonsterCard({ item, cardStyles }) {
 	};
 
 	return (
-		<article className={cardStyles.monsterCard}>
-			<h1 className="text-center py-3">{item.name}</h1>
+		<article className={styles.card}>
+			<h1 className={styles.header}>{item.name}</h1>
 
-			<p className="text-center italic text-white bg-[var(--monster-card)]">
+			<p className={styles.subHeader}>
 				{item.size} {item.type}
 				{item.subtype && ` (${item.subtype})`}, {item.alignment}
 			</p>
 
-			<section className="flex gap-5 p-2">
+			<section className={styles.basicStatSection}>
 				<span>
 					<strong>AC</strong>&nbsp;
 					<em>{item.armor_class}</em>
@@ -46,29 +56,28 @@ function MonsterCard({ item, cardStyles }) {
 				</span>
 			</section>
 
-			<section className="flex justify-evenly p-2 border-b-2 border-[var(--monster-card)]">
-				<span className="flex flex-col text-center">
+			<section className={styles.abilityScoreSection}>
+				<span className={styles.abilityScore}>
 					<strong>STR</strong> {item.strength} ({calcModifier(item.strength)})
 				</span>
-				<span className="flex flex-col text-center">
+				<span className={styles.abilityScore}>
 					<strong>DEX</strong> {item.dexterity} ({calcModifier(item.dexterity)})
 				</span>
-				<span className="flex flex-col text-center">
+				<span className={styles.abilityScore}>
 					<strong>CON</strong> {item.constitution} ({calcModifier(item.constitution)})
 				</span>
-				<span className="flex flex-col text-center">
+				<span className={styles.abilityScore}>
 					<strong>INT</strong> {item.intelligence} ({calcModifier(item.intelligence)})
 				</span>
-				<span className="flex flex-col text-center">
+				<span className={styles.abilityScore}>
 					<strong>WIS</strong> {item.wisdom} ({calcModifier(item.wisdom)})
 				</span>
-				<span className="flex flex-col text-center">
+				<span className={styles.abilityScore}>
 					<strong>CHA</strong> {item.charisma} ({calcModifier(item.charisma)})
 				</span>
 			</section>
 
-			{/* skills, sense, langauges */}
-			<section className="p-2">
+			<section className={styles.skillsSection}>
 				{hasSkills(item) && <Ability title={'Skills:'} description={getSkillStr(item)} />}
 
 				<Ability title={'Senses:'} description={item.senses} />
@@ -76,20 +85,18 @@ function MonsterCard({ item, cardStyles }) {
 				<Ability title={'Languages:'} description={item.languages} />
 			</section>
 
-			{/* abilities (spellcasting, nimble escape, etc) */}
 			{item.special_abilities && (
-				<section className="p-2 flex flex-col gap-2">
+				<section className={styles.specialAbilitiesSection}>
 					{item.special_abilities.map((ability) => (
 						<Ability key={ability.name} title={ability.name + '.'} description={ability.desc} />
 					))}
 				</section>
 			)}
 
-			{/* actions */}
 			{item.actions && <CardActions handleChecked={handleChecked} checked={checked} actions={item.actions} />}
 
 			{item.reactions && (
-				<section className="border-t-2 border-[var(--monster-card)] p-2">
+				<section className={styles.actionSection}>
 					<h1 className={styles.sectionTitle}>Reactions</h1>
 
 					{item.reactions.map((reaction) => (
@@ -101,7 +108,7 @@ function MonsterCard({ item, cardStyles }) {
 			)}
 
 			{item.legendary_actions && (
-				<section className="border-t-2 border-[var(--monster-card)] p-2">
+				<section className={styles.actionSection}>
 					<h1 className={styles.sectionTitle}>Legendary Actions</h1>
 
 					{item.legendary_actions.map((action, index) => (

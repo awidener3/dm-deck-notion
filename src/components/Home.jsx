@@ -7,9 +7,9 @@ const Home = () => {
 
 	const styles = {
 		header: 'italic text-[color:var(--text-highlight)] border-b',
-		message: 'gap-5 border p-2 items-center bg-[var(--card-bg)]',
+		message: 'gap-5 p-2 items-center bg-[var(--card-bg)]',
 		container: 'mt-3 flex flex-col gap-5',
-		notionCard: 'flex flex-col md:flex-row gap-5 border p-2 items-center bg-[var(--card-bg)]',
+		notionCard: 'flex flex-col md:flex-row gap-5 p-2 items-center bg-[var(--card-bg)]',
 		quickMsgContainer: 'py-3',
 	};
 

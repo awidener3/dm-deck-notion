@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import useLocalStorage from '../hooks/useLocalStorage';
-import { getLocalStorageItem } from '../utils';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import { getLocalStorageItem } from '../../utils';
 import { useEffect, useState } from 'react';
 import RunForm from './RunForm';
 import RunOrder from './RunOrder';

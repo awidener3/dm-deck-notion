@@ -52,10 +52,8 @@
 	--bg-secondary: rgba(255, 255, 255, 0.87);
 	--card-bg: #2f2f2f;
 	--monster-card: #b91c1c;
-}
-
-#root {
-	text-align: center;
+	--spell-card: #0369a1;
+	--character-card: #15803d;
 }
 
 a {
