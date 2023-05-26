@@ -38,8 +38,6 @@
 	color-scheme: light dark;
 	color: var(--text-primary);
 	background-color: var(--bg-primary);
-	/* color: rgba(255, 255, 255, 0.87);
-	background-color: #191919; */
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -53,10 +51,9 @@
 	--bg-primary: #191919;
 	--bg-secondary: rgba(255, 255, 255, 0.87);
 	--card-bg: #2f2f2f;
-}
-
-#root {
-	text-align: center;
+	--monster-card: #b91c1c;
+	--spell-card: #0369a1;
+	--character-card: #15803d;
 }
 
 a {
@@ -146,13 +143,10 @@ html[data-theme='dark'] {
 
 @media (prefers-color-scheme: light) {
 	:root {
-		/* color: #213547; */
-		/* background-color: #ffffff; */
-
 		--text-primary: #213547;
 		--text-secondary: #ffffff;
-		--bg-primary: #f8f2e2;
+		--bg-primary: #ffffff;
 		--bg-secondary: #213547;
-		--card-bg: #ffffff;
+		--card-bg: #f8f2e2;
 	}
 }

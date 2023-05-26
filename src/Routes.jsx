@@ -1,21 +1,22 @@
-import Characters from './components/Characters';
-import Encounters from './components/Encounters';
+import Characters from './components/Characters/Characters';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 import Preferences from './components/Preferences';
-import SourceUpload from './components/SourceUpload';
-import EncounterForm from './components/EncounterForm';
-import Form from './components/Form';
-import Monsters from './components/Monsters';
-import Run from './components/Run';
+import SourceUpload from './components/Form/SourceUpload';
+import Encounter from './components/Encounters/Encounter';
+import Encounters from './components/Encounters/Encounters';
+import EncounterForm from './components/Encounters/EncounterForm';
+import Form from './components/Form/Form';
+import Monsters from './components/Monsters/Monsters';
+import Run from './components/Runs/Run';
 import Error from './components/Error';
-import Spells from './components/Spells';
-import Monster from './components/Monster';
-import Encounter from './components/Encounter';
-import Character from './components/Character';
-import Spell from './components/Spell';
+import Spells from './components/Spells/Spells';
+import Monster from './components/Monsters/Monster';
+import Character from './components/Characters/Character';
+import Spell from './components/Spells/Spell';
 import { characterProps, monsterProps } from './utils/formProperties';
 import { Link, useRoutes } from 'react-router-dom';
+import MonsterForm from './components/Monsters/MonsterForm';
 
 const Routes = ({ toggleTheme }) => {
 	const element = useRoutes([
@@ -86,14 +87,7 @@ const Routes = ({ toggleTheme }) => {
 					children: [
 						{
 							index: true,
-							element: (
-								<>
-									<Link className="text-right" to={'./source'}>
-										add source?
-									</Link>
-									<Form storageKey={'monsters'} title={'Monster'} properties={monsterProps} />
-								</>
-							),
+							element: <MonsterForm />,
 						},
 						{
 							path: 'source',
