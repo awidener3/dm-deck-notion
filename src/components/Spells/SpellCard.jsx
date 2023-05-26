@@ -2,7 +2,7 @@ import { TbHexagonLetterR } from 'react-icons/tb';
 
 const SpellCard = ({ item }) => {
 	const styles = {
-		card: 'flex flex-col border-8 border-[var(--spell-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[750px]',
+		card: 'flex flex-col border-8 border-[var(--spell-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[750px] min-h-[700px] mx-auto w-[500px] overflow-y-auto',
 	};
 	return (
 		<article className={styles.card}>

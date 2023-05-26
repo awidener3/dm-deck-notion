@@ -5,17 +5,21 @@ const ListPicker = ({ lists = ['characters', 'monsters'], appendCharacter, appen
 	const [selectedIndex, setSelectedIndex] = useState(0);
 
 	const handleClick = (index) => setSelectedIndex(index);
-
 	const handleSelect = (id) =>
 		lists[selectedIndex] === 'characters' ? appendCharacter(id) : appendMonster({ id, quantity: 1 });
 
+	const styles = {
+		ul: 'flex justify-around',
+		selected: 'text-[color:var(--text-highlight)]',
+	};
+
 	return (
 		<>
-			<ul className="flex justify-around">
+			<ul className={styles.ul}>
 				{lists.map((list, index) => (
 					<li key={list}>
 						<button
-							className={index === selectedIndex ? 'text-[color:var(--text-highlight)]' : null}
+							className={index === selectedIndex ? styles.selected : null}
 							type="button"
 							onClick={() => handleClick(index)}
 						>

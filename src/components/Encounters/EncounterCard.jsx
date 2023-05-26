@@ -14,7 +14,7 @@ const EncounterCard = ({ item }) => {
 	});
 
 	const styles = {
-		card: 'border-8 border-[var(--bg-secondary)] bg-[var(--card-bg)] rounded-lg text-sm my-2 p-2 min-h-[750px]',
+		card: 'border-8 border-[var(--bg-secondary)] bg-[var(--card-bg)] rounded-lg text-sm my-2 p-2 min-h-[750px] min-h-[700px] mx-auto w-[500px] overflow-y-auto',
 	};
 
 	return (

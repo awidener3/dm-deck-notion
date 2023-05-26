@@ -19,7 +19,9 @@ const List = ({
 	paginate = true,
 	onSelect,
 }) => {
+	const navigate = useNavigate();
 	const [listItems, setListItems] = useLocalStorage(storageKey, []);
+	const [filterTerm, setFilterTerm] = useState('');
 	const [pagination, setPagination] = useState({
 		currentPage: 1,
 		perPage: 15,
@@ -30,46 +32,41 @@ const List = ({
 		nextBtnActive: true,
 	});
 
-	const [filterTerm, setFilterTerm] = useState('');
-
 	const lastItemIndex = pagination.currentPage * pagination.perPage;
 	const firstItemIndex = lastItemIndex - pagination.perPage;
 
 	// If a filter term is in state, use that to filter listItems first
-	const currentItems = filterTerm
-		? listItems
-				.sort((a, b) => {
-					if (a.name > b.name) return 1;
-					if (a.name < b.name) return -1;
-					return 0;
-				})
-				.filter((item) => item.name.toLowerCase().includes(filterTerm.toLowerCase()))
-				.slice(firstItemIndex, lastItemIndex)
-		: listItems
-				.sort((a, b) => {
-					if (a.name > b.name) return 1;
-					if (a.name < b.name) return -1;
-					return 0;
-				})
-				.slice(firstItemIndex, lastItemIndex);
+	const currentItems =
+		filterTerm !== ''
+			? listItems
+					// sort alphabetically
+					.sort((a, b) => {
+						if (a.name > b.name) return 1;
+						if (a.name < b.name) return -1;
+						return 0;
+					})
+					// remove items not included in filter
+					.filter((item) => item.name.toLowerCase().includes(filterTerm.toLowerCase()))
+					// show based on pagination settings
+					.slice(firstItemIndex, lastItemIndex)
+			: listItems
+					.sort((a, b) => {
+						if (a.name > b.name) return 1;
+						if (a.name < b.name) return -1;
+						return 0;
+					})
+					.slice(firstItemIndex, lastItemIndex);
 
 	// Optional storage key to retrieve all items
 	useEffect(() => {
 		storageKey ? setListItems(() => getLocalStorageItem(storageKey)) : setListItems(items);
 	}, [storageKey]);
 
-	const navigate = useNavigate();
-
 	const handleAdd = () => navigate(`/${title.toLowerCase()}/new`);
-
 	const handleFilter = (e) => setFilterTerm(e.target.value);
-
 	const handleRun = (itemId) => navigate(`/${title.toLowerCase()}/run/${itemId}`);
-
 	const viewItem = (itemId) => navigate(`/${title.toLowerCase()}/${itemId}`);
-
 	const editItem = (itemId) => navigate(`/${title.toLowerCase()}/edit/${itemId}`);
-
 	const deleteItem = (itemId) => {
 		// Item is not an encounter, safely remove from storage
 		if (title.toLowerCase() !== 'encounters') {
@@ -119,36 +116,33 @@ const List = ({
 		.map((item) => <ListItem key={item.id} item={item} {...listItemProps} />);
 
 	const styles = {
+		instruction: 'italic pt-2',
 		heading: 'mt-3 flex justify-between border-b-2 border-b-slate-500',
 		headingTitle: 'text-lg text-[color:var(--text-highlight)]',
 		headingAdd: 'text-sm',
-		filter: 'flex items-center mt-2 gap-2',
-		filterInput: 'flex-1 font-thin px-2 italic',
+		filterInput: 'font-thin p-1 italic',
 		noItems: 'text-center p-10 italic',
 	};
 
 	return (
-		<>
-			<div className={styles.heading}>
+		<section className="p-4 flex flex-col">
+			{canFilter && (
+				<input
+					className={styles.filterInput}
+					placeholder={`filter ${title.toLowerCase()}`}
+					value={filterTerm}
+					onChange={handleFilter}
+				/>
+			)}
+
+			<section className={styles.heading}>
 				<h2 className={styles.headingTitle}>{title}</h2>
 				{canAdd && (
 					<button className={styles.headingAdd} onClick={handleAdd}>
 						add
 					</button>
 				)}
-			</div>
-
-			{canFilter && (
-				<label className={styles.filter}>
-					filter {storageKey}
-					<input
-						className={styles.filterInput}
-						placeholder={storageKey + ' name'}
-						value={filterTerm}
-						onChange={handleFilter}
-					/>
-				</label>
-			)}
+			</section>
 
 			{renderItems.length > 0 && (
 				<>
@@ -169,7 +163,7 @@ const List = ({
 			)}
 
 			{!filterTerm && renderItems.length === 0 && <p className={styles.noItems}>no {storageKey}</p>}
-		</>
+		</section>
 	);
 };
 

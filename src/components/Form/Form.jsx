@@ -10,9 +10,7 @@ import { getLocalStorageItemById } from '../../utils';
 const Form = ({ storageKey, title, properties, isEditing = null }) => {
 	const { id } = useParams();
 	const navigate = useNavigate();
-
 	const [items, setItems] = useLocalStorage(storageKey, []);
-
 	const {
 		control,
 		register,
@@ -45,21 +43,26 @@ const Form = ({ storageKey, title, properties, isEditing = null }) => {
 	};
 
 	const addItem = (item) => setItems([...items, item]);
-	const updateItems = (updatedItem) => {
-		setItems(items.map((item) => (item.id === updatedItem.id ? updatedItem : item)));
+	const updateItems = (updatedItem) => setItems(items.map((item) => (item.id === updatedItem.id ? updatedItem : item)));
+
+	const styles = {
+		header: 'flex justify-between items-center pb-1 border-b',
+		h2: 'text-lg text-[color:var(--text-highlight)]',
+		form: 'flex flex-col mt-2 gap-2',
+		formContent: 'grid grid-cols-2 gap-2',
 	};
 
 	return (
 		<>
-			<div className="flex justify-between items-center pb-1 border-b">
-				<h2 className="text-lg text-[color:var(--text-highlight)]">
+			<section className={styles.header}>
+				<h2 className={styles.h2}>
 					{isEditing ? 'Edit' : 'New'} {title}
 				</h2>
 				<Link to={-1}>go back</Link>
-			</div>
+			</section>
 
-			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col mt-2 gap-2">
-				<div className="grid grid-cols-2 gap-2">
+			<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+				<section className={styles.formContent}>
 					{properties.map((property) =>
 						property.type === 'nested' ? (
 							<NestedFieldArray key={property.name} {...property} {...{ control, register }} />
@@ -67,7 +70,7 @@ const Form = ({ storageKey, title, properties, isEditing = null }) => {
 							<InputWithLabel key={property.name} {...property} register={register} />
 						)
 					)}
-				</div>
+				</section>
 
 				<FormFooter reset={reset} isEditing={isEditing} />
 			</form>

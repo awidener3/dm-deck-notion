@@ -57,9 +57,7 @@ export default function App() {
 			<Header />
 
 			<section className={styles.appWrapper}>
-				<section className={styles.contentWrapper}>
-					<Routes toggleTheme={toggleTheme} />
-				</section>
+				<Routes toggleTheme={toggleTheme} />
 			</section>
 		</main>
 	);

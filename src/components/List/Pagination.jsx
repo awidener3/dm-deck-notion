@@ -6,6 +6,13 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 		setPrevNextBtn(1);
 	}, []);
 
+	const styles = {
+		container: 'flex gap mt-4 justify-center gap-2',
+		highlight: 'cursor-pointer text-[color:var(--text-highlight)]',
+		primary: 'cursor-pointer text-[color:var(--text-primary)]',
+		disable: 'select-none cursor-not-allowed',
+	};
+
 	const setPrevNextBtn = (listId) => {
 		const totalPage = Math.ceil(listItems.length / pagination.perPage);
 
@@ -113,7 +120,7 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 		if (number === pagination.currentPage) {
 			return (
 				<li key={number}>
-					<a id={number} className="text-[color:var(--text-highlight)] cursor-pointer" onClick={handlePageChange}>
+					<a id={number} className={styles.highlight} onClick={handlePageChange}>
 						{number}
 					</a>
 				</li>
@@ -121,7 +128,7 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 		} else if (number < pagination.upperPageBound + 1 && number > pagination.lowerPageBound) {
 			return (
 				<li key={number}>
-					<a id={number} className="cursor-pointer text-[color:var(--text-primary)]" onClick={handlePageChange}>
+					<a id={number} className={styles.primary} onClick={handlePageChange}>
 						{number}
 					</a>
 				</li>
@@ -133,7 +140,7 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 	if (pageNumbers.length > pagination.upperPageBound) {
 		pageIncrementBtn = (
 			<li>
-				<a className="cursor-pointer text-[color:var(--text-primary)]" onClick={handleIncrementPage}>
+				<a className={styles.primary} onClick={handleIncrementPage}>
 					{' '}
 					&hellip;{' '}
 				</a>
@@ -145,7 +152,7 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 	if (pagination.lowerPageBound >= 1) {
 		pageDecrementBtn = (
 			<li>
-				<a className="cursor-pointer text-[color:var(--text-primary)]" onClick={handleDecrementPage}>
+				<a className={styles.primary} onClick={handleDecrementPage}>
 					{' '}
 					&hellip;{' '}
 				</a>
@@ -157,14 +164,14 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 	if (pagination.previousBtnActive) {
 		renderPrevBtn = (
 			<li>
-				<a id="btnPrev" className="text-[color:var(--text-highlight)] cursor-pointer" onClick={handlePreviousClick}>
+				<a id="btnPrev" className={styles.highlight} onClick={handlePreviousClick}>
 					Prev
 				</a>
 			</li>
 		);
 	} else {
 		renderPrevBtn = (
-			<li className="select-none cursor-not-allowed">
+			<li className={styles.disable}>
 				<span id="btnPrev"> Prev </span>
 			</li>
 		);
@@ -174,21 +181,21 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 	if (pagination.nextBtnActive) {
 		renderNextBtn = (
 			<li>
-				<a id="btnNext" className="text-[color:var(--text-highlight)] cursor-pointer" onClick={handleNextClick}>
+				<a id="btnNext" className={styles.highlight} onClick={handleNextClick}>
 					Next
 				</a>
 			</li>
 		);
 	} else {
 		renderNextBtn = (
-			<li className="select-none cursor-not-allowed">
+			<li className={styles.disable}>
 				<span id="btnNext"> Next </span>
 			</li>
 		);
 	}
 
 	return (
-		<ul className="flex gap mt-4 justify-center gap-2">
+		<ul className={styles.container}>
 			{renderPrevBtn}
 			{pageDecrementBtn}
 			{renderPageNumbers}

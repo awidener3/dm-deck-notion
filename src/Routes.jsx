@@ -16,6 +16,7 @@ import Character from './components/Characters/Character';
 import Spell from './components/Spells/Spell';
 import { characterProps, monsterProps } from './utils/formProperties';
 import { Link, useRoutes } from 'react-router-dom';
+import MonsterForm from './components/Monsters/MonsterForm';
 
 const Routes = ({ toggleTheme }) => {
 	const element = useRoutes([
@@ -86,14 +87,7 @@ const Routes = ({ toggleTheme }) => {
 					children: [
 						{
 							index: true,
-							element: (
-								<>
-									<Link className="text-right" to={'./source'}>
-										add source?
-									</Link>
-									<Form storageKey={'monsters'} title={'Monster'} properties={monsterProps} />
-								</>
-							),
+							element: <MonsterForm />,
 						},
 						{
 							path: 'source',

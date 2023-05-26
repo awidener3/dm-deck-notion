@@ -15,9 +15,9 @@ function MonsterCard({ item }) {
 	};
 
 	const styles = {
-		card: 'flex flex-col border-8 border-[var(--monster-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[750px] mx-auto',
+		card: 'flex flex-col border-8 border-[var(--monster-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[700px] mx-auto w-[500px] overflow-y-auto',
 		header: 'text-center py-3',
-		subHeader: 'text-center italic text-white bg-[var(--monster-card)]',
+		subHeader: 'text-center italic text-white bg-[var(--monster-card)] sticky',
 		basicStatSection: 'flex gap-5 p-2',
 		abilityScoreSection: 'flex justify-evenly p-2 border-b-2 border-[var(--monster-card)]',
 		abilityScore: 'flex flex-col text-center',
@@ -32,12 +32,14 @@ function MonsterCard({ item }) {
 
 	return (
 		<article className={styles.card}>
-			<h1 className={styles.header}>{item.name}</h1>
+			<section className="sticky top-0 bg-[var(--card-bg)]">
+				<h1 className={styles.header}>{item.name}</h1>
 
-			<p className={styles.subHeader}>
-				{item.size} {item.type}
-				{item.subtype && ` (${item.subtype})`}, {item.alignment}
-			</p>
+				<p className={styles.subHeader}>
+					{item.size} {item.type}
+					{item.subtype && ` (${item.subtype})`}, {item.alignment}
+				</p>
+			</section>
 
 			<section className={styles.basicStatSection}>
 				<span>

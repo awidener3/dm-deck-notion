@@ -4,12 +4,19 @@ import { getLocalStorageItemById } from '../../utils';
 const SelectedList = ({ name, remove, getValues, setValue }) => {
 	const items = getValues(name);
 
+	const styles = {
+		container: 'flex-1',
+		title: 'border-b mb-1',
+		list: 'flex flex-col gap-2',
+		message: 'text-sm italic py-5',
+	};
+
 	return (
-		<div className="flex-1">
-			<h2 className="border-b mb-1">selected {name}</h2>
+		<section className={styles.container}>
+			<h2 className={styles.title}>selected {name}</h2>
 
 			{items && (
-				<ul className="flex flex-col gap-2">
+				<ul className={styles.list}>
 					{items.map((item, index) =>
 						item.quantity ? (
 							<QuantitySelect
@@ -28,21 +35,26 @@ const SelectedList = ({ name, remove, getValues, setValue }) => {
 			)}
 
 			{(!items || items.length === 0) && (
-				<p className="text-sm italic py-5">
+				<p className={styles.message}>
 					No {name} yet, use the lists below to select some {name}
 				</p>
 			)}
-		</div>
+		</section>
 	);
 };
 
 const SelectedItem = ({ storageKey, id, remove, valueIndex }) => {
 	const data = getLocalStorageItemById(storageKey, id);
 
+	const styles = {
+		li: 'flex justify-between',
+		button: 'text-red-600 text-lg',
+	};
+
 	return (
-		<li key={id} className="flex justify-between">
+		<li key={id} className={styles.li}>
 			{data.name}{' '}
-			<button type="button" className="text-red-600" onClick={() => remove(valueIndex)}>
+			<button type="button" className={styles.button} onClick={() => remove(valueIndex)}>
 				&times;
 			</button>
 		</li>
