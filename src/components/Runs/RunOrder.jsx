@@ -1,21 +1,9 @@
 import MonsterCard from '../Monsters/MonsterCard';
 import CharacterCard from '../Characters/CharacterCard';
-import { Link } from 'react-router-dom';
 import { getLocalStorageItemById } from '../../utils';
-import { FaPencilAlt } from 'react-icons/fa';
+import RunTracker from './RunTracker';
 
 const RunOrder = ({ run, setRun, setEdit }) => {
-	const encounter = getLocalStorageItemById('encounters', run.id);
-
-	const cardStyles = {
-		monsterCard:
-			'flex flex-col border-8 border-[var(--monster-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[750px]',
-		spellCard:
-			'flex flex-col border-8 border-[var(--spell-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[750px]',
-		characterCard:
-			'flex flex-col border-8 border-[var(--character-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[750px]',
-	};
-
 	const order = run.initiative_order.map((item) => {
 		if (item.creature_type === 'monster') {
 			const data = getLocalStorageItemById('monsters', item.id);
@@ -24,22 +12,15 @@ const RunOrder = ({ run, setRun, setEdit }) => {
 				data.name += ` ${item.suffix}`;
 			}
 
-			return {
-				data,
-				element: <MonsterCard key={item.initiative} item={data} cardStyles={cardStyles} />,
-			};
+			return data;
 		} else {
 			const data = getLocalStorageItemById('characters', item.id);
-
-			return {
-				data,
-				element: <CharacterCard key={item.initiative} item={data} cardStyles={cardStyles} showActions />,
-			};
+			return data;
 		}
 	});
 
 	const handleIncrement = () => {
-		if (run.initiative_position === order.length - 1 && run.round >= 1) {
+		if (run.initiative_position === run.initiative_order.length - 1 && run.round >= 1) {
 			setRun({ ...run, initiative_position: 0, round: run.round + 1 });
 		} else {
 			setRun({ ...run, initiative_position: run.initiative_position + 1 });
@@ -50,66 +31,55 @@ const RunOrder = ({ run, setRun, setEdit }) => {
 		if (run.initiative_position === 0 && run.round === 1) return;
 
 		run.initiative_position === 0
-			? setRun({ ...run, initiative_position: order.length - 1, round: run.round - 1 })
+			? setRun({ ...run, initiative_position: run.initiative_order.length - 1, round: run.round - 1 })
 			: setRun({ ...run, initiative_position: run.initiative_position - 1 });
+	};
+
+	const handleHpChange = () => {
+		console.log('hp change...');
+
+		// ...
+	};
+
+	const handleInitiativeChange = () => {
+		console.log('initiative change...');
+
+		// ...
 	};
 
 	const handleEdit = () => {
 		setEdit(true);
 	};
 
-	const getOnDeckMessage = () => {
-		if (run.initiative_position + 1 === order.length) {
-			return (
-				<p>
-					<strong className="text-[color:var(--text-highlight)]">{order[0].data.name}</strong> on deck, start of a new
-					round
-				</p>
-			);
+	const getCurrentCard = (index) => {
+		const item = run.initiative_order[index];
+
+		if (item.creature_type === 'monster') {
+			const data = getLocalStorageItemById('monsters', item.id);
+
+			if (item.suffix) {
+				data.name += ` ${item.suffix}`;
+			}
+
+			return <MonsterCard key={item.initiative} item={data} />;
 		} else {
-			return (
-				<p>
-					<strong className="text-[color:var(--text-highlight)]">{order[run.initiative_position + 1].data.name}</strong>{' '}
-					on deck
-				</p>
-			);
+			const data = getLocalStorageItemById('characters', item.id);
+
+			return <CharacterCard key={item.initiative} item={data} showActions />;
 		}
 	};
 
 	return (
 		<>
-			<div className="flex justify-between items-center pb-1">
-				<h1>{encounter.name}</h1>
-				<Link to={-1}>go back</Link>
-			</div>
+			<section className="flex flex-col sm:flex-row gap-2">
+				{/* Order and details */}
+				<section className="flex-1 p-4">
+					<RunTracker run={run} order={order} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />
+				</section>
 
-			<div className="flex justify-between">
-				<span>
-					<p>Round {run.round}</p>
-					<p>
-						Initiative {run.initiative_position + 1} / {run.initiative_order.length}
-					</p>
-				</span>
-
-				{getOnDeckMessage()}
-			</div>
-
-			<button type="button" className="text-left italic flex items-center gap-2" onClick={handleEdit}>
-				<FaPencilAlt /> edit initiative
-			</button>
-
-			<hr className="my-3" />
-
-			<div className="flex justify-between">
-				<button type="button" onClick={handleDecrement}>
-					&larr; previous
-				</button>
-				<button type="button" onClick={handleIncrement}>
-					next &rarr;
-				</button>
-			</div>
-
-			{order[run.initiative_position].element}
+				{/* Card screen */}
+				<section className="flex-1 p-4">{getCurrentCard(run.initiative_position)}</section>
+			</section>
 		</>
 	);
 };

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 const InputWithLabel = ({
 	name = '',
 	path,
@@ -16,13 +17,13 @@ const InputWithLabel = ({
 	const styles = {
 		fullWidthInput: `flex ${!row ? 'flex-col' : 'items-center flex-1'}  col-span-2`,
 		gridInput: `flex ${!row ? 'flex-col' : 'items-center flex-1'}`,
-		label: 'italic flex-1',
-		input: 'p-2 font-thin flex-1',
+		label: 'flex-1 text-sm',
+		input: 'p-2 flex-1',
 	};
 
 	return (
 		<span className={fullWidth ? styles.fullWidthInput : styles.gridInput}>
-			<label className={styles.label}>{name.replace('_', ' ')}</label>
+			<label className={styles.label}>{_.startCase(name.replace('_', ' '))}</label>
 			{type === 'select' ? (
 				<select defaultValue="" {...register(name, { required })}>
 					<option value="" disabled>

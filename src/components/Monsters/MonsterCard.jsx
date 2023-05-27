@@ -15,7 +15,7 @@ function MonsterCard({ item }) {
 	};
 
 	const styles = {
-		card: 'flex flex-col border-8 border-[var(--monster-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[700px] mx-auto w-[500px] overflow-y-auto',
+		card: 'flex flex-col border-8 border-[var(--monster-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 mx-auto overflow-y-auto',
 		header: 'text-center py-3',
 		subHeader: 'text-center italic text-white bg-[var(--monster-card)] sticky',
 		basicStatSection: 'flex gap-5 p-2',

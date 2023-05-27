@@ -53,7 +53,7 @@ const Form = ({ storageKey, title, properties, isEditing = null }) => {
 	};
 
 	return (
-		<>
+		<div className="bg-[var(--bg-secondary)] text-zinc-500 p-4">
 			<section className={styles.header}>
 				<h2 className={styles.h2}>
 					{isEditing ? 'Edit' : 'New'} {title}
@@ -74,7 +74,7 @@ const Form = ({ storageKey, title, properties, isEditing = null }) => {
 
 				<FormFooter reset={reset} isEditing={isEditing} />
 			</form>
-		</>
+		</div>
 	);
 };
 

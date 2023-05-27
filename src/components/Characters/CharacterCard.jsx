@@ -2,9 +2,9 @@ import { TbHeartFilled, TbShieldFilled } from 'react-icons/tb';
 
 const CharacterCard = ({ item, cardStyles, showActions }) => {
 	const styles = {
-		card: 'flex flex-col border-8 border-[var(--character-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 min-h-[750px] min-h-[700px] mx-auto w-[500px] overflow-y-auto',
+		card: 'flex flex-col border-8 border-[var(--character-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 mx-auto overflow-y-auto',
 		header: 'text-center py-3',
-		level: 'text-center italic text-white bg-[var(--character-card)]',
+		level: 'text-center italic bg-[var(--character-card)]',
 		statSection: 'flex flex-1 justify-around p-2',
 		statDiv: 'flex gap-2 text-2xl items-center',
 		statHeader: 'flex items-center text-bold',

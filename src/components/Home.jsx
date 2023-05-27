@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { SiNotion } from 'react-icons/si';
 import { getLocalStorageItem } from '../utils';
 
 const Home = () => {
@@ -8,60 +7,68 @@ const Home = () => {
 	const styles = {
 		header: 'italic text-[color:var(--text-highlight)] border-b',
 		message: 'gap-5 p-2 items-center bg-[var(--card-bg)]',
-		container: 'mt-3 flex flex-col gap-5',
+		container: 'mt-3 flex flex-col gap-5 bg-[var(--bg-secondary]',
 		notionCard: 'flex flex-col md:flex-row gap-5 p-2 items-center bg-[var(--card-bg)]',
 		quickMsgContainer: 'py-3',
 	};
 
 	return (
 		<>
-			<h1 className={styles.header}>DM Deck</h1>
-
-			<section className={styles.container}>
+			<section className="mt-3 flex flex-col gap-5 bg-[var(--bg-secondary)] p-2 rounded">
+				<h2 className="text-lg text-[color:var(--text-highlight)]">Welcome to DM Deck!</h2>
 				<p>
-					<strong>Welcome to DM Deck!</strong> This app is built for dungeon and game masters of tabletop roleplaying
-					games (ttrp's) such as <em>Dungeons & Dragons, Pathfinder, and Gloomhaven</em>.
+					This tool is for game/dungeon masters of tabletop roleplaying games (ttrp's) such as{' '}
+					<em>Dungeons & Dragons, Pathfinder, and Gloomhaven</em>.
 				</p>
 
 				<p>
-					Use this tool to build your party, create encounters, and run them like a card game! You can also use this as
-					a reference for monster stats, spells, or items.
+					Build your party, create encounters, and run them like a card game! You can also use this as a reference for
+					monster stats, spells, or items.
 				</p>
-
-				<article className={styles.notionCard}>
-					<SiNotion size={75} />
-					<p>
-						This version of DM Deck was designed to be embedded into <a href="https://www.notion.so/">Notion</a>, and
-						will save your encounters in Notion's local storage.
-					</p>
-				</article>
 			</section>
 
-			<section className={styles.container}>
-				<h2 className="text-lg border-b">What now?</h2>
+			<div className="w-full mt-4">
+				<h2 className="text-xl font-bold text-[color:var(--text-highlight)]">Using DM Deck</h2>
+			</div>
 
-				<ol className="flex flex-col gap-2">
-					<li>
-						<strong>
-							<em>1. Create Your Characters.</em>
-						</strong>
-						Start by adding your party members. The details are limited, but that's because their abilities aren't your
-						job!
-					</li>
-					<li>
-						<strong>
-							<em>2. Make an Encounter.</em>
-						</strong>
-						Name it, assign some characters, assign some monsters, and push save!
-					</li>
-					<li>
-						<strong>
-							<em>3. Run Your Encounter.</em>
-						</strong>
+			<section className="flex w-full items-center mt-2 p-4 gap-4">
+				<div className="flex justify-center items-center bg-purple-700 w-10 h-10 text-white text-3xl font-bold rounded-full leading-none">
+					1
+				</div>
+
+				<div className="flex flex-col flex-1 bg-[var(--bg-secondary)] rounded py-2 px-4">
+					<h3 className="font-bold">Create Your Characters.</h3>
+					<p>Start by adding your party members! You can edit these as the members level up.</p>
+				</div>
+			</section>
+
+			<section className="flex w-full items-center mt-2 p-4 gap-4">
+				<div className="flex justify-center items-center bg-purple-700 w-10 h-10 text-white text-3xl font-bold rounded-full leading-none">
+					2
+				</div>
+
+				<div className="flex flex-col flex-1 bg-[var(--bg-secondary)] rounded py-2 px-4">
+					<h3 className="font-bold">Make an Encounter.</h3>
+					<p>
+						Assign the characters and monsters involved in the encounter, and then save! If needed, encounters can be
+						edited during a run{' '}
+						<em>(if you misjudged your characters ability to wipe the floor with your monsters...again)</em>
+					</p>
+				</div>
+			</section>
+
+			<section className="flex w-full items-center mt-2 p-4 gap-4">
+				<div className="flex justify-center items-center bg-purple-700 w-10 h-10 text-white text-3xl font-bold rounded-full leading-none">
+					3
+				</div>
+
+				<div className="flex flex-col flex-1 bg-[var(--bg-secondary)] rounded py-2 px-4">
+					<h3 className="font-bold">Run Your Encounter.</h3>
+					<p>
 						Set your initiatives, and begin your encounter! Your cards will be ordered automatically, and all you need
-						to do is cycle through them as the encounter plays out!
-					</li>
-				</ol>
+						to do is cycle through them as the encounter plays out.
+					</p>
+				</div>
 			</section>
 
 			<section className={styles.quickMsgContainer}>

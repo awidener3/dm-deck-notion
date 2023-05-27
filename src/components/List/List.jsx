@@ -4,6 +4,7 @@ import ListItem from './ListItem';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getLocalStorageItem, setLocalStorageItem } from '../../utils';
+import { AiOutlineSearch } from 'react-icons/ai';
 
 const List = ({
 	title,
@@ -95,6 +96,7 @@ const List = ({
 		subtitleKeys,
 		canRun,
 		onSelect,
+		title,
 		editable: canEdit,
 		selectable: canSelect,
 		onView: viewItem,
@@ -117,32 +119,32 @@ const List = ({
 
 	const styles = {
 		instruction: 'italic pt-2',
-		heading: 'mt-3 flex justify-between border-b-2 border-b-slate-500',
-		headingTitle: 'text-lg text-[color:var(--text-highlight)]',
-		headingAdd: 'text-sm',
-		filterInput: 'font-thin p-1 italic',
 		noItems: 'text-center p-10 italic',
 	};
 
 	return (
-		<section className="p-4 flex flex-col">
-			{canFilter && (
-				<input
-					className={styles.filterInput}
-					placeholder={`filter ${title.toLowerCase()}`}
-					value={filterTerm}
-					onChange={handleFilter}
-				/>
-			)}
-
-			<section className={styles.heading}>
-				<h2 className={styles.headingTitle}>{title}</h2>
+		<section className="p-4 flex flex-col flex-1 w-full max-w-2xl bg-[var(--bg-secondary)] text-[color:var(--text-primary)] ">
+			<section className="mt-3 flex justify-between">
+				<h2 className="text-xl text-[color:var(--text-highlight)]">{title}</h2>
 				{canAdd && (
-					<button className={styles.headingAdd} onClick={handleAdd}>
-						add
+					<button className="" onClick={handleAdd}>
+						+ Add
 					</button>
 				)}
 			</section>
+
+			{canFilter && (
+				<div className="relative">
+					<AiOutlineSearch className="absolute text-gray-600 top-1/2 transform -translate-y-1/2 left-1" />
+					<input
+						type="text"
+						className="w-72 border rounded ps-5 text-sm"
+						value={filterTerm}
+						onChange={handleFilter}
+						placeholder={'Search by name'}
+					/>
+				</div>
+			)}
 
 			{renderItems.length > 0 && (
 				<>

@@ -32,13 +32,13 @@ const CardView = ({ storageKey, children }) => {
 	}
 
 	return (
-		<>
+		<div className="flex flex-col flex-1 w-full max-w-2xl">
 			<Link className="text-right" to={-1}>
 				go back
 			</Link>
 
 			{item && cloneElement(children, { item })}
-		</>
+		</div>
 	);
 };
 

@@ -1,17 +1,18 @@
 import Header from './components/Header';
 import useLocalStorage from './hooks/useLocalStorage';
 import Routes from './Routes';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import srdSource from './assets/json/srd_monsters.json';
 import srdSpells from './assets/json/srd_spells.json';
 import { setLocalStorageItem } from './utils';
 
 export default function App() {
 	// theme handling
-	const [theme, setTheme] = useLocalStorage(
-		'theme',
-		window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-	);
+	const [theme, setTheme] = useState('light');
+	// const [theme, setTheme] = useLocalStorage(
+	// 	'theme',
+	// 	window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+	// );
 	const [monsters, setMonsters] = useLocalStorage('monsters', []);
 	const [spells, setSpells] = useLocalStorage('spells', []);
 
@@ -46,19 +47,15 @@ export default function App() {
 
 	const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
 
-	const styles = {
-		container: 'flex flex-col h-screen',
-		appWrapper: 'flex flex-1 flex-col overflow-y-auto min-h-min',
-		contentWrapper: 'flex flex-col px-2 sm:mx-auto sm:w-3/4 sm:max-w-xl',
-	};
-
 	return (
-		<main className={styles.container}>
-			<Header />
+		<main className="h-screen w-screen">
+			<div className="flex flex-col h-screen w-full sm:flex-row">
+				<Header />
 
-			<section className={styles.appWrapper}>
-				<Routes toggleTheme={toggleTheme} />
-			</section>
+				<section className="flex flex-1 flex-col overflow-y-auto min-h-min items-center max-w-7xl p-4">
+					<Routes toggleTheme={toggleTheme} />
+				</section>
+			</div>
 		</main>
 	);
 }

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import encounters from '../assets/json/sample_encounters.json';
 import characters from '../assets/json/sample_characters.json';
 import srdSource from '../assets/json/srd_monsters.json';
@@ -26,36 +25,25 @@ const Preferences = ({ toggleTheme }) => {
 	};
 
 	return (
-		<>
-			<div className="flex justify-between items-center pb-1 border-b">
-				<h2 className="text-lg text-[color:var(--text-highlight)]">Preferences</h2>
-				<Link to={-1}>go back</Link>
+		<div className="flex flex-col w-full bg-[var(--bg-secondary)] rounded p-4">
+			<div className="pb-1 border-b">
+				<h2 className="text-xl text-[color:var(--text-highlight)]">Preferences</h2>
 			</div>
 
-			<ul>
-				<li>
-					<button type="button" onClick={clearStorage}>
-						Empty local storage
-					</button>
-				</li>
-				<li>
-					<button type="button" onClick={seedStorage}>
-						Seed with defaults
-					</button>
-				</li>
-				<li>
-					<button type="button" onClick={toggleTheme}>
-						Toggle theme
-					</button>
-				</li>
-			</ul>
+			<div className="flex flex-col">
+				<button type="button" onClick={clearStorage}>
+					Empty local storage
+				</button>
 
-			<h3 className="mt-4">Planned features...</h3>
-			<ul>
-				<li>Font options to match Notion</li>
-				<li>Change theme color (default is emerald green)</li>
-			</ul>
-		</>
+				<button type="button" onClick={seedStorage}>
+					Seed with defaults
+				</button>
+
+				<button type="button" onClick={toggleTheme}>
+					Toggle theme
+				</button>
+			</div>
+		</div>
 	);
 };
 

@@ -7,7 +7,6 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 	}, []);
 
 	const styles = {
-		container: 'flex gap mt-4 justify-center gap-2',
 		highlight: 'cursor-pointer text-[color:var(--text-highlight)]',
 		primary: 'cursor-pointer text-[color:var(--text-primary)]',
 		disable: 'select-none cursor-not-allowed',
@@ -195,7 +194,7 @@ const Pagination = ({ pagination, setPagination, listItems }) => {
 	}
 
 	return (
-		<ul className={styles.container}>
+		<ul className="flex gap mt-auto justify-center gap-2 pt-2">
 			{renderPrevBtn}
 			{pageDecrementBtn}
 			{renderPageNumbers}
