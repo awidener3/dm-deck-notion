@@ -13,7 +13,7 @@ const Home = () => {
 	};
 
 	return (
-		<>
+		<div className="p-4">
 			<section className="mt-3 flex flex-col gap-5 bg-[var(--bg-secondary)] p-2 rounded">
 				<h2 className="text-lg text-[color:var(--text-highlight)]">Welcome to DM Deck!</h2>
 				<p>
@@ -90,7 +90,7 @@ const Home = () => {
 					)}
 				</ul>
 			</section>
-		</>
+		</div>
 	);
 };
 

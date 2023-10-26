@@ -52,7 +52,7 @@ export default function App() {
 			<div className="flex flex-col h-screen w-full sm:flex-row">
 				<Header />
 
-				<section className="flex flex-1 flex-col overflow-y-auto min-h-min items-center max-w-7xl p-4">
+				<section className="flex flex-1 flex-col overflow-y-auto min-h-min items-center">
 					<Routes toggleTheme={toggleTheme} />
 				</section>
 			</div>

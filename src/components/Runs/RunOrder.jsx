@@ -4,6 +4,7 @@ import { getLocalStorageItemById } from '../../utils';
 import RunTracker from './RunTracker';
 
 const RunOrder = ({ run, setRun, setEdit }) => {
+	// Get the initiative order from local storage
 	const order = run.initiative_order.map((item) => {
 		if (item.creature_type === 'monster') {
 			const data = getLocalStorageItemById('monsters', item.id);
@@ -19,6 +20,7 @@ const RunOrder = ({ run, setRun, setEdit }) => {
 		}
 	});
 
+	// Increment the turn order
 	const handleIncrement = () => {
 		if (run.initiative_position === run.initiative_order.length - 1 && run.round >= 1) {
 			setRun({ ...run, initiative_position: 0, round: run.round + 1 });
@@ -27,6 +29,7 @@ const RunOrder = ({ run, setRun, setEdit }) => {
 		}
 	};
 
+	// Decrement the turn order
 	const handleDecrement = () => {
 		if (run.initiative_position === 0 && run.round === 1) return;
 
@@ -51,6 +54,7 @@ const RunOrder = ({ run, setRun, setEdit }) => {
 		setEdit(true);
 	};
 
+	// Get the current card based on the turn order
 	const getCurrentCard = (index) => {
 		const item = run.initiative_order[index];
 
@@ -71,14 +75,14 @@ const RunOrder = ({ run, setRun, setEdit }) => {
 
 	return (
 		<>
-			<section className="flex flex-col sm:flex-row gap-2">
+			<section className="w-full flex flex-col sm:flex-row gap-2">
 				{/* Order and details */}
 				<section className="flex-1 p-4">
 					<RunTracker run={run} order={order} handleIncrement={handleIncrement} handleDecrement={handleDecrement} />
 				</section>
 
 				{/* Card screen */}
-				<section className="flex-1 p-4">{getCurrentCard(run.initiative_position)}</section>
+				<section className="h-full max-h-screen flex-1 p-4">{getCurrentCard(run.initiative_position)}</section>
 			</section>
 		</>
 	);

@@ -5,8 +5,6 @@ import { FaRunning } from 'react-icons/fa';
 const ListItem = (props) => {
 	const [expanded, setExpanded] = useState(false);
 
-	console.log(props.title);
-
 	const handleSelect = () => {
 		setSelected(true);
 		props.onSelect(props.item.id);

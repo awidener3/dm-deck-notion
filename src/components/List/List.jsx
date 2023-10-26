@@ -123,7 +123,7 @@ const List = ({
 	};
 
 	return (
-		<section className="p-4 flex flex-col flex-1 w-full max-w-2xl bg-[var(--bg-secondary)] text-[color:var(--text-primary)] ">
+		<section className="p-4 flex flex-col flex-1 w-full bg-[var(--bg-secondary)] text-[color:var(--text-primary)] ">
 			<section className="mt-3 flex justify-between">
 				<h2 className="text-xl text-[color:var(--text-highlight)]">{title}</h2>
 				{canAdd && (

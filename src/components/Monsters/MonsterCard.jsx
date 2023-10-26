@@ -15,18 +15,18 @@ function MonsterCard({ item }) {
 	};
 
 	const styles = {
-		card: 'flex flex-col border-8 border-[var(--monster-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 mx-auto overflow-y-auto',
+		card: 'flex flex-col border-8 border-[var(--monster-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 overflow-y-auto h-full max-h-screen w-100',
 		header: 'text-center py-3',
 		subHeader: 'text-center italic text-white bg-[var(--monster-card)] sticky',
-		basicStatSection: 'flex gap-5 p-2',
-		abilityScoreSection: 'flex justify-evenly p-2 border-b-2 border-[var(--monster-card)]',
+		basicStatSection: 'grid grid-cols-3 gap-5 p-2',
+		abilityScoreSection: 'grid grid-cols-6 p-2 border-b-2 border-[var(--monster-card)]',
 		abilityScore: 'flex flex-col text-center',
 		skillsSection: 'p-2',
 		specialAbilitiesSection: 'p-2 flex flex-col gap-2',
 		actionSection: 'border-t-2 border-[var(--monster-card)] p-2',
 		ability: 'flex flex-col',
 		sectionTitle: 'text-lg',
-		sectionText: 'mt-2',
+		sectionText: 'mt-2 text-wrap',
 		sectionSpan: 'font-bold italic',
 	};
 

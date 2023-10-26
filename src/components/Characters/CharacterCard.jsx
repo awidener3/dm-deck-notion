@@ -2,7 +2,7 @@ import { TbHeartFilled, TbShieldFilled } from 'react-icons/tb';
 
 const CharacterCard = ({ item, cardStyles, showActions }) => {
 	const styles = {
-		card: 'flex flex-col border-8 border-[var(--character-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 mx-auto overflow-y-auto',
+		card: 'flex flex-col border-8 border-[var(--character-card)] bg-[var(--card-bg)] rounded-lg text-sm my-2 overflow-y-auto h-full max-h-screen w-100',
 		header: 'text-center py-3',
 		level: 'text-center italic bg-[var(--character-card)]',
 		statSection: 'flex flex-1 justify-around p-2',
@@ -11,6 +11,8 @@ const CharacterCard = ({ item, cardStyles, showActions }) => {
 		actionsSection: 'p-2 flex flex-1 flex-col gap-2',
 		actionsHeader: 'text-lg text-center',
 	};
+
+	console.log(item);
 
 	return (
 		<article className={styles.card}>
@@ -25,14 +27,14 @@ const CharacterCard = ({ item, cardStyles, showActions }) => {
 						<TbHeartFilled color="#b91c1c" />
 						HP
 					</h2>
-					<p cl>{item.hit_points}</p>
+					<p>{item.hit_points}</p>
 				</div>
 				<div className={styles.statDiv}>
 					<h2 className={styles.statHeader}>
 						<TbShieldFilled color="#0369a1" />
 						AC
 					</h2>
-					<p cl>{item.armor_class}</p>
+					<p>{item.armor_class}</p>
 				</div>
 			</section>
 
