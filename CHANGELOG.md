@@ -1,5 +1,9 @@
 # Changelog
 
-## Next version
+## 0.2.0
 
-- Initial release of dm-deck-notion
+- Major restyle of the app.
+
+## 0.1.0
+
+- Initial release of dm-deck-notion.
