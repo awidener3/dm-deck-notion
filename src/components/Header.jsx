@@ -10,8 +10,7 @@ const Header = () => {
 	};
 
 	return (
-		// <nav className="bg-[var(--bg-secondary)] p-2 w-screen sm:w-max sm:p-4 sm:border-r">
-		<nav className="bg-[var(--bg-secondary)] flex flex-row sticky top-0 p-2 border-b justify-between sm:border-r sm:border-b-0 sm:justify-normal sm:flex-col sm:h-screen z-10">
+		<nav className="bg-[var(--bg-secondary)] flex flex-row sticky top-0 py-2 px-4 border-b justify-between sm:border-r sm:border-b-0 sm:justify-normal sm:flex-col sm:h-screen z-10">
 			<h1 className="flex text-xl items-center justify-center">
 				<TbCards className="text-emerald-700" />
 				<span className="hidden md:block"> DM Deck</span>
